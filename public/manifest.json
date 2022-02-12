@@ -1,0 +1,68 @@
+{
+    "theme_color": "#7BC6B7",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "Olive",
+    "short_name": "Olive",
+    "description": "Happy Elders Project",
+    "icons": [
+      {
+        "src": "/icon-168x168.png",
+        "sizes": "168x168",
+        "type": "image/png",
+        "purpose": "any"
+      },
+        {
+            "src": "/icon-112x112.png",
+            "sizes": "112x112",
+            "type": "image/png"
+          },
+          {
+            "src": "/icon-63x63.png",
+            "sizes": "63x63",
+            "type": "image/png"
+          },
+          {
+            "src": "/icon-84x84.png",
+            "sizes": "84x84",
+            "type": "image/png"
+          },
+          {
+            "src": "/icon-126x126.png",
+            "sizes": "126x126",
+            "type": "image/png"
+          },    
+    {
+            "src": "/icon-168x168.png",
+            "sizes": "168x168",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-336x336.png",
+            "sizes": "336x336",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-448x448.png",
+            "sizes": "448x448",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-180x180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+}
