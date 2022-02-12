@@ -4,6 +4,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    extend: {
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      }
+    },
     fontFamily: {
       'kod' : [' Kodchasan ','sans-serif'],
       'noto' : [' Noto Sans Thai ','sans-serif'],
@@ -11,5 +16,5 @@ module.exports = {
       'sans': ['sans-serif'],
     }
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 }
