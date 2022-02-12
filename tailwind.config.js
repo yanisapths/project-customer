@@ -4,7 +4,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      'kod' : [' Kodchasan ','sans-serif'],
+      'noto' : [' Noto Sans Thai ','sans-serif'],
+      'chon' : ['Chonburi' ,'cursive'],
+      'sans': ['sans-serif'],
+    }
   },
   plugins: [],
 }
