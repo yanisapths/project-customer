@@ -6,8 +6,10 @@ import Banner from '../components/Banner';
 import SmallCard from '../components/SmallCard'
 import MediumCard from '../components/MediumCard';
 import LargeCard from '../components/LargeCard';
+import {getSession} from "next-auth/react";
 
-export default function Home( {exploreData, cardsData} ) {
+
+export default function Home( {exploreData, cardsData } ) {
   return (
     <div className="">
       <Head>
