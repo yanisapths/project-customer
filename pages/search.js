@@ -4,7 +4,7 @@ import { useRouter } from "next/dist/client/router";
 import {format} from "date-fns";
 import InfoCard from "../components/InfoCard"
 
-function search({ searchResults }) {
+function Search({ searchResults }) {
     const router = useRouter();
     const { location, startDate, endDate, noOfGuests } = router.query;
 
@@ -44,7 +44,7 @@ function search({ searchResults }) {
   )
 }
 
-export default search;
+export default Search;
 
 export async function getServerSideProps() {
     const searchResults = await fetch("https://links.papareact.com/isz").
