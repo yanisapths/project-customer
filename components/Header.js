@@ -91,7 +91,7 @@ function Header({ placeholder }) {
                 <div>
                     <div className="flex items-center border-b mb-4">
                         <h2 className="text-2xl flex-grow font-semibold">
-                            จำนวนผู้ต้องกาดูแล
+                            จำนวนผู้ต้องการดูแล
                         </h2>
                         
                         <UsersIcon className="h-5" />

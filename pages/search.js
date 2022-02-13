@@ -2,8 +2,9 @@ import React from 'react'
 import Header from '../components/Header'
 import { useRouter } from "next/dist/client/router";
 import {format} from "date-fns";
+import InfoCard from "../components/InfoCard"
 
-function search() {
+function search({ searchResults }) {
     const router = useRouter();
     const { location, startDate, endDate, noOfGuests } = router.query;
 
@@ -21,10 +22,39 @@ function search() {
                     <div className="้hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
                         <p className="button">จังหวัด</p>
                     </div>
+
+                    <div className="flex flex-col">
+                        {searchResults.map(( { img,location,description,title,star,price,total} 
+                        ) => (
+                            <InfoCard 
+                                key={img}
+                                img={img}
+                                location={location}
+                                description={description}
+                                title={title}
+                                star={star}
+                                price={price}
+                                total={total}
+                            />
+                        ))}
+                    </div>
                 </section>
             </main>
       </div>
   )
 }
 
-export default search
+export default search;
+
+export async function getServerSideProps() {
+    const searchResults = await fetch("https://links.papareact.com/isz").
+    then(
+        (res) => res.json()
+    );
+
+    return {
+        props: {
+            searchResults,
+        }
+    }
+}
