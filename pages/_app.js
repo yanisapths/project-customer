@@ -1,8 +1,10 @@
 import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
-import Router from "next/router";
+import Router,{useRouter} from "next/router";
 import { SessionProvider } from "next-auth/react"
-
+import {
+  ClerkProvider,
+} from "@clerk/nextjs"
 import ProgressBar from "@badrap/bar-of-progress";
 
 const progress = new ProgressBar({
@@ -11,6 +13,9 @@ const progress = new ProgressBar({
     className:"z-50",
     delay: 100,
 });
+
+const publicPages=["/"];
+
 
 Router.events.on('routeChangeStart', progress.start);
 Router.events.on('routeChangeComplete', progress.finish);

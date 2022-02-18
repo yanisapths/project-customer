@@ -65,15 +65,15 @@ function Header({ placeholder }) {
            <input 
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="flex-grow pl-5 bg-transparent outline-none" 
+            className="flex-grow pl-5 text-teal-900 bg-transparent outline-none" 
             type="text" placeholder={placeholder  || "ค้นหาศูนย์ดูแล"}
            />
            <SearchIcon className="hidden md:inline-flex h-8 bg-teal-500 text-white rounded-full p-2 cursor-pointer md:mx-2"/>
        </div>
 
        {/* Right */}
-       <div className="flex items-center space-x-4 justify-end text-gray-500">
-            <p className="hidden md:inline">เป็นเจ้าของศูนย์ดูแล</p>
+       <div className="flex items-center space-x-4 justify-end text-teal-900">
+            <p className="hidden md:inline text-teal-900">เป็นเจ้าของศูนย์ดูแล</p>
             <GlobeAltIcon className="h-6" />
 
             <div className="flex items-center space-x-2 border-2 p-1 rounded-full">
@@ -115,7 +115,7 @@ function Header({ placeholder }) {
                 />
                 <div>
                     <div className="flex items-center border-b mb-4">
-                        <h2 className="text-2xl flex-grow font-semibold">
+                        <h2 className="text-2xl flex-grow font-semibold text-teal-900">
                             จำนวนผู้ต้องการดูแล
                         </h2>
                         
