@@ -11,9 +11,9 @@ function Login() {
     <div>
       {/* <Header /> */}
         <main className="justify-items-center">
-        <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8 mt-20 md:mt-40">
-          <div class="max-w-lg mx-auto text-center ">
-            <h1 class="md:text-5xl font-bold text-3xl font-mono">เข้าสู่ระบบ🧓🏼</h1>
+        <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8 mt-20 md:mt-40">
+          <div className="max-w-lg mx-auto text-center ">
+            <h1 className="md:text-5xl font-bold text-3xl font-mono">เข้าสู่ระบบ🧓🏼</h1>
 
             <p class="mt-4 text-gray-800 fonts-mono text-lg md:text-2xl md:mt-5">
                 แหล่งรวมศูนย์ดูแลเพื่อคนที่คุณรัก
