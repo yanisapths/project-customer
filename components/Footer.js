@@ -9,18 +9,26 @@ import Link from "next/link"
 
 function Footer() {
   return (
-      <footer className="fixed bottom-0 inset-x-0  bg-white flex justify-between text-teal-900 font-extrabold shadow-black shadow-md md:rounded-t-full rounded-t-2xl">
-                <Link href="/" className="a">
-                <HomeIcon  className="footer-icon"/>หน้าหลัก
+      <footer className="fixed bottom-0 inset-x-0  text-sm md:text-lg bg-white text-teal-500 flex justify-between  font-extrabold shadow-teal-400 shadow-2xl md:rounded-t-full rounded-t-2xl">
+                <Link href="/" className="b">
+                  <b>
+                    <HomeIcon  className="footer-icon"/>หน้าหลัก
+                  </b>
                 </Link>
-                <Link href="/" className="a">
-                <PlusCircleIcon  className="footer-icon"/>สร้างนัด
+                <Link href="/" className="b">
+                  <b>
+                    <PlusCircleIcon  className="footer-icon"/>นัด
+                  </b>
                 </Link>
-                <Link href="/family/" className="a">
-                <UserGroupIcon  className="footer-icon"/>ครอบครัว
+                <Link href="/family/" className="b">
+                  <b>
+                    <UserGroupIcon  className="footer-icon"/>ครอบครัว
+                  </b>
                 </Link>
-                <Link href="/" className="a">
-                <CalendarIcon  className="footer-icon"/>ตารางนัด
+                <Link href="/" className="b">
+                  <b>
+                    <CalendarIcon  className="footer-icon"/>ตารางนัด
+                  </b>
                 </Link>
       </footer>
    

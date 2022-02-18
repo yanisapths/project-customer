@@ -26,11 +26,12 @@ a {
       hover:shadow-lg active:scale-95 active:bg-teal-500 active:text-white transition 
       transform duration-100 ease-out;
   }
-  a{
-    @apply w-full block py-5 px-3 text-center hover:bg-teal-100 text-teal-900  rounded-t-full hover:rounded-t-xl md:hover:rounded-t-full; 
+  b{
+    @apply w-full block py-5 px-3 text-center hover:bg-teal-100 text-teal-900  rounded-t-full hover:rounded-t-xl md:hover:rounded-t-full  transition 
+    transform duration-100 ease-out shadow-teal-200 shadow-2xl;  
   }
   .footer-icon {
-    @apply md:w-8 md:h-8 mb-2 mx-auto text-teal-900 font-sans w-6 h-6;
+    @apply md:w-8 md:h-8 mb-2 mx-auto text-teal-600 font-sans w-6 h-6;
   }
   .main {
     @apply mx-auto px-8 sm:px-16 bg-teal-50;

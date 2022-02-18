@@ -8,18 +8,15 @@ import SmallCard from '../components/SmallCard'
 import MediumCard from '../components/MediumCard';
 import LargeCard from '../components/LargeCard';
 import {getSession} from "next-auth/react";
-import Login from '../components/Login';
 
-
-export default function Home( {session } ) {
-  if (!session) return <Login />
+export default function Home({session} ) {
+  
   return (
     <div className="">
       <Head>
         <title>Happy Elders</title>
         <link rel="icon" href="favicon.ico" />
       </Head>
-
      <Header />
      <Banner /> 
 
@@ -39,12 +36,11 @@ export default function Home( {session } ) {
         buttonText="Get Care"
       />
     </main>
-
     <Footer />
 
     </div>
-    
   );
+
 }
 // export async  function getStaticProps() {
 //   const exploreData = await fetch("https://links.papareact.com/pyp").

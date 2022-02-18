@@ -49,7 +49,7 @@ function Header({ placeholder }) {
 
 
   return (
-   <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
+   <header className="sticky top-0 z-50 grid grid-cols-3 shadow-md bg-white p-5 md:px-10 rounded-b-2xl">
        {/* Left */}
        <div onClick={() => router.push("/")}
             className="relative flex items-center h-16 cursor-pointer my-auto">

@@ -8,16 +8,10 @@ import AddFamily from '../../components/AddFamily'
 import {getSession} from "next-auth/react";
 import  Login from "../../components/Login"
 
+function Family({session}){ 
+    
 
-// const [member, setMember] = useState({
-//     Name: "",
-//     Age: "",
-//   });
-//   const { Name, Age } = member;
-
-function Family({session}) {
-    if (!session) return <Login />
-  return (
+    return (
       <div className="h-screen bg-teal-50">
           <Header/>
             <main className="main">
@@ -29,15 +23,14 @@ function Family({session}) {
                         </p>
                     </div>
                 </section>
-                
             </main>
             <Footer />
-
       </div>
   )
 }
 
 export default Family;
+
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -46,3 +39,4 @@ export async function getServerSideProps(context) {
     }
   }
   
+
