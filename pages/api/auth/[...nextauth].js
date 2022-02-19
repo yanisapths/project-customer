@@ -8,7 +8,7 @@ export default NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
           prompt: "consent",
@@ -22,6 +22,7 @@ export default NextAuth({
     FacebookProvider({
         clientId: process.env.FACEBOOK_ID,
         clientSecret: process.env.FACEBOOK_SECRET,
+        authorizationUrl: 'https://www.facebook.com/v13.0/dialog/oauth'
       }),
     LineProvider({      
         clientId: process.env.LINE_ID,      
@@ -46,22 +47,9 @@ export default NextAuth({
   // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
   // a separate secret is defined explicitly for encrypting the JWT.
   secret: process.env.SECRET,
-  // pages: {
-  //   signIn: "/",
-  // },
-  callbacks: {
-    redirect({ url, baseUrl   }) {
-      if (url.startsWith(baseUrl)) return url
-      // Allows relative callback URLs
-      else if (url.startsWith("/")) return new URL(url, baseUrl).toString()
-      return baseUrl
-    }
+  pages: {
+    signIn: "/auth/signin",
   },
-  theme: {
-    colorScheme: "light",
-    Color: "#7BC6B7", // Hex color code
-  },
-
   // Enable debug messages in the console if you are having problems
   debug: true,
 })

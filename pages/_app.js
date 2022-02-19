@@ -6,7 +6,7 @@ import {
   ClerkProvider,
 } from "@clerk/nextjs"
 import ProgressBar from "@badrap/bar-of-progress";
-import Login from '../components/Login';
+import signIn from './auth/signin';
 
 const progress = new ProgressBar({
     size:5,
@@ -27,7 +27,6 @@ function MyApp({
   pageProps: { session, ...pageProps },
  }) {
 
-  if(!session) return <Login />
   return (
     <SessionProvider session={session}>
           <Component {...pageProps} />

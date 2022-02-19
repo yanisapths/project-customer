@@ -3,7 +3,7 @@ import React from 'react'
 function FooterSocial() {
   return (
     <footer className="text-black">
-    <div className="max-w-screen-xl px-4 pt-30 md:pt-32 pb-12 mx-auto sm:px-6 lg:px-8">
+    <div className="max-w-screen-xl px-4 pt-30 md:pt-30 pb-12 mx-auto sm:px-6 lg:px-8">
   
       <div className="pt-12 mt-32 border-t border-black/25 sm:items-center sm:justify-between sm:flex">
         <nav className="flex justify-center space-x-4 text-sm font-medium sm:justify-start">
