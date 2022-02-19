@@ -5,11 +5,17 @@ import Header from '../../components/Header'
 import FooterSocial from '../../components/FooterSocial'
 import  BtnLogin from '../../components/BtnLogin';
 import Link from "next/link"
+import Head from "next/head";
 
 function signIn({ providers }) {
   return (
     <div>
     {/* <Header /> */}
+    <Head>
+        <title>Olive | SignIn </title>
+        <link rel="icon" href="favicon.ico" />
+      </Head>
+      {/* main */}
       <main className="justify-items-center">
       <div className="max-w-screen-xl px-4 py-4 mx-auto sm:px-6 lg:px-8 mt-20 md:mt-30">
         <div className="max-w-lg mx-auto text-center ">

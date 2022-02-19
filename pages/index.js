@@ -14,7 +14,7 @@ export default function Home({session} ) {
   return (
     <div className="">
       <Head>
-        <title>Olive | Happy place for Elders</title>
+        <title>Olive | Happy places for Elders</title>
         <link rel="icon" href="favicon.ico" />
       </Head>
      <Header />
