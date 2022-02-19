@@ -17,9 +17,16 @@ function signIn({ providers }) {
       </Head>
       {/* main */}
       <main className="justify-items-center">
-      <div className="max-w-screen-xl px-4 py-4 mx-auto sm:px-6 lg:px-8 mt-20 md:mt-30">
+      <div className="max-w-screen-xl px-4 py-2  md:py-16 mx-auto sm:px-6 lg:px-8 mt-2 md:mt-30">
         <div className="max-w-lg mx-auto text-center ">
-          <h1 className="md:text-5xl font-bold text-3xl font-mono">เข้าสู่ระบบ🧓🏼</h1>
+          <Image  src="/olivelogo.png"  className=""
+           width="100%"
+           height="100%"
+        //    layout="fill"
+           objectFit="contain"
+           />
+          <h1 className="md:text-5xl font-bold text-3xl font-mono mt-[-20px] ">เข้าสู่ระบบ
+          </h1>
 
           <p className="mt-4 text-gray-800 fonts-mono text-lg md:text-2xl md:mt-5">
               แหล่งรวมศูนย์ดูแลเพื่อคนที่คุณรัก

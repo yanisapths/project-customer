@@ -54,7 +54,9 @@ function Header({ placeholder }) {
        <div onClick={() => router.push("/")}
             className="relative flex items-center h-16 cursor-pointer my-auto">
            <Image  src="/olivelogo.png" 
-           layout="fill"
+           width={110}
+           height={110}
+        //    layout="fill"
            objectFit="contain"
            objectPosition="left"
            />
