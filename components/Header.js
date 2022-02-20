@@ -63,12 +63,12 @@ function Header({ placeholder }) {
        </div>
 
        {/* Middle  - Search */}
-       <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm">
-           <input 
+       <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm appearance-none outline-none ">
+           <input
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="flex-grow pl-5 text-teal-900 bg-transparent outline-none" 
-            type="text" placeholder={placeholder  || "ค้นหาศูนย์ดูแล"}
+            className=" flex-grow pl-5 text-teal-900 bg-transparent outline-none border-none appearance-none focus:outline-none" 
+            type="text"  placeholder={placeholder  || "ค้นหาศูนย์ดูแล"}
            />
            <SearchIcon className="hidden md:inline-flex h-8 bg-teal-500 text-white rounded-full p-2 cursor-pointer md:mx-2"/>
        </div>
@@ -127,7 +127,7 @@ function Header({ placeholder }) {
                             onChange={(e) => setNoOfGuests(e.target.value)}
                             type="number" 
                             min={1}
-                            className="w-12 pl-2 text-xl outline-none text-teal-600 font-semibold"
+                            className="w-12 pl-2 text-xl outline-none border-0  text-teal-600 font-semibold border-none appearance-none focus:outline-none "
                         />
                     </div>
                         <div className="flex">

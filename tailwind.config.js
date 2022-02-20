@@ -14,7 +14,13 @@ module.exports = {
       'noto' : [' Noto Sans Thai ','sans-serif'],
       'chon' : ['Chonburi' ,'cursive'],
       'sans': ['sans-serif'],
-    }
+    },
+    backdropFilter: {
+      'none': 'none',
+      'blur': 'blur(10px)',
+    },
   },
-  plugins: [require("tailwind-scrollbar-hide")],
+  plugins: [require("tailwind-scrollbar-hide"),
+  require('tailwindcss-filters'),
+], 
 }
