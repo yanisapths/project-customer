@@ -1,11 +1,10 @@
 import React,{ useState , useEffect } from 'react'
-import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
+import { collection, onSnapshot, orderBy, query, } from "@firebase/firestore";
 import  { db } from "../../lib/firebase"
 import Card from "./Card";
 
-function Member() {
+function Member(id,firstname,index) {
         const [members, setMembers] = useState([]);
-        const [data, setData] = useState();
         useEffect(
                 () =>
                  onSnapshot(
@@ -16,24 +15,20 @@ function Member() {
                  ),
             [db]
             );
-
+ 
 console.log(members)
+
 
   return (
     <div>
         <div>
-          {data && (
-            <>
-            {data.members.map((member,[index]) =>
-                        // <div 
-                        // key={index}
-                        // id={inputField.id}
-                        // firstname={inputField.data().firstname}
-                        // />
-                        <div key={index}  firstname={member.data().firstname}><h1>{member.firstname}</h1></div>
-              )}
-            </>
-              )}
+        {members.map((inputField, index) =>
+                    <Card 
+                    key={index}
+                    id={inputField.id}
+                    // firstname={inputField[index].firstname}
+                    />
+                )} 
         </div>
     </div>
   )

@@ -3,7 +3,7 @@ import { addDoc, collection , serverTimestamp ,updateDoc  } from "@firebase/fire
 import { ref  } from "@firebase/storage";
 import {useSession} from "next-auth/react";
 import { toast } from "react-hot-toast";
-import React, { useState , useRef  } from 'react'
+import React, { useState } from 'react'
 import { XIcon, 
   MinusIcon,
   TrashIcon,
@@ -18,9 +18,6 @@ import router from "next/router"
 export default function AboutCard() {
     const {data: session,status} = useSession();
     const [loading, setLoading] =useState();
-    const firstnameRef = useRef(null);
-    const lastnameRef = useRef(null);
- 
     const goBack = () => {
         router.push("/family/");
       };
@@ -40,6 +37,7 @@ export default function AboutCard() {
     const handleNext = (e) => {
       e.preventDefault();
       console.log("inputField", inputField);
+      console.log("inputField", inputField[0].firstname);
     } 
 
     const onSubmit = async (e) => {
@@ -54,16 +52,17 @@ export default function AboutCard() {
         try{
             const docRef = await addDoc(collection(db, 'members' ), {  //1
                 username: session.user,
-                firstname: firstnameRef.current.value,
-                lastname: lastnameRef.current.value,
+            ...inputField,
+                // firstname: firstnameRef.current.value,
+                // lastname: lastnameRef.current.value,
                 timestamp: serverTimestamp(),
                 
             });
-            toast.success(` ${docRef.id} เพิ่มลงในครอบครัวสำเร็จ 🎉`);
+            toast.success(` ${inputField[0].firstname} ถูกเพิ่มลงในครอบครัวสำเร็จ 🎉`);
             router.push('/family/');
             
             console.log("New doc added with ID" , docRef.id ); //2
-            const firstnameRef = ref(storage, `members/${docRef.id}/firstname`); 
+            // const firstnameRef = ref(storage, `members/${docRef.id}/firstname`); 
             
         }
         catch (err) {
@@ -71,13 +70,10 @@ export default function AboutCard() {
         }
         setLoading(false);
         
-        
-
-
     };
 
   return (
-
+    <>
     <div  className="bg-gradient-to-r from-indigo-200 via-teal-200 to-emerald-100 h-screen -mb-16 md:-mb-28">
         {/* <Header /> */}
     <Head>
@@ -103,7 +99,6 @@ export default function AboutCard() {
                 onChange={event => handleChangeInput(index, event)}
                 type="Name"
                 name="firstname"
-                ref = {firstnameRef}
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm "
                 placeholder=""
             />
@@ -117,7 +112,6 @@ export default function AboutCard() {
                 onChange={event => handleChangeInput(index, event)}
                 type="lastname"
                 name="lastname"
-                ref = {lastnameRef}
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                 placeholder=""
             />
@@ -147,5 +141,6 @@ export default function AboutCard() {
         </main>
     <Footer/>
     </div>
+    </>
   )
 }
