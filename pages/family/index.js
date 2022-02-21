@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import {
@@ -10,14 +11,33 @@ import  signIn from "../auth/signin"
 import FooterSocial from '../../components/FooterSocial'
 import Link from "next/link"
 import dynamic from "next/dynamic"
+import Member from "../../components/family/Member";
+import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
+import  { db } from "../../lib/firebase"
+
 
 function Family(){ 
     const {data: session,status} = useSession();
-
     const HandleAdd = dynamic(() => 
        import('../../components/family/AboutCard')
 )
-    const [showCard, setShowCard] = useState(false)
+    
+const [inputField, setInputField] = useState([
+    { firstname: ' ', lastname: ' '},
+]);
+
+useEffect(
+    () =>
+     onSnapshot(
+         query(collection(db, 'members'), orderBy('timestamp', 'desc')) , 
+        snapshot => {
+            setInputField(snapshot.docs);
+        }
+     ),
+[db]
+);
+console.log(inputField);
+
         
     if (status === "loading") {
         return <p>Loading...</p>
@@ -26,6 +46,10 @@ function Family(){
       if (status === "unauthenticated") {
         return (
             <div className="h-screen bg-teal-50">
+                <Head>
+                    <title>Olive | Family </title>
+                    <link rel="icon" href="favicon.ico" />
+                </Head>
             <Header/>
               <main className="main">
                   <section className="flex max-w-screen-xl px-4 py-10  mx-auto  lg:items-center lg:flex">
@@ -50,6 +74,10 @@ function Family(){
 
           return (
             <div >
+                <Head>
+                    <title>Olive | Family </title>
+                    <link rel="icon" href="favicon.ico" />
+                </Head>
                 <Header/>
                   <main className="main bg-teal-50 md:h-screen xl:h-screen md:py-28i">
                       <section className="flex-grow md:pt-30 pt-10 ">
@@ -66,7 +94,19 @@ function Family(){
                                  </a>    
                              </Link>
                           </div>
+                          <div className="mt-16 sm:pr-8">
+                                    {inputField.map((inputField) => {
+                                        <Member
+                                            key={inputField.id}
+                                            id={inputField.id}
+                                            firstname={inputField.firstname}
+                                            lastname={inputField.lastname}                     
+                                        />
+                                     })}
+                            </div>
+
                           </div>
+                          
                   <FooterSocial />
                   </main>
                   <Footer />

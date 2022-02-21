@@ -12,8 +12,7 @@ import { useRouter } from "next/dist/client/router";
 import { signIn,signOut,useSession} from "next-auth/react";
 
 function Header({ placeholder }) {
-    const { data: session } = useSession()
-
+    const { data: session } = useSession();
     const [searchInput ,setSearchInput] = useState("");
     const [startDate, setStartDate] =  useState(new Date());
     const [endDate, setEndDate] = useState(new Date());

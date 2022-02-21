@@ -2,11 +2,10 @@ import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 import Router,{useRouter} from "next/router";
 import { SessionProvider } from "next-auth/react"
-import {
-  ClerkProvider,
-} from "@clerk/nextjs"
 import ProgressBar from "@badrap/bar-of-progress";
 import signIn from './auth/signin';
+import { RecoilRoot  } from 'recoil';
+import { Toaster } from "react-hot-toast";
 
 const progress = new ProgressBar({
     size:5,
@@ -14,8 +13,6 @@ const progress = new ProgressBar({
     className:"z-50",
     delay: 100,
 });
-
-const publicPages=["/"];
 
 
 Router.events.on('routeChangeStart', progress.start);
@@ -29,7 +26,10 @@ function MyApp({
 
   return (
     <SessionProvider session={session}>
+       <RecoilRoot>
+         <Toaster />
           <Component {...pageProps} />
+       </RecoilRoot>
     </SessionProvider>
   )
 }
