@@ -3,7 +3,7 @@ import { addDoc, collection , serverTimestamp ,updateDoc  } from "@firebase/fire
 import { ref  } from "@firebase/storage";
 import {useSession} from "next-auth/react";
 import { toast } from "react-hot-toast";
-import React, { useState  } from 'react'
+import React, { useState , useRef  } from 'react'
 import { XIcon, 
   MinusIcon,
   TrashIcon,
@@ -14,19 +14,24 @@ import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import FooterSocial from '../../components/FooterSocial'
 import router from "next/router"
-import { familyState } from "../../atom/familyAtom";
-import { useRecoilState } from 'recoil';
 
 export default function AboutCard() {
     const {data: session,status} = useSession();
     const [loading, setLoading] =useState();
-    const back = () => {
+    const firstnameRef = useRef(null);
+    const lastnameRef = useRef(null);
+ 
+    const goBack = () => {
         router.push("/family/");
       };
 
     const [inputField, setInputField] = useState([
-        { firstname: ' ', lastname: ' '},
-    ])
+        {
+            firstname: ' ', 
+            lastname: ' ',
+        },
+    ]
+    )
     const handleChangeInput = (index,event) => {
         const values = [...inputField];
         values[index][event.target.name] = event.target.value;
@@ -41,30 +46,33 @@ export default function AboutCard() {
         e.preventDefault();
         if(loading) return;
         setLoading(true);
-
         // 1) Create a member and add to firestore 'members' collection
         // 2) Get the member ID for the newly created member
         // 3)  Upload the info. to firebase storage and the member ID
         // 4) get a download URL from fb storage and update the original member with info
-
-        const docRef = await addDoc(collection(db, 'members' ), {  //1
-            username: session.user,
-            ...inputField,
-            timestamp: serverTimestamp(),
-        })
-
-        console.log("New doc added with ID" , docRef.id ); //2
         
-        const memberRef = ref(storage, `members/${docRef.id}/firstname`); 
-        try {
-            await updatedDoc(doc(db, "members", docRef.id));
-            toast.success(` ${inputField.firstname} is added to family`);
+        try{
+            const docRef = await addDoc(collection(db, 'members' ), {  //1
+                username: session.user,
+                firstname: firstnameRef.current.value,
+                lastname: lastnameRef.current.value,
+                timestamp: serverTimestamp(),
+                
+            });
+            toast.success(` ${docRef.id} เพิ่มลงในครอบครัวสำเร็จ 🎉`);
             router.push('/family/');
+            
+            console.log("New doc added with ID" , docRef.id ); //2
+            const firstnameRef = ref(storage, `members/${docRef.id}/firstname`); 
+            
         }
         catch (err) {
             toast.error(err);
-          }
-          setLoading(false);
+        }
+        setLoading(false);
+        
+        
+
 
     };
 
@@ -80,7 +88,7 @@ export default function AboutCard() {
         <main className="md:absolute max-w-4xl  md:max-w-[60%] 2xl:max-w-[50%] md:w-[70%] right-0  ">
 
             <form action="" className="  bg-white p-8  mt-6 mb-0 space-y-4 md:p-10 rounded-2xl shadow-2xl md:py-64 md:-mt-10">
-            <XIcon onClick={back} className="text-white bg-gray-500 rounded-full w-6 h-6 mb-8"/>
+            <XIcon onClick={goBack} className="text-white bg-gray-500 rounded-full w-6 h-6 mb-8"/>
             <p className="text-xl font-extrabold md:text-4xl md:mb-2 ">เกี่ยวกับสมาชิก</p>
             <span className="text-sm  md:text-lg font-medium  -pt-2 ">ใส่ข้อมูลเพียงเล็กน้อยก็เสร็จ😊</span>
             
@@ -95,6 +103,7 @@ export default function AboutCard() {
                 onChange={event => handleChangeInput(index, event)}
                 type="Name"
                 name="firstname"
+                ref = {firstnameRef}
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm "
                 placeholder=""
             />
@@ -108,6 +117,7 @@ export default function AboutCard() {
                 onChange={event => handleChangeInput(index, event)}
                 type="lastname"
                 name="lastname"
+                ref = {lastnameRef}
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                 placeholder=""
             />

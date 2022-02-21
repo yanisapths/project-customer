@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect , forwardRef } from "react";
 import Head from "next/head";
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
@@ -11,9 +11,10 @@ import  signIn from "../auth/signin"
 import FooterSocial from '../../components/FooterSocial'
 import Link from "next/link"
 import dynamic from "next/dynamic"
-import Member from "../../components/family/Member";
 import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
 import  { db } from "../../lib/firebase"
+import Member from "../../components/family/Member"
+import Card from "../../components/family/Card"
 
 
 function Family(){ 
@@ -21,23 +22,6 @@ function Family(){
     const HandleAdd = dynamic(() => 
        import('../../components/family/AboutCard')
 )
-    
-const [inputField, setInputField] = useState([
-    { firstname: ' ', lastname: ' '},
-]);
-
-useEffect(
-    () =>
-     onSnapshot(
-         query(collection(db, 'members'), orderBy('timestamp', 'desc')) , 
-        snapshot => {
-            setInputField(snapshot.docs);
-        }
-     ),
-[db]
-);
-console.log(inputField);
-
         
     if (status === "loading") {
         return <p>Loading...</p>
@@ -94,17 +78,19 @@ console.log(inputField);
                                  </a>    
                              </Link>
                           </div>
-                          <div className="mt-16 sm:pr-8">
-                                    {inputField.map((inputField) => {
-                                        <Member
-                                            key={inputField.id}
-                                            id={inputField.id}
-                                            firstname={inputField.firstname}
-                                            lastname={inputField.lastname}                     
-                                        />
-                                     })}
+                            {/* {members.map((inputField) => {
+                            <div 
+                                key={inputField.id}
+                                id={inputField.id}
+                                firstname={inputField.data().firstname}
+                                lastname={inputField.data().lastname}   
+                            >
+                               <h1> {inputField.data().firstname}</h1>
                             </div>
-
+                            })} */}
+                            <div>
+                                <Member />
+                            </div>
                           </div>
                           
                   <FooterSocial />
