@@ -3,7 +3,7 @@ import { addDoc, collection , serverTimestamp ,updateDoc  } from "@firebase/fire
 import { ref  } from "@firebase/storage";
 import {useSession} from "next-auth/react";
 import { toast } from "react-hot-toast";
-import React, { useState } from 'react'
+import React, { useState , useRef } from 'react'
 import { XIcon, 
   MinusIcon,
   TrashIcon,
@@ -18,26 +18,39 @@ import router from "next/router"
 export default function AboutCard() {
     const {data: session,status} = useSession();
     const [loading, setLoading] =useState();
+    const firstnameRef = useRef(null);
+    const lastnameRef = useRef(null);
+    // const colRef = collection(db,'members')
     const goBack = () => {
         router.push("/family/");
       };
 
-    const [inputField, setInputField] = useState([
-        {
-            firstname: ' ', 
-            lastname: ' ',
-        },
-    ]
-    )
-    const handleChangeInput = (index,event) => {
-        const values = [...inputField];
-        values[index][event.target.name] = event.target.value;
-        setInputField(values);
-    }
+    //   const addMemberForm = document.querySelector(''.add')
+    //   addMemberForm.addEventListener('submit', (e) => {
+    //     e.preventDefault()
+    //     addDoc(colRef, {
+    //         username: session.user,
+    //         firstname: addMemberForm.firstname.value,
+    //         lastname: addMemberForm.lastname.value,
+    //         timestamp: serverTimestamp(),
+    //     })
+    //   })
+    // const [inputField, setInputField] = useState([
+    //     {
+    //         firstname: ' ', 
+    //         lastname: ' ',
+    //     },
+    // ])
+   
+    // const handleChangeInput = (event) => {
+    //     const values = [...inputField];
+    //     values[event.target.name] = event.target.value;
+    //     setInputField(values);
+    // }
     const handleNext = (e) => {
       e.preventDefault();
-      console.log("inputField", inputField);
-      console.log("inputField", inputField[0].firstname);
+      console.log("inputField", firstnameRef);
+    //   console.log("inputField", inputField[0].firstname);
     } 
 
     const onSubmit = async (e) => {
@@ -52,13 +65,14 @@ export default function AboutCard() {
         try{
             const docRef = await addDoc(collection(db, 'members' ), {  //1
                 username: session.user,
-            ...inputField,
+                firstname: firstnameRef.current.value,
+                lastname: lastnameRef.current.value,
                 // firstname: firstnameRef.current.value,
                 // lastname: lastnameRef.current.value,
                 timestamp: serverTimestamp(),
                 
             });
-            toast.success(` ${inputField[0].firstname} ถูกเพิ่มลงในครอบครัวสำเร็จ 🎉`);
+            toast.success(` ${firstnameRef.current.value} ได้ถูกเพิ่มลงในครอบครัว 🎉`);
             router.push('/family/');
             
             console.log("New doc added with ID" , docRef.id ); //2
@@ -88,16 +102,17 @@ export default function AboutCard() {
             <p className="text-xl font-extrabold md:text-4xl md:mb-2 ">เกี่ยวกับสมาชิก</p>
             <span className="text-sm  md:text-lg font-medium  -pt-2 ">ใส่ข้อมูลเพียงเล็กน้อยก็เสร็จ😊</span>
             
-        {  inputField.map((inputField, index) => (
-            <div key={index} className=" md:pt-8  " >
+        {/* {  inputField.map((inputField) => ( */}
+            <div className=" md:pt-8  " >
         <div >
             <label  className="text-sm md:text-lg font-extrabold">ชื่อ</label>
 
             <div className="relative mt-1">
             <input
-                value={inputField.firstname}
-                onChange={event => handleChangeInput(index, event)}
-                type="Name"
+                // value={inputField.firstname}
+                // onChange={event => handleChangeInput(event)}
+                ref={firstnameRef}
+                type="text"
                 name="firstname"
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm "
                 placeholder=""
@@ -108,9 +123,10 @@ export default function AboutCard() {
 
             <div className="relative mt-1">
             <input
-                value={inputField.lastname}
-                onChange={event => handleChangeInput(index, event)}
-                type="lastname"
+                // value={inputField.lastname}
+                // onChange={event => handleChangeInput(event)}
+                ref={lastnameRef}
+                type="text"
                 name="lastname"
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                 placeholder=""
@@ -119,7 +135,7 @@ export default function AboutCard() {
         </div>
         </div>
             </div>
-            ))} 
+            {/* ))}  */}
         <div className="flex justify-between pt-10">
         <nav className="flex text-sm border-b border-gray-100 text-font-medium">
                 <a href="" className="hidden p-2  border-b border-black text-black font-extrabold md:text-lg ">
