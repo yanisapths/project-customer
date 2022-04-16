@@ -53,7 +53,8 @@ function Header({ placeholder }) {
        {/* Left */}
        <div onClick={() => router.push("/")}
             className="relative flex items-center h-16 cursor-pointer my-auto">
-           <Image  src="/olivelogo.png" 
+           <Image  src="/olivelogo.png"
+            alt="/Avatar.png" 
            width={110}
            height={110}
         //    layout="fill"
@@ -86,6 +87,7 @@ function Header({ placeholder }) {
                                         <Image
                                             className="rounded-full cursor-pointer"
                                             src="/Avatar.png"
+                                            alt="/Avatar.png"
                                             width="55"
                                             height="55"
                                             layout="fixed"
@@ -96,6 +98,7 @@ function Header({ placeholder }) {
                                     <> 
                                     {session.user.image && (
                                             <Image 
+                                            alt="/Avatar.png"
                                             className="rounded-full cursor-pointer"
                                             src={session.user.image}
                                             layout="fixed"

@@ -8,6 +8,7 @@ function Banner() {
            layout="fill"
            objectFit="cover"
            className="opacity-90"
+           alt="/Avatar.png"
            />
            <div className="absolute top-1/4 md:top-1/3 w-full text-center">
              <p className="text-white text-3xl md:text-5xl  font-black shadow-4xl opacity-100 p-3">สร้างนัดกับศูนย์ดูแล</p>

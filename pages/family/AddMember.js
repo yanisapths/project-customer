@@ -97,7 +97,7 @@ export default function AboutCard() {
             </div>
             <div className="pt-6">
                 <div>
-                    <label className="sr-only" for="message">Message</label>
+                    <label className="sr-only" htmlFor="message">Message</label>
                         <div className="relative mt-1 p-1 rounded-xl bg-gradient-to-r from-indigo-200 via-teal-200 to-emerald-100 focus:outline-none focus:ring">
                             <textarea
                             className="w-full p-5 text-lg rounded-lg bg-white/70"

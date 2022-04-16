@@ -24,6 +24,7 @@ function Card({id,firstname,lastname,message}) {
                   <div className="flex ">
                     <Image
                       src="/Avatar.png"
+                      alt="/Avatar.png"
                       className="w-16 h-16 rounded-full"
                       width="80"
                       height="80"

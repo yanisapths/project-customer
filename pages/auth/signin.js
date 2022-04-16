@@ -22,6 +22,7 @@ function signIn({ providers }) {
           <Image  src="/olivelogo.png"  className=""
            width="100%"
            height="100%"
+           alt="/Avatar.png"
         //    layout="fill"
            objectFit="contain"
            />
@@ -37,19 +38,19 @@ function signIn({ providers }) {
                   <div className="flex justify-center">
                         <div  className="flex  md:pr-4  sm:pr-8 rounded-full bg-gradient-to-r from-orange-50 via-red-100 to-pink-100 hover:text-red-600 active:text-opacity-75 focus:outline-none focus:ring shadow-gray-200 shadow-xl">
                         <BtnLogin  provider={providers.google} />
-                        <Image src="/google.png" width="60%" height={5} objectFit="contain"/>
+                        <Image src="/google.png"  alt="/Avatar.png" width="60%" height={5} objectFit="contain"/>
                         </div>
                     </div>
                     <div className="flex justify-center">
                         <div  className="flex  md:pr-4 sm:pr-8  rounded-full bg-gradient-to-r from-teal-50 via-blue-100 to-sky-100 hover:text-blue-600 active:text-opacity-75 focus:outline-none focus:ring shadow-gray-200 shadow-xl">
                         <BtnLogin  provider={providers.facebook} />
-                        <Image src="/facebook.png" width="60%" height={5} objectFit="contain"/>
+                        <Image src="/facebook.png"  alt="/Avatar.png" width="60%" height={5} objectFit="contain"/>
                         </div>
                     </div>
                     <div className="flex justify-center">
                         <div  className="flex  md:pr-4  sm:pr-8  rounded-full bg-gradient-to-r from-green-50 via-green-100 to-teal-100 hover:text-emerald-600 active:text-opacity-75 focus:outline-none focus:ring shadow-gray-200 shadow-xl">
                         <BtnLogin  provider={providers.line} />
-                        <Image src="/line.png" width="60%" height={5} objectFit="contain"/>
+                        <Image src="/line.png"  alt="/Avatar.png" width="60%" height={5} objectFit="contain"/>
                         </div>
                     </div>
                  
