@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import  { db } from "../../lib/firebase"
 import { deleteDoc , doc } from "@firebase/firestore"
 
-function Card({id,firstname,lastname,username}) {
+function Card({id,firstname,lastname}) {
 
   const deleteMember = async  (id,e) => {
     e.stopPropagation();
