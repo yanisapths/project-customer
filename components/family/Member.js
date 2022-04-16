@@ -30,6 +30,7 @@ import {useSession} from "next-auth/react";
                     firstname={input.data().firstname}
                     lastname={input.data().lastname}
                     username={input.data().username.name}
+                    message={input.data().message}
               />
           )} 
         </div>

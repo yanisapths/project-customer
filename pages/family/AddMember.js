@@ -21,10 +21,7 @@ export default function AboutCard() {
     const [loading, setLoading] =useState();
     const firstnameRef = useRef(null);
     const lastnameRef = useRef(null);
-    const bathRef = useRef(null);
-    const friendRef = useRef(null);
-    const driveRef = useRef(null);
-    const massageRef = useRef(null);
+    const msgRef = useRef(null);
     const goBack = () => {
         router.push("/family/");
       };
@@ -42,6 +39,7 @@ export default function AboutCard() {
                 username: session.user,
                 firstname: firstnameRef.current.value,
                 lastname: lastnameRef.current.value,
+                message: msgRef.current.value,
                 timestamp: serverTimestamp(),
                 name:session.user.name
                 
@@ -68,54 +66,49 @@ export default function AboutCard() {
       </Head>
       <Header/>
         <main className="overflow-hidden ">
-            <form action="" className="bg-white space-y-4 -mt-24 px-8 py-32  md:p-24 md:py-36 md:m-4">
-            <XIcon onClick={goBack} className="text-white bg-gray-500 rounded-full w-6 h-6 mb-8"/>
+            <form action="" className="bg-white space-y-4 -mt-24 px-8 py-32  md:p-24 md:py-36 md:m-4 rounded-lg shadow-lg">
+            <XIcon onClick={goBack} className="text-white bg-black/75 rounded-full w-6 h-6 mb-8 cursor-pointer"/>
             <p className="text-xl font-extrabold md:text-4xl md:mb-2 ">เพิ่มสมาชิกครอบครัว</p>
-            <span className="text-sm  md:text-lg font-medium  -pt-2 ">ใส่ข้อมูลเพียงเล็กน้อยก็เสร็จ😊</span>
+            <span className="text-sm  md:text-lg font-medium  -pt-2 ">เพื่อใช้เลือกบุคคลที่ต้องการดูแล😊</span>
 
             <div className=" md:pt-8 " >
             <label  className="text-sm md:text-lg font-extrabold">ชื่อ</label>
-                <div className="relative mt-1">
+                <div className="relative mt-1 p-1 rounded-xl bg-gradient-to-r from-indigo-200 via-teal-200 to-emerald-100 focus:outline-none focus:ring">
                     <input
-                        // onChange={event => handleChangeInput(event)}
                         ref={firstnameRef}
                         type="text"
                         name="firstname"
-                        className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-lg "
+                        className="bg-white/70 w-full p-6 pr-12 text-sm border-gray-200  rounded-lg "
                         placeholder=""
                     />
                 </div>
-            <div className="pt-2">
+            <div className="pt-6">
             <label className="text-sm md:text-lg font-extrabold">นามสกุล</label>
-            <div className="relative mt-1">
+            <div className="relative mt-1  p-1 rounded-xl bg-gradient-to-r from-indigo-200 via-teal-200 to-emerald-100 focus:outline-none focus:ring">
                 <input
                     ref={lastnameRef}
                     type="text"
                     name="lastname"
-                    className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-lg"
+                    className="bg-white/70 w-full p-6 pr-12 text-sm border-gray-200 rounded-lg"
                     placeholder=""
                 />
             </div>
             </div>
             </div>
-            <div className="w-full bg-white rounded-lg shadow-lg  ">
-                    {/* <p className="text-sm md:text-lg font-extrabold mb-4">  บริการทีต้องการ</p>
-                        <ul className="divide-y-2 space-y-6 divide-gray-100">
-                            <li className="p-6 hover:bg-blue-600 hover:text-blue-200 shadow-md"   ref={bathRef}   name="bath">
-                                อาบน้ำ แต่งตัว ประคอง 
-                            </li>
-                            <li className="p-6 hover:bg-blue-600 hover:text-blue-200  shadow-md" ref={friendRef} name="friend">
-                                อยู่เป็นเพื่อน ทำกิจกรรม
-                            </li>
-                            <li className="p-6 hover:bg-blue-600 hover:text-blue-200  shadow-md" ref={driveRef} name="drive">
-                                ขับรถไปรับ-ส่ง
-                            </li>
-                            <li className="p-6 hover:bg-blue-600 hover:text-blue-200  shadow-md" ref={massageRef} name="massage">
-                                นวด
-                            </li>
-                        </ul> */}
-                        {/* <Select /> */}
+            <div className="pt-6">
+                <div>
+                    <label className="sr-only" for="message">Message</label>
+                        <div className="relative mt-1 p-1 rounded-xl bg-gradient-to-r from-indigo-200 via-teal-200 to-emerald-100 focus:outline-none focus:ring">
+                            <textarea
+                            className="w-full p-5 text-lg rounded-lg bg-white/70"
+                            placeholder="รายละเอียดเพิ่มเติม...."
+                            rows="3"
+                            id="message"
+                            ref={msgRef}
+                            ></textarea>
+                        </div>
             </div>
+        </div>
 
         <div className="flex justify-between pt-10 ">
         <nav className="flex text-sm border-b border-gray-100 text-font-medium">
