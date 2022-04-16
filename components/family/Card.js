@@ -35,7 +35,7 @@ function Card({id,firstname,lastname,message}) {
                   <div className="block h-full p-4 border border-gray-700 rounded-lg hover:border-pink-600">
                     <h5 className="font-semibold">Message</h5>
 
-                    <p class="mt-1 text-sm md:text-lg font-medium ">
+                    <p className="mt-1 text-sm md:text-lg font-medium ">
                     {message}
                     </p>
                   </div>
