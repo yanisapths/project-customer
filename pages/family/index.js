@@ -1,20 +1,14 @@
-import { useState, useEffect , forwardRef } from "react";
 import Head from "next/head";
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import {
     PlusCircleIcon,
 } from '@heroicons/react/solid';
-import AboutCard from '../../components/family/AboutCard'
 import {useSession, getSession} from "next-auth/react";
-import  signIn from "../auth/signin"
 import FooterSocial from '../../components/FooterSocial'
 import Link from "next/link"
 import dynamic from "next/dynamic"
-import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
-import  { db } from "../../lib/firebase"
 import Member from "../../components/family/Member"
-import Card from "../../components/family/Card"
 
 function Family(){ 
     const {data: session,status} = useSession();

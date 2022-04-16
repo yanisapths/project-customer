@@ -15,7 +15,7 @@ function Footer() {
                     <HomeIcon  className="footer-icon"/>หน้าหลัก
                   </b>
                 </Link>
-                <Link href="/" className="b">
+                <Link href="/request/" className="b">
                   <b>
                     <PlusCircleIcon  className="footer-icon"/>นัด
                   </b>
@@ -25,7 +25,7 @@ function Footer() {
                     <UserGroupIcon  className="footer-icon"/>ครอบครัว
                   </b>
                 </Link>
-                <Link href="/" className="b">
+                <Link href="/calendar/" className="b">
                   <b>
                     <CalendarIcon  className="footer-icon"/>ตารางนัด
                   </b>
