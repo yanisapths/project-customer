@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function Banner() {
   return (
@@ -12,7 +13,9 @@ function Banner() {
            />
            <div className="absolute top-1/4 md:top-1/3 w-full text-center">
              <p className="text-white text-3xl md:text-5xl  font-black shadow-4xl opacity-100 p-3">สร้างนัดกับศูนย์ดูแล</p>
-             <button className="text-teal-500 bg-white px-10 py-4 shadow-xl rounded-full font-bold my-3 hover:shadow-xl xl:text-3xl md:text-2xl ">เริ่มต้น</button>
+             <button className="text-teal-500 bg-white px-10 py-4 shadow-xl rounded-full font-bold my-3 xl:text-3xl md:text-2xl transform hover:scale-110  transition  duration-2000 ease-out ">
+                <Link href="/daycarelist/">ค้นหา</Link>
+              </button>
            </div>
     </div>
   )

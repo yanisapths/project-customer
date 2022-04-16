@@ -49,7 +49,7 @@ function Request(){
           return (
             <div >
                 <Head>
-                    <title>Olive | Calendar </title>
+                    <title>Olive | Request </title>
                     <link rel="icon" href="favicon.ico" />
                 </Head>
                 <Header/>

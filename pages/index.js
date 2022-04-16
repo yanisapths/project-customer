@@ -22,7 +22,7 @@ export default function Home({session} ) {
 
     <main  className="main">
       <section className="pt-6">
-        <h2 className="text-3xl font-semibold pb-5 text-teal-900">ค้นหาศูนย์ดูแลใกล้คุณ</h2>
+        <h2 className="text-3xl font-semibold pb-5 text-teal-900">ศูนย์ดูแลใกล้คุณ</h2>
         {/* Pull some data from a server-  API Endpoints*/}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
     
