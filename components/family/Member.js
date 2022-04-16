@@ -1,12 +1,12 @@
 import React,{ useState , useEffect } from 'react'
-import { collection, onSnapshot, orderBy, query, getDocs } from "@firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
 import  { db } from "../../lib/firebase"
 import Card from "./Card";
+import {getSession} from 'next-auth/react'
+import Image from 'next/image'
 
-function Member(id,firstname,index) {
+function Member({session}) {
   const [inputs, setInputs] = useState([ ]);
-  // const values = [...inputField];
-  // const colRef = collection(db,'members')
         useEffect(
                 () =>
                  onSnapshot(
@@ -17,34 +17,30 @@ function Member(id,firstname,index) {
                  ),
             [db]
             );
-
-        // getDocs(colRef).then((snapshot) => {
-        //   let members = []
-        //   snapshot.docs.forEach((doc) => {
-        //     members.push({...doc.data(), id: doc.id })
-        //   })
-        //   console.log(members)
-        // })
-        // .catch(err => console.log(err.message))
- 
-
-// console.log(values)
-
-
   return (
     <div>
         <div>
         {inputs.map((input) =>
-                    <Card 
+              <Card 
                     key={input.id}
                     id={input.id}
                     firstname={input.data().firstname}
-                    />
-                )} 
+                    lastname={input.data().lastname}
+                    session={session}
+                    username={input.data().username.name}
+              />
+          )} 
         </div>
     </div>
   )
 }
 
 export default Member
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  return {
+      props: { session },
+  };
+}
 

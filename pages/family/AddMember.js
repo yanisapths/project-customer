@@ -20,39 +20,13 @@ export default function AboutCard() {
     const [loading, setLoading] =useState();
     const firstnameRef = useRef(null);
     const lastnameRef = useRef(null);
-    // const colRef = collection(db,'members')
+    const bathRef = useRef(null);
+    const friendRef = useRef(null);
+    const driveRef = useRef(null);
+    const massageRef = useRef(null);
     const goBack = () => {
         router.push("/family/");
       };
-
-    //   const addMemberForm = document.querySelector(''.add')
-    //   addMemberForm.addEventListener('submit', (e) => {
-    //     e.preventDefault()
-    //     addDoc(colRef, {
-    //         username: session.user,
-    //         firstname: addMemberForm.firstname.value,
-    //         lastname: addMemberForm.lastname.value,
-    //         timestamp: serverTimestamp(),
-    //     })
-    //   })
-    // const [inputField, setInputField] = useState([
-    //     {
-    //         firstname: ' ', 
-    //         lastname: ' ',
-    //     },
-    // ])
-   
-    // const handleChangeInput = (event) => {
-    //     const values = [...inputField];
-    //     values[event.target.name] = event.target.value;
-    //     setInputField(values);
-    // }
-    const handleNext = (e) => {
-      e.preventDefault();
-      console.log("inputField", firstnameRef);
-    //   console.log("inputField", inputField[0].firstname);
-    } 
-
     const onSubmit = async (e) => {
         e.preventDefault();
         if(loading) return;
@@ -67,16 +41,12 @@ export default function AboutCard() {
                 username: session.user,
                 firstname: firstnameRef.current.value,
                 lastname: lastnameRef.current.value,
-                // firstname: firstnameRef.current.value,
-                // lastname: lastnameRef.current.value,
                 timestamp: serverTimestamp(),
                 
             });
             toast.success(` ${firstnameRef.current.value} ได้ถูกเพิ่มลงในครอบครัว 🎉`);
             router.push('/family/');
-            
-            console.log("New doc added with ID" , docRef.id ); //2
-            // const firstnameRef = ref(storage, `members/${docRef.id}/firstname`); 
+            //console.log("New doc added with ID" , docRef.id ); //2
             
         }
         catch (err) {
@@ -95,64 +65,65 @@ export default function AboutCard() {
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header/>
-        <main className="md:absolute max-w-4xl  md:max-w-[60%] 2xl:max-w-[50%] md:w-[70%] right-0  ">
-
-            <form action="" className="  bg-white p-8  mt-6 mb-0 space-y-4 md:p-10 rounded-2xl shadow-2xl md:py-64 md:-mt-10">
+        <main className="md:absolute max-w-4xl  md:max-w-[60%] 2xl:max-w-[50%] md:w-[70%] right-0 py-32 pt-0 ">
+            <form action="" className="  bg-white p-8  mt-6 mb-0 space-y-4  md:p-10 shadow-2xl  md:mt-0">
             <XIcon onClick={goBack} className="text-white bg-gray-500 rounded-full w-6 h-6 mb-8"/>
-            <p className="text-xl font-extrabold md:text-4xl md:mb-2 ">เกี่ยวกับสมาชิก</p>
+            <p className="text-xl font-extrabold md:text-4xl md:mb-2 ">เพิ่มสมาชิกครอบครัว</p>
             <span className="text-sm  md:text-lg font-medium  -pt-2 ">ใส่ข้อมูลเพียงเล็กน้อยก็เสร็จ😊</span>
-            
-        {/* {  inputField.map((inputField) => ( */}
-            <div className=" md:pt-8  " >
-        <div >
+
+            <div className=" md:pt-8 " >
             <label  className="text-sm md:text-lg font-extrabold">ชื่อ</label>
-
-            <div className="relative mt-1">
-            <input
-                // value={inputField.firstname}
-                // onChange={event => handleChangeInput(event)}
-                ref={firstnameRef}
-                type="text"
-                name="firstname"
-                className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm "
-                placeholder=""
-            />
-            </div>
-        <div className="pt-2">
+                <div className="relative mt-1">
+                    <input
+                        // onChange={event => handleChangeInput(event)}
+                        ref={firstnameRef}
+                        type="text"
+                        name="firstname"
+                        className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm "
+                        placeholder=""
+                    />
+                </div>
+            <div className="pt-2">
             <label className="text-sm md:text-lg font-extrabold">นามสกุล</label>
-
             <div className="relative mt-1">
-            <input
-                // value={inputField.lastname}
-                // onChange={event => handleChangeInput(event)}
-                ref={lastnameRef}
-                type="text"
-                name="lastname"
-                className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-                placeholder=""
-            />
+                <input
+                    ref={lastnameRef}
+                    type="text"
+                    name="lastname"
+                    className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                    placeholder=""
+                />
             </div>
-        </div>
-        </div>
             </div>
-            {/* ))}  */}
+            </div>
+                <div className="w-full bg-white rounded-lg shadow-lg lg:w-1/3">
+                <p className="text-sm md:text-lg font-extrabold">   เลือกบริการทีต้องการ</p>
+                <ul className="divide-y-2 divide-gray-100">
+                    <li className="p-3 hover:bg-blue-600 hover:text-blue-200"   ref={bathRef}   name="bath">
+                        อาบน้ำ แต่งตัว ประคอง 
+                    </li>
+                    <li className="p-3 hover:bg-blue-600 hover:text-blue-200" ref={friendRef} name="friend">
+                        อยู่เป็นเพื่อน ทำกิจกรรม
+                    </li>
+                    <li className="p-3 hover:bg-blue-600 hover:text-blue-200" ref={driveRef} name="drive">
+                        ขับรถไปรับ-ส่ง
+                    </li>
+                    <li className="p-3 hover:bg-blue-600 hover:text-blue-200" ref={massageRef} name="massage">
+                        นวด
+                    </li>
+                </ul>
+            </div>
+
         <div className="flex justify-between pt-10">
         <nav className="flex text-sm border-b border-gray-100 text-font-medium">
-                <a href="" className="hidden p-2  border-b border-black text-black font-extrabold md:text-lg ">
-                    ย้อนกลับ
-                </a>
         </nav>
-        <button type="submit" className="block px-5 py-3  text-sm md:text-xl md:font-extrabold font-medium text-white bg-black rounded-lg"
-            onClick={handleNext}
-        >
-            ถัดไป
-        </button>
+            <button type="submit" className="block px-5 py-3  text-sm md:text-xl md:font-extrabold font-medium text-white bg-black rounded-lg"
+                onClick={onSubmit}
+            >
+                เพิ่ม
+            </button>
         </div>
-        <button type="submit" className="block px-5 py-3  text-sm md:text-xl md:font-extrabold font-medium text-white bg-black rounded-lg"
-            onClick={onSubmit}
-        >
-            Submit
-        </button>
+      
         </form>
         </main>
     <Footer/>

@@ -59,7 +59,7 @@ export default function AboutCard() {
 
             <form action="" className= "">
             <XIcon className="text-white bg-gray-500 rounded-full w-6 h-6 mb-8"/>
-            <p className="text-xl font-extrabold md:text-4xl md:mb-2 ">เกี่ยวกับสมาชิก</p>
+            <p className="text-xl font-extrabold md:text-4xl md:mb-2 ">เพิ่มสมาชิกครอบครัว</p>
             <span className="text-sm  md:text-lg font-medium  -pt-2 ">ใส่ข้อมูลเพียงเล็กน้อยก็เสร็จ😊</span>
             
         {  inputField.map((inputField, index) => (
@@ -93,6 +93,7 @@ export default function AboutCard() {
         </div>
         </div>
             </div>
+            
             ))} 
         <div className="flex justify-between pt-10">
         <nav className="flex text-sm border-b border-gray-100 text-font-medium">

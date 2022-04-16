@@ -78,32 +78,32 @@ function Header({ placeholder }) {
             <GlobeAltIcon className="h-6" />
 
             <div className="flex items-center space-x-2 border-2 p-1 rounded-full">
-                {/* Profile Pic */}
-                {!session && (
-                 <>
-                    <Image onClick={signIn}
-                        className="rounded-full cursor-pointer"
-                        src="/Avatar.png"
-                        width="55"
-                        height="55"
-                        layout="fixed"
-                    />
-                 </>
-                 )}
-                 {session && (
-                 <> 
-                 {session.user.image && (
-                        <Image  onClick={signOut}
-                        className="rounded-full cursor-pointer"
-                         src={session.user.image}
-                         layout="fixed"
-                         width="55"
-                        height="55"
-                         
-                        />
-                    )}
-                 </>
-                 )}
+                            {/* Profile Pic */}
+                            {!session && (
+                            <>
+                                <Image onClick={signIn}
+                                    className="rounded-full cursor-pointer"
+                                    src="/Avatar.png"
+                                    width="55"
+                                    height="55"
+                                    layout="fixed"
+                                />
+                            </>
+                            )}
+                            {session && (
+                            <> 
+                            {session.user.image && (
+                                    <Image  onClick={signOut}
+                                    className="rounded-full cursor-pointer"
+                                    src={session.user.image}
+                                    layout="fixed"
+                                    width="55"
+                                    height="55"
+                                    
+                                    />
+                                )}
+                            </>
+                            )}
             </div>
        </div>
 

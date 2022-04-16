@@ -16,7 +16,6 @@ import  { db } from "../../lib/firebase"
 import Member from "../../components/family/Member"
 import Card from "../../components/family/Card"
 
-
 function Family(){ 
     const {data: session,status} = useSession();
     const HandleAdd = dynamic(() => 
@@ -78,16 +77,6 @@ function Family(){
                                  </a>    
                              </Link>
                           </div>
-                            {/* {members.map((inputField) => {
-                            <div 
-                                key={inputField.id}
-                                id={inputField.id}
-                                firstname={inputField.data().firstname}
-                                lastname={inputField.data().lastname}   
-                            >
-                               <h1> {inputField.data().firstname}</h1>
-                            </div>
-                            })} */}
                             <div>
                                 <Member />
                             </div>
