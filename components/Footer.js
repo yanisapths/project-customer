@@ -1,21 +1,16 @@
-import React from 'react'
-import Head from 'next/head'
+import React from "react"
+import Head from "next/head"
 import {
     HomeIcon,
     PlusCircleIcon,
     UserGroupIcon,
     CalendarIcon,
-} from '@heroicons/react/solid';
+} from "@heroicons/react/solid"
 import Link from "next/link"
 
 function Footer() {
   return (
       <footer className="fixed font-noto bottom-0 inset-x-0  text-sm md:text-lg bg-white text-teal-500 flex justify-between  font-extrabold shadow-teal-400 shadow-2xl md:rounded-t-full rounded-t-2xl">
-                <Head>
-                      <style>
-                                @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap');
-                            </style>
-                </Head>
                 <Link href="/" className="b">
                   <b>
                     <HomeIcon  className="footer-icon"/>หน้าหลัก

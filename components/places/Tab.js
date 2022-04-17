@@ -7,8 +7,8 @@ const goBack = () => {
 
 function Tab() {
   return (
-    <nav class="flex text-sm font-medium border-b border-gray-100 lg:max-w-xl">
-        <ArrowLeftIcon onClick={goBack} href="" class="text-teal-500  rounded-full w-8 h-8 mb-8 cursor-pointer" />
+    <nav className="flex text-sm font-medium border-b border-gray-100 lg:max-w-xl">
+        <ArrowLeftIcon onClick={goBack} className="text-teal-500  rounded-full w-8 h-8 mb-8 cursor-pointer" />
     </nav>
   )
 }
