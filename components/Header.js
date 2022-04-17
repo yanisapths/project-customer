@@ -1,4 +1,5 @@
 import React, { useState,Fragment, useEffect, useRef } from 'react'
+import Head from "next/head";
 import Image from 'next/image';
 import { Menu, Transition } from '@headlessui/react'
 import {
@@ -49,7 +50,12 @@ function Header({ placeholder }) {
 
 
   return (
-   <header className="sticky top-0 z-50 grid grid-cols-3 shadow-md bg-white p-5 md:px-10 rounded-b-2xl">
+   <header className="font-noto sticky top-0 z-50 grid grid-cols-3 shadow-md bg-white p-5 md:px-10 rounded-b-2xl">
+          <Head>
+                      <style>
+                                @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap');
+                            </style>
+            </Head>
        {/* Left */}
        <div onClick={() => router.push("/")}
             className="relative flex items-center h-16 cursor-pointer my-auto">

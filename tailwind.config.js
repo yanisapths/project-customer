@@ -10,10 +10,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      'kod' : [' Kodchasan ','sans-serif'],
-      'noto' : [' Noto Sans Thai ','sans-serif'],
-      'chon' : ['Chonburi' ,'cursive'],
-      'sans': ['sans-serif'],
+      noto : " 'Noto Sans Thai', sans-serif ",
     },
     backdropFilter: {
       'none': 'none',
