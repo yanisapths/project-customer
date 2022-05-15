@@ -1,12 +1,47 @@
+import React,{useState , useEffect}  from 'react';
 import Head from "next/head";
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import {useSession, getSession} from "next-auth/react";
 import FooterSocial from '../../components/FooterSocial'
 import Link from "next/link"
+import { Controller,useForm } from "react-hook-form";
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl, { useFormControl } from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
+import { collection, onSnapshot, orderBy, query ,where } from "@firebase/firestore";
+import  { db } from "../../lib/firebase"
 
-function Request(){ 
+
+function Request( ){ 
     const {data: session,status} = useSession();
+    const { register, handleSubmit, watch, control, formState: { errors } } = useForm();
+    const onSubmit = data => console.log(data);
+    const [member, setMember] = useState([]);
+    const travel =[
+        { id: 1, label: 'เดินทางไปเอง'},
+        { id: 2, label: 'ศูนย์ดูแลรับ-ส่ง' },
+    ];
+
+    const handleChange = (event) => {
+      setMember(event.target.value);
+    };
+
+    useEffect( 
+        () => 
+        //const q = query(collection(db, 'members'), where("name", "==" ,  session?.user.name ) , orderBy('timestamp', 'desc'));
+        onSnapshot(
+          query(collection(db, 'members') , orderBy('timestamp', 'desc')) , 
+         snapshot => {
+             setMember(snapshot.docs)
+         }
+      ),
+      [db] );
+
+    
 
     if (status === "loading") {
         return <p>Loading...</p>
@@ -53,18 +88,105 @@ function Request(){
                     <link rel="icon" href="favicon.ico" />
                 </Head>
                 <Header/>
-                  <main className="main bg-teal-50 md:h-screen xl:h-screen md:py-28i">
+                  <main className="main bg-teal-50 md:h-full overflow-hidden">
                       <section className="flex-grow md:pt-30 pt-10 ">
-                            <h1 className="mt-5 mb-2   text-3xl font-extrabold text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">
+                            <h1 className="mt-5 mb-12   text-3xl font-extrabold text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">
                                 สร้างนัดดูแล
                             </h1>
-                            <h1 className="mt-5 mb-2   text-3xl font-extrabold text-black sm:text-5xl bg-clip-text">
-                                Coming Soon
-                            </h1>
-                            <p className="max-w-lg mt-4 sm:leading-relaxed sm:text-xl">
-                                This feature is under construction.
-                            </p>
                       </section>
+                            <div className="  px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-white rounded-md ">
+                                <div className="max-w-lg mx-auto text-center ">
+                                    <h1 className="text-2xl font-bold sm:text-3xl">ลักษณะการดูแล</h1>
+                                </div>
+                                <form className="max-w-md mx-auto mt-8 mb-0 space-y-4" onSubmit={handleSubmit(onSubmit)}>
+                                    <div className="relative">
+                                            <Grid item xs={6} md={12}  className="pb-8">
+                                                <InputLabel shrink  style={{ fontSize: '24px'}}>บอกการดูแลที่เน้นเป็นพิเศษ</InputLabel>
+                                                    <FormControl sx={{ width: '100%',}} variant="standard" required>
+                                                    <Controller
+                                                        render={({ field: { onChange, value } }) => (
+                                                            <>                  
+                                                                <TextField
+                                                                        id="outlined-textarea"
+                                                                        placeholder="เช่น ดูแลผู้ป่วยแขนหัก"
+                                                                        value={value || undefined}
+                                                                        onChange={onChange} 
+                                                                        multiline
+                                                                />
+                                                            </>
+                                                                )}
+                                                                name="description"
+                                                                control={control}
+                                                                />
+                                                    </FormControl>
+
+                                            </Grid>
+                                            <Grid item xs={6} md={8} className="pb-8">
+                                                <FormControl sx={{ width: '100%',}} variant="outlined" required>
+                                                    <Controller
+                                                        render={({ field: { onChange, value } }) => (
+                                                            <>                  
+                                                                <InputLabel id="demo-simple-select-label">เลือกบุคคลรับการดูแล</InputLabel>
+                                                                    <Select
+                                                                        labelId="demo-simple-select-label"
+                                                                        id="demo-simple-select"
+                                                                        value={value || ''}
+                                                                        label="เลือกบุคคลรับการดูแล"
+                                                                        onChange={onChange}
+                                                                    >
+                                                                     {member.map((input , key) => 
+                                                                                <MenuItem 
+                                                                                          key={input.id}
+                                                                                        value={`${input.data().firstname}-${input.data().lastname}}`}
+                                                                                >
+                                                                                   {input.data().firstname}  {input.data().lastname} 
+                                                                                </MenuItem>
+                                                                    )}
+                                                                    </Select>
+                                                            </>
+                                                                )}
+                                                                name="member"
+                                                                control={control}
+                                                                />
+                                                </FormControl>
+                                            </Grid>
+                                            <Grid item xs={6} md={8} className="pb-8">
+                                                <FormControl sx={{ width: '100%',}} variant="outlined" required>
+                                                    <Controller
+                                                        render={({ field: { onChange, value } }) => (
+                                                            <>                  
+                                                                <InputLabel id="demo-simple-select-label">การเดินทาง</InputLabel>
+                                                                    <Select
+                                                                        labelId="demo-simple-select-label"
+                                                                        id="demo-simple-select"
+                                                                        value={value || ''}
+                                                                        label="การเดินทาง"
+                                                                        onChange={onChange}
+                                                                    >
+                                                                     {travel.map((input , key) => 
+                                                                                <MenuItem 
+                                                                                          key={input.id}
+                                                                                            value={input.label}
+                                                                                >
+                                                                                  {input.label}
+                                                                                </MenuItem>
+                                                                    )}
+                                                                    </Select>
+                                                            </>
+                                                                )}
+                                                                name="travel"
+                                                                control={control}
+                                                                />
+                                                </FormControl>
+                                            </Grid>
+                                    </div>
+                                    <div className="relative text-center">
+                                        <button type="submit" className="block w-full px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                   <FooterSocial />
                   </main>
                   <Footer />

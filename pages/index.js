@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -14,12 +15,12 @@ export default function Home({session} ) {
     {
       img: '/daycare/l1.jpg', 
       title: 'Lampang',
-      link: '/locations/north/lampang',
+      link: '/locations/north/lampang/',
     },
     { 
       img: '/daycare/c1.png',
       title: 'Chiang Mai',
-      link: '/locations/north/chiangmai',
+      link: '/locations/north/chiangmai/',
     }
   ];
   return (
