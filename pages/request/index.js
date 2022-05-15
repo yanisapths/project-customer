@@ -30,19 +30,6 @@ function Request( ){
       setMember(event.target.value);
     };
 
-    useEffect( 
-        () => 
-        //const q = query(collection(db, 'members'), where("name", "==" ,  session?.user.name ) , orderBy('timestamp', 'desc'));
-        onSnapshot(
-          query(collection(db, 'members') , orderBy('timestamp', 'desc')) , 
-         snapshot => {
-             setMember(snapshot.docs)
-         }
-      ),
-      [db] );
-
-    
-
     if (status === "loading") {
         return <p>Loading...</p>
       }
@@ -80,6 +67,16 @@ function Request( ){
         )
       }
       else{
+          
+    useEffect( 
+        () => 
+        onSnapshot(
+          query(collection(db, 'members'), where("name", "==" ,  session?.user.name ) , orderBy('timestamp', 'desc')) , 
+         snapshot => {
+             setMember(snapshot.docs)
+         }
+      ),
+      [db] );
 
           return (
             <div >
@@ -89,14 +86,9 @@ function Request( ){
                 </Head>
                 <Header/>
                   <main className="main bg-teal-50 md:h-full overflow-hidden">
-                      <section className="flex-grow md:pt-30 pt-10 ">
-                            <h1 className="mt-5 mb-12   text-3xl font-extrabold text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">
-                                สร้างนัดดูแล
-                            </h1>
-                      </section>
-                            <div className="  px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-white rounded-md ">
+                            <div className="flex-grow pt-10  md:pt-30 mt-5   px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-white rounded-md ">
                                 <div className="max-w-lg mx-auto text-center ">
-                                    <h1 className="text-2xl font-bold sm:text-3xl">ลักษณะการดูแล</h1>
+                                    <h1 className="font-bold  text-3xl text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">ลักษณะการดูแล</h1>
                                 </div>
                                 <form className="max-w-md mx-auto mt-8 mb-0 space-y-4" onSubmit={handleSubmit(onSubmit)}>
                                     <div className="relative">

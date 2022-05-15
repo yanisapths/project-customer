@@ -11,7 +11,6 @@ import {useSession} from "next-auth/react";
 
         useEffect( 
           () => 
-          //const q = query(collection(db, 'members'), where("name", "==" ,  session?.user.name ) , orderBy('timestamp', 'desc'));
           onSnapshot(
             query(collection(db, 'members'), where("name", "==" ,  session?.user.name ) , orderBy('timestamp', 'desc')) , 
            snapshot => {
