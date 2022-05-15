@@ -10,7 +10,18 @@ import LargeCard from '../components/LargeCard';
 import {getSession} from "next-auth/react";
 
 export default function Home({session} ) {
-  
+  const cardsData = [
+    {
+      img: '/daycare/l1.jpg', 
+      title: 'Lampang',
+      link: '/locations/north/lampang',
+    },
+    { 
+      img: '/daycare/c1.png',
+      title: 'Chiang Mai',
+      link: '/locations/north/chiangmai',
+    }
+  ];
   return (
     <div className="">
       <Head>
@@ -22,13 +33,17 @@ export default function Home({session} ) {
 
     <main  className="main">
       <section className="pt-6">
-        {/* <h2 className="text-3xl font-semibold pb-5 text-teal-900 font-noto">ศูนย์ดูแลใกล้คุณ</h2> */}
-        {/* Pull some data from a server-  API Endpoints*/}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    
+      
+      </section>
+      <section>
+        <h2 className="text-3xl font-semibold py-8 text-teal-900">ศูนย์ดูแลจังหวัดต่างๆ</h2>
+        <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
+          {cardsData?.map(({ img, title, link }) => (
+            <MediumCard key={img} img={img} title={title} link={link}/>
+          ))} 
         </div>
       </section>
-      <h2 className="text-3xl font-semibold mt-24 -mb-8 text-teal-900 font-noto">ข่าวสาร</h2>
+      <h2 className="text-3xl font-semibold mt-16 -mb-8 text-teal-900 font-noto">ข่าวสาร</h2>
       <LargeCard 
         img="/daycare/b3.png" 
         title="เปิดวิธีเตรียมเงินสู่บั้นปลายสไตล์ เกษียณโสด"
