@@ -1,3 +1,4 @@
+import React from 'react';
 import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 import Router,{useRouter} from "next/router";
@@ -6,6 +7,9 @@ import ProgressBar from "@badrap/bar-of-progress";
 import signIn from './auth/signin';
 import { RecoilRoot  } from 'recoil';
 import { Toaster } from "react-hot-toast";
+import '@fullcalendar/common/main.css'
+import '@fullcalendar/daygrid/main.css'
+import '@fullcalendar/timegrid/main.css'
 
 const progress = new ProgressBar({
     size:5,

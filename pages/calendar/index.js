@@ -1,9 +1,14 @@
+import React from 'react';
 import Head from "next/head";
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import {useSession, getSession} from "next-auth/react";
 import FooterSocial from '../../components/FooterSocial'
 import Link from "next/link"
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import interactionPlugin from '@fullcalendar/interaction'
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+
 
 function Calendar(){ 
     const {data: session,status} = useSession();
@@ -54,12 +59,10 @@ function Calendar(){
                   <main className="main bg-teal-50 md:h-screen xl:h-screen md:py-28i">
                       <section className="flex-grow md:pt-30 pt-10 ">
                       <h1 className="mt-5 mb-2   text-3xl font-extrabold text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">ตารางนัด</h1>
-                            <h1 className="mt-5 mb-2   text-3xl font-extrabold text-black sm:text-5xl bg-clip-text">
-                                Coming Soon
-                            </h1>
-                            <p className="max-w-lg mt-4 sm:leading-relaxed sm:text-xl">
-                                This feature is under construction.
-                            </p>
+                      <FullCalendar
+        plugins={[ dayGridPlugin ]}
+        initialView="dayGridMonth"
+      />
                       </section>
                   <FooterSocial />
                   </main>
