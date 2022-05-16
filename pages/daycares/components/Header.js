@@ -66,14 +66,7 @@ function Header({ placeholder }) {
        </div>
 
        {/* Middle  - Search */}
-       <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm appearance-none outline-none ">
-           <input
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            className=" flex-grow pl-5 text-teal-900 bg-transparent outline-none border-none appearance-none focus:outline-none" 
-            type="text"  placeholder={placeholder  || "ค้นหาศูนย์ดูแล"}
-           />
-           <SearchIcon className="hidden md:inline-flex h-8 bg-teal-500 text-white rounded-full p-2 cursor-pointer md:mx-2"/>
+       <div className="flex items-center py-2  ">
        </div>
 
        {/* Right */}
@@ -87,9 +80,9 @@ function Header({ placeholder }) {
              )}
               {session && (
                      <> 
-                        <Link href="/daycares/">
+                        <Link href="/">
                             <p  className="hidden md:inline text-teal-900 cursor-pointer">
-                               ศูนย์ดูแลของคุณ <GlobeAltIcon className="h-6  md:inline " />
+                               กลับไปหน้าผู้ใช้ทั่วไป
                             </p>
                         </Link>
                      </>
