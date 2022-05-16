@@ -80,14 +80,16 @@ function Header({ placeholder }) {
        <div className="flex items-center space-x-4 justify-end text-teal-900">
           {!session && (
             <>
-                    <p  className="hidden md:inline text-teal-900 cursor-pointer"  onClick={signIn}>
-                        เป็นเจ้าของศูนย์ดูแล <GlobeAltIcon className="h-6  md:inline " />
-                    </p>
+                     <Link href="/daycares/">
+                            <p  className="hidden md:inline text-teal-900 cursor-pointer">
+                              เป็นเจ้าของศูนย์ดูแล<GlobeAltIcon className="h-6  md:inline " />
+                            </p>
+                        </Link>
             </>
              )}
               {session && (
                      <> 
-                        <Link href="/daycares/">
+                        <Link href="/daycares/dashboard/">
                             <p  className="hidden md:inline text-teal-900 cursor-pointer">
                                ศูนย์ดูแลของคุณ <GlobeAltIcon className="h-6  md:inline " />
                             </p>
