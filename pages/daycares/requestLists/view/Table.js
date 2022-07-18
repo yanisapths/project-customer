@@ -8,7 +8,7 @@ function Table() {
                     <thead>
                     <tr>
                         <th className="sticky left-0 p-4 text-left bg-white">
-                        <label className="sr-only" for="row_all">Select All</label>
+                        <label className="sr-only" htmlFor="row_all">Select All</label>
                         <input
                             className="w-5 h-5 border-gray-200 rounded"
                             type="checkbox"
@@ -25,9 +25,9 @@ function Table() {
                             fill="currentColor"
                             >
                             <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                             />
                             </svg>
                         </div>
@@ -42,9 +42,9 @@ function Table() {
                             fill="currentColor"
                             >
                             <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                             />
                             </svg>
                         </div>
@@ -59,9 +59,9 @@ function Table() {
                             fill="currentColor"
                             >
                             <path
-                                fill-rule="evenodd"
+                               fillRule="evenodd"
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                             />
                             </svg>
                         </div>
@@ -76,9 +76,9 @@ function Table() {
                             fill="currentColor"
                             >
                             <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                             />
                             </svg>
                         </div>
@@ -93,9 +93,9 @@ function Table() {
                             fill="currentColor"
                             >
                             <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                             />
                             </svg>
                         </div>
@@ -106,7 +106,7 @@ function Table() {
                     <tbody className="divide-y divide-gray-100">
                     <tr>
                         <td className="sticky left-0 p-4 bg-white">
-                        <label className="sr-only" for="row_1">Row 1</label>
+                        <label className="sr-only" htmlFor="row_1">Row 1</label>
                         <input
                             className="w-5 h-5 border-gray-200 rounded"
                             type="checkbox"
@@ -130,7 +130,7 @@ function Table() {
 
                     <tr>
                         <td className="sticky left-0 p-4 bg-white">
-                        <label className="sr-only" for="row_2">Row 2</label>
+                        <label className="sr-only" htmlFor="row_2">Row 2</label>
                         <input
                             className="w-5 h-5 border-gray-200 rounded"
                             type="checkbox"
@@ -152,7 +152,7 @@ function Table() {
 
                     <tr>
                         <td className="sticky left-0 p-4 bg-white">
-                        <label className="sr-only" for="row_3">Row 3</label>
+                        <label className="sr-only" htmlFor="row_3">Row 3</label>
                         <input
                             className="w-5 h-5 border-gray-200 rounded"
                             type="checkbox"

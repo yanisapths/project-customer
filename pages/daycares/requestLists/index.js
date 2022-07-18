@@ -35,8 +35,8 @@ function RequestLists( ) {
 
         <main  className="main bg-amber-50">
           <section className="pt-6">
-          {tab.map(( {goBack} ) => (
-            <CommonTab goBack={goBack} />
+          {tab.map(( {id, goBack} ) => (
+            <CommonTab key={id} goBack={goBack} />
           ))}
           </section>
             <h1 className="text-3xl font-bold align-center item-center">Request Lists</h1>
