@@ -7,15 +7,11 @@ import { useRouter } from "next/router";
 import { useEffect } from 'react'
 import Header from '../components/Header';
 import Table from './view/Table';
-import CommonTab from "../../../components/places/CommonTab"
+import { ArrowLeftIcon } from  '@heroicons/react/solid';
+import Link from "next/link"
 
 function RequestLists( ) {
-  
-  const tab = [
-    {
-      goBack: '/daycares/dashboard/',
-    }
-  ]
+
   const {data: session,status} = useSession();
   const router = useRouter();
 
@@ -35,9 +31,11 @@ function RequestLists( ) {
 
         <main  className="main bg-amber-50">
           <section className="pt-6">
-          {tab.map(( {id, goBack} ) => (
-            <CommonTab key={id} goBack={goBack} />
-          ))}
+          <nav className="flex text-sm font-medium border-b border-gray-100 lg:max-w-xl">
+                <Link href='/daycares/dashboard/'>
+                  <ArrowLeftIcon className="rounded-full w-8 h-8 mb-8 cursor-pointer" />
+                </Link>
+            </nav>
           </section>
             <h1 className="text-3xl font-bold align-center item-center">Request Lists</h1>
             <Table />
