@@ -5,6 +5,7 @@ import Footer from '../../components/Footer'
 import {useSession, getSession} from "next-auth/react";
 import FooterSocial from '../../components/FooterSocial'
 import Link from "next/link"
+import { toast } from "react-hot-toast";
 import { Controller,useForm } from "react-hook-form";
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
-import { collection, onSnapshot, orderBy, query ,where } from "@firebase/firestore";
+import { collection, onSnapshot, orderBy, query ,where, addDoc, serverTimestamp } from "@firebase/firestore";
 import  { db } from "../../lib/firebase"
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
@@ -21,11 +22,38 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 function Request( ){ 
     const {data: session,status} = useSession();
+    const [loading, setLoading] =useState();
+    const onSubmit = async (data) => {
+        if(loading) return;
+        setLoading(true);
+        
+        try{
+            const docRef = await addDoc(collection(db, 'services' ), {  //1
+                username: session.user,
+                member: data.member?  data.member : session.user,
+                services:data.services || null,
+                travel: data.travel ,
+                description:description || null,
+                timestamp: serverTimestamp(),  
+            });
+            toast.success(` successfully send a service request 🎉`);
+            // router.push('/family/');
+            //console.log("New doc added with ID" , docRef.id ); //2
+            console.log(data);
+        }
+        catch (err) {
+            toast.error(err);
+        }
+        setLoading(false);
+        
+    };
+
     const { register, handleSubmit, watch, control, formState: { errors, isValid  } } = useForm({
         mode: 'onSubmit',
         reValidateMode: 'onChange',
     });
-    const onSubmit = data => console.log(data);
+//   const onSubmit = data => console.log(data);
+  const [description, setDescription] = useState("");
     const [member, setMember] = useState([]);
     const travel =[
         { id: 1, label: 'เดินทางไปเอง'},
@@ -54,6 +82,7 @@ function Request( ){
     const handleChange = (event) => {
       setMember(event.target.value);
     };
+
 
     if (status === "loading") {
         return <p>Loading...</p>
