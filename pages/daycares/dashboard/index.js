@@ -10,7 +10,7 @@ import { makeStyles, useTheme } from "@mui/styles";
 import { useRouter } from "next/router";
 import { useEffect } from 'react'
 import { style } from '@mui/system';
-
+import Banner from '../components/Banner';
 
 const  useStyles = makeStyles((theme) => ({
   bg: {
@@ -43,12 +43,9 @@ export default function Home( ) {
             <link rel="icon" href="favicon.ico" />
           </Head>
         <Header />
-
+       <Banner />
         <main  className="main bg-amber-50">
           <section className="pt-6">
-          </section>
-            <h1 className="text-3xl font-bold align-center item-center">Welcome to Daycare Dashboard</h1>
-            <section>
               <h2 className="text-3xl font-semibold py-8 text-teal-900">Admin Services</h2>
               <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
                 {cardsData?.map(({ img, title, link }) => (
