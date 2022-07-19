@@ -222,3 +222,10 @@ export default function Home() {
     </Box>
   );
 }
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  return {
+    props: { session}
+  }
+}
