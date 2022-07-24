@@ -2,7 +2,7 @@ import React from 'react'
 import { ArrowLeftIcon } from  '@heroicons/react/solid';
 import router from "next/router"
 const goBack = () => {
-    router.push("/locations/");
+    router.push("/");
   };
 
 function Tab() {

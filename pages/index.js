@@ -6,10 +6,6 @@ import Tabs from '../components/Tabs';
 import SmallCard from '../components/SmallCard';
 import MediumCard from '../components/MediumCard';
 import {getSession} from "next-auth/react";
-import {
-  MapIcon,
-  FireIcon,
-} from "@heroicons/react/solid"
 import { MdMap, MdPark } from "react-icons/md";
 
 import  {
@@ -20,10 +16,6 @@ import  {
 export default function Home({session} ) {
   const [selected, setSelected] = useState("");
   const [cardsData, setCardsData] = useState([]);
-  const icons = [
-    MapIcon,
-    FireIcon,
- ];
 
   const exploreData = [
     {
@@ -83,11 +75,10 @@ useEffect(() => {
             />
             ))}
         </div>
-        <section className=" py-4">
+        <section className=" py-4 flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 ">
         {list.map((item) => (
           <div className="inline-flex border-b border-gray-100">
             <div className="relative block p-4">
-
                   <div className="inline-flex ml-2">
                       <item.icons className="flex-shrink-0 w-8 h-8 text-gray-500 pt-3" />
                     </div>
@@ -102,7 +93,7 @@ useEffect(() => {
             </div>
                 ))}
         </section>
-          <div className="flex-1 pt-4 m-auto p-auto md:m-auto :space-x-3 md:grid md:grid-cols-3 space-y-3 xl:grid-cols-6  ">
+          <div className="flex-1 pt-4 m-auto p-auto md:m-auto :space-x-8 md:grid md:grid-cols-3 space-y-12 xl:grid-cols-6  ">
             {cardsData?.map(({ img, title, link }) => (
               <MediumCard key={img} img={img} title={title} link={link}/>
               ))} 
