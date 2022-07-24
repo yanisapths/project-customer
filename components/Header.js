@@ -158,6 +158,13 @@ function Header({ placeholder }) {
                                 )}
                                     {session && (
                                     <> 
+                                            <Menu.Item>
+                                                <Link href="/daycares/dashboard/">
+                                               <button   className=" text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm md:text-lg">                    
+                                                    Daycare dashboard
+                                                </button>
+                                                </Link>
+                                            </Menu.Item>
                                         <Menu.Item>
                                         {({ active }) => (
                                         <button
