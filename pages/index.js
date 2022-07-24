@@ -77,7 +77,7 @@ useEffect(() => {
         </div>
         <section className=" py-4 flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 ">
         {list.map((item) => (
-          <div className="inline-flex border-b border-gray-100">
+          <div    key={item.id}  className="inline-flex border-b border-gray-100">
             <div className="relative block p-4">
                   <div className="inline-flex ml-2">
                       <item.icons className="flex-shrink-0 w-8 h-8 text-gray-500 pt-3" />
