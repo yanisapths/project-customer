@@ -93,7 +93,7 @@ useEffect(() => {
             </div>
                 ))}
         </section>
-          <div className="flex-1 pt-4 m-auto p-auto md:m-auto :space-x-8 md:grid md:grid-cols-3 space-y-12 xl:grid-cols-6  ">
+          <div className="flex-1 pt-4 m-auto p-auto md:m-auto  md:grid md:grid-cols-3 space-y-12 xl:grid-cols-4 xl:space-x-3 ">
             {cardsData?.map(({ img, title, link }) => (
               <MediumCard key={img} img={img} title={title} link={link}/>
               ))} 

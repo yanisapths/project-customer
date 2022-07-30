@@ -2,6 +2,7 @@ import React from "react"
 import Head from "next/head"
 import {
     HomeIcon,
+    UserIcon,
     PlusCircleIcon,
     UserGroupIcon,
     CalendarIcon,
@@ -13,10 +14,15 @@ function Footer() {
       <footer className="fixed font-noto bottom-0 inset-x-0  text-sm md:text-lg bg-white text-teal-500 flex justify-between  font-extrabold shadow-teal-400 shadow-2xl md:rounded-t-full rounded-t-2xl">
                 <Link href="/" className="b">
                   <b>
-                    <HomeIcon  className="footer-icon"/>หน้าหลัก
+                    <HomeIcon  className="footer-icon"/>Home
                   </b>
                 </Link>
-                <Link href="/request/" className="b">
+                <Link href="/account/" className="b">
+                  <b>
+                    <UserIcon  className="footer-icon"/>Account
+                  </b>
+                </Link>
+                {/* <Link href="/request/" className="b">
                   <b>
                     <PlusCircleIcon  className="footer-icon"/>นัด
                   </b>
@@ -30,7 +36,7 @@ function Footer() {
                   <b>
                     <CalendarIcon  className="footer-icon"/>ตารางนัด
                   </b>
-                </Link>
+                </Link> */}
       </footer>
    
   )
