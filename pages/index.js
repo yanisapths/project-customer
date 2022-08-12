@@ -69,7 +69,7 @@ useEffect(() => {
       <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 lg:pt-12">
           {exploreData?.map(( {img, title } ) => (
             <SmallCard
-              key={img} 
+              key={title} 
               img={img} 
               title={title} 
             />

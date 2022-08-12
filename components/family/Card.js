@@ -18,25 +18,25 @@ function Card({id,firstname,lastname,message}) {
   }
 
   return (
-    <div className="mt-6">
-           <div className="max-w-xl xl:max-w-3xl p-1 shadow-xl rounded-2xl bg-white focus:outline-none focus:ring">
-                <a className="flex p-4 justify-between md:p-6 bg-teal-100 sm:p-8 rounded-xl">
+    <div className="mt-6 text-white">
+           <div className="max-w-xl xl:max-w-3xl p-1 shadow-xl rounded-2xl focus:outline-none focus:ring">
+                <a className="flex p-4 justify-between md:p-6 bg-teal-800  sm:p-8 rounded-xl">
                   <div className="flex ">
                     <Image
                       src="/Avatar.png"
                       alt="/Avatar.png"
                       className="w-16 h-16 rounded-full"
-                      width="80"
-                      height="80"
+                      width="60"
+                      height="60"
                       layout="fixed"
                     />
                 <div className="ml-3 md:ml-8 ">
                   <h5 className="text-md md:text-lg font-semibold">{firstname} {lastname}</h5>
                 <div className="mt-4 space-y-2">
-                  <div className="block h-full p-4 border border-gray-700 rounded-lg hover:border-pink-600">
-                    <h5 className="font-semibold">Message</h5>
+                  <div className="block h-full p-4 border rounded-lg hover:border-teal-600 cursor-pointer ">
+                    <h5 className="font-semibold">Detail</h5>
 
-                    <p className="mt-1 text-sm md:text-lg font-medium ">
+                    <p className="mt-1 text-sm md:text-lg font-xs">
                     {message}
                     </p>
                   </div>
@@ -45,7 +45,7 @@ function Card({id,firstname,lastname,message}) {
                 </div>
                   <TrashIcon 
                     onClick = {e => deleteMember(id,e)}
-                    className="text-black rounded-full w-6 h-6 cursor-pointer "
+                    className="text-gray-300 rounded-full w-6 h-6 cursor-pointer "
                   />
                 </a>
             </div>
