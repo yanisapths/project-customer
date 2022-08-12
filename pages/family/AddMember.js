@@ -1,4 +1,4 @@
-import  { db , storage } from "../../../lib/firebase"
+import  { db , storage } from "../../lib/firebase"
 import { addDoc, collection , serverTimestamp ,updateDoc  } from "@firebase/firestore";
 import { ref  } from "@firebase/storage";
 import {useSession} from "next-auth/react";
@@ -10,12 +10,11 @@ import { XIcon,
 } from '@heroicons/react/solid';
 import { useRouter } from "next/router";
 import Head from "next/head"
-import Header from "../../../components/Header"
-import Footer from "../../../components/Footer"
-import FooterSocial from '../../../components/FooterSocial'
+import Header from "../../components/Header"
+import Footer from "../../components/Footer"
+import FooterSocial from '../../components/FooterSocial'
 import router from "next/router"
-import Select from "../../../components/family/Select"
-import Tabs from '../Tabs'
+import Select from "../../components/family/Select"
 
 export default function AboutCard() {
     const {data: session,status} = useSession();
@@ -24,7 +23,7 @@ export default function AboutCard() {
     const lastnameRef = useRef(null);
     const msgRef = useRef(null);
     const goBack = () => {
-        router.push("/account/Family/");
+        router.push("/family/");
       };
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -46,7 +45,7 @@ export default function AboutCard() {
                 
             });
             toast.success(` ${firstnameRef.current.value} ได้ถูกเพิ่มลงในครอบครัว 🎉`);
-            router.push('/account/Family');
+            router.push('/family/');
             //console.log("New doc added with ID" , docRef.id ); //2
             
         }
@@ -58,16 +57,16 @@ export default function AboutCard() {
     };
 
   return (
-    <React.Fragment>
-            <div className="h-screen bg-teal-50">
-        <Head>
-        <title>Olive | Family </title>
+    <>
+    <div  className="bg-gradient-to-r from-indigo-200 via-teal-200 to-emerald-100 h-screen  md:-mb-40">
+        {/* <Header /> */}
+    <Head>
+        <title>Olive | Add Member </title>
         <link rel="icon" href="favicon.ico" />
-        </Head>
-        <Header />
-        <Tabs />
- <div className="bg-white px-8 xs:mx-4 min-w-md  mx-auto  rounded-xl shadow-xl">
-            <form action="" className="relative ">
+      </Head>
+      <Header/>
+        <main className="overflow-hidden ">
+            <form action="" className="bg-white space-y-4 -mt-24 px-8 py-32  md:p-24 md:py-36 md:m-4 rounded-lg shadow-lg">
             <XIcon onClick={goBack} className="text-white bg-black/75 rounded-full w-6 h-6 mb-8 cursor-pointer"/>
             <p className="text-xl font-extrabold md:text-4xl md:mb-2 ">เพิ่มสมาชิกครอบครัว</p>
             <span className="text-sm  md:text-lg font-medium  -pt-2 ">เพื่อใช้เลือกบุคคลที่ต้องการดูแล😊</span>
@@ -122,9 +121,9 @@ export default function AboutCard() {
         </div>
       
         </form>
-        </div>
-    <Footer />
+        </main>
+    <Footer/>
     </div>
-    </React.Fragment>
+    </>
   )
 }
