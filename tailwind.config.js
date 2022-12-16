@@ -10,7 +10,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      noto : " 'Noto Sans Thai', sans-serif ",
+      noto : " 'Noto Sans Thai', mono ",
       'display': ['Oswald',],
     },
     backdropFilter: {
