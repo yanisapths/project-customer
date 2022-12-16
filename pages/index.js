@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import InfoCard from "../components/InfoCard"
 import { getSession } from "next-auth/react";
+import MediumCard from "../components/MediumCard";
 
 export default function Home({ session, data }) {
   return (
@@ -17,9 +17,10 @@ export default function Home({ session, data }) {
       <main className="main h-screen overflow-scroll scrollbar-hide">
         <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 lg:pt-12"></div>
         <section className=" py-4 flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 "></section>
-        <div className="flex flex-col">
+        <div className="flex flex-col md:grid md:grid-cols-3 md:space-x-8">
           {data?.map(
             ({
+              _id,
               clinic_id,
               clinic_name,
               imageUrl,
@@ -27,8 +28,9 @@ export default function Home({ session, data }) {
               description,
               price,
             }) => (
-              <InfoCard
+              <MediumCard
                 key={clinic_id}
+                _id={_id}
                 clinic_name={clinic_name}
                 imageUrl={imageUrl}
                 address={address}

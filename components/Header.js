@@ -70,7 +70,7 @@ function Header({ placeholder }) {
           onChange={(e) => setSearchInput(e.target.value)}
           className=" flex-grow pl-5 text-teal-900 bg-transparent outline-none border-none appearance-none focus:outline-none"
           type="text"
-          placeholder={placeholder || "ค้นหาศูนย์ดูแล"}
+          placeholder={placeholder || "ค้นหาคลีนิก"}
         />
         <SearchIcon className="hidden md:inline-flex h-8 bg-teal-500 text-white rounded-full p-2 cursor-pointer md:mx-2" />
       </div>
@@ -79,7 +79,7 @@ function Header({ placeholder }) {
       <div className="flex items-center space-x-4 justify-end text-teal-900">
         {!session && (
           <>
-            <Link href="/daycares/">
+            <Link href="https://daycare-portal.vercel.app/">
               <p className="hidden md:inline text-teal-900 cursor-pointer">
                 เป็นเจ้าของศูนย์ดูแล
                 <GlobeAltIcon className="h-6  md:inline " />

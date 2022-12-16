@@ -36,7 +36,7 @@ a {
     @apply font-noto md:w-8 md:h-8 mb-2 mx-auto text-teal-600  w-6 h-6;
   }
   .main {
-    @apply mx-auto px-8 sm:px-16 bg-teal-50;
+    @apply mx-auto px-8 sm:px-16 bg-white;
   }
 }
 
