@@ -21,23 +21,28 @@ a {
   box-sizing: border-box;
 }
 
-
 @layer components {
   .button {
-      @apply px-4 py-2 md:px-1 md:py-5 font-extrabold text-2xl text-teal-500 border rounded-full cursor-pointer 
+    @apply px-4 py-2 md:px-1 md:py-5 font-extrabold text-2xl text-teal-500 border rounded-full cursor-pointer 
       hover:shadow-lg active:scale-95 active:bg-teal-500 active:text-white transition 
       transform duration-100 ease-out;
   }
-  b{
-    @apply w-full block py-5 px-3 text-center hover:bg-teal-100 text-teal-900  rounded-t-full hover:rounded-t-xl md:hover:rounded-t-full  transition 
-    transform duration-100 ease-out;  
+  b {
+    @apply w-full block p-6 text-center hover:bg-teal-100 text-teal-900 transition 
+    transform duration-100 ease-out cursor-pointer;
+  }
+  .bottomNav {
+    @apply w-full block py-5 px-3 text-center transition 
+    transform duration-100 ease-out cursor-pointer;
   }
   .footer-icon {
     @apply font-noto md:w-8 md:h-8 mb-2 mx-auto text-teal-600  w-6 h-6;
   }
   .main {
-    @apply mx-auto px-8 sm:px-16 bg-white;
+    @apply mx-auto px-8 sm:px-16 bg-white mb-10;
+  }
+  .buttonPrimary {
+    @apply rounded-full border border-[#7BC6B7] bg-[#7BC6B7] px-28 py-4 shadow-lg text-white hover:bg-transparent hover:text-[#7BC6B7] focus:outline-none focus:ring active:text-[#7BC6B7]
+    lg:w-6/12 lg:px-96 lg:py-6;
   }
 }
-
-
