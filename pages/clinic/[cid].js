@@ -60,7 +60,7 @@ export async function getStaticPaths() {
 
   // Call an external API endpoint to get clinics
   const res = await fetch(
-    "https://ukbze987lk.execute-api.ap-northeast-1.amazonaws.com/dev/clinic"
+   "https://olive-service-api.vercel.app/clinic"
   );
   const cinics = await res.json();
 
@@ -74,7 +74,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const clinicId = params.cid;
   const res = await fetch(
-    `https://ukbze987lk.execute-api.ap-northeast-1.amazonaws.com/dev/clinic/${clinicId}`
+    `https://olive-service-api.vercel.app/clinic/${clinicId}`
   );
   const data = await res.json();
   return {

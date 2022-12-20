@@ -49,7 +49,7 @@ export default function Home({ session, data }) {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   const data = await fetch(
-    "https://ukbze987lk.execute-api.ap-northeast-1.amazonaws.com/dev/clinic"
+    "https://olive-service-api.vercel.app/clinic"
   ).then((res) => res.json());
   return {
     props: { session, data },
