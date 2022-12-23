@@ -77,25 +77,12 @@ function Header({ placeholder }) {
 
       {/* Right */}
       <div className="flex items-center space-x-4 justify-end text-teal-900">
-        {!session && (
-          <>
-            <Link href="https://daycare-portal.vercel.app/">
-              <p className="hidden md:inline text-teal-900 cursor-pointer">
-                เป็นเจ้าของศูนย์ดูแล
-                <GlobeAltIcon className="h-6  md:inline " />
-              </p>
-            </Link>
-          </>
-        )}
-        {session && (
-          <>
-            <Link href="/daycares/dashboard/">
-              <p className="hidden md:inline text-teal-900 cursor-pointer">
-                ศูนย์ดูแลของคุณ <GlobeAltIcon className="h-6  md:inline " />
-              </p>
-            </Link>
-          </>
-        )}
+        <Link href="https://daycare-portal.vercel.app/">
+          <p className="hidden md:inline text-teal-900 cursor-pointer">
+            เป็นเจ้าของศูนย์ดูแล <GlobeAltIcon className="h-6  md:inline " />
+          </p>
+        </Link>
+
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className="flex items-center space-x-2 border-2 p-1 rounded-full">
