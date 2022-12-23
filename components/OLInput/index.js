@@ -25,4 +25,6 @@ OLInput.propTypes = {
   disabled: PropTypes.bool,
 };
 
+OLInput.displayName = 'OLInput';
+
 export default OLInput;
