@@ -5,11 +5,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,300;0,400;0,500;0,600;0,700;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chonburi&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mitr&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 html,
 body {
   padding: 0;
   margin: 0;
   margin-bottom: 100px;
+  padding-bottom: 40px;
+  font-family: "Mitr", sans-serif;
 }
 
 a {
@@ -22,6 +27,44 @@ a {
 }
 
 @layer components {
+  /*--------------Font Theme----------------- */
+  .h1 {
+    @apply font-extrabold text-5xl;
+  }
+
+  .h2 {
+    @apply font-extrabold text-4xl;
+  }
+
+  .h3 {
+    @apply font-bold text-3xl;
+  }
+
+  .h4 {
+    @apply font-bold text-2xl;
+  }
+
+  .h5 {
+    @apply font-medium text-2xl;
+  }
+
+  .h6 {
+    @apply font-medium text-xl;
+  }
+
+  .body1 {
+    @apply font-medium text-lg;
+  }
+
+  .body2 {
+    @apply font-light text-base;
+  }
+
+  .caption {
+    @apply font-light text-sm;
+  }
+  /*------------------------------------*/
+
   .button {
     @apply px-4 py-2 md:px-1 md:py-5 font-extrabold text-2xl text-teal-500 border rounded-full cursor-pointer 
       hover:shadow-lg active:scale-95 active:bg-teal-500 active:text-white transition 
@@ -36,10 +79,10 @@ a {
     transform duration-100 ease-out cursor-pointer;
   }
   .footer-icon {
-    @apply font-noto md:w-8 md:h-8 mb-2 mx-auto text-teal-600  w-6 h-6;
+    @apply md:w-8 md:h-8 mb-2 mx-auto text-teal-600  w-6 h-6;
   }
   .main {
-    @apply mx-auto px-8 sm:px-16 bg-white mb-10;
+    @apply mx-auto px-8 sm:px-16 bg-white;
   }
   .buttonPrimary {
     @apply rounded-full border border-[#7BC6B7] bg-[#7BC6B7] px-28 py-4 shadow-lg text-white hover:bg-transparent hover:text-[#7BC6B7] focus:outline-none focus:ring active:text-[#7BC6B7]

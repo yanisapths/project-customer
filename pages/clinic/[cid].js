@@ -4,19 +4,23 @@ import Image from "next/image";
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
 import { useRouter } from "next/router";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ListView from "./view/ListView";
 
 function Clinic({ data }) {
   const router = useRouter();
   const { cid } = router.query;
 
   const handleClick = (e) => {
-    e.preventDefault()
-    router.push({
-      pathname: `/request/${data.cid}`,
-      query: { cid: data.cid, clinic_name: data.clinic_name}
-  },  `/request/${cid}`)
-  }
+    e.preventDefault();
+    router.push(
+      {
+        pathname: `/request/${data.cid}`,
+        query: { cid: data.cid, clinic_name: data.clinic_name },
+      },
+      `/request/${cid}`
+    );
+  };
 
   return (
     <div>
@@ -25,10 +29,14 @@ function Clinic({ data }) {
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
-      <Banner imageUrl={data.imageUrl} />
-      <main className="pb-8 lg:pb-32">
-        <div className="space-x-3 overflow-scroll scrollbar-hide px-6 lg:pt-12">
-          <h2 className="mt-6 text-3xl font-bold text-[#005844]">
+      <main className="lg:pb-32 h-screen overflow-scroll scrollbar-hide">
+        {data.imageUrl ? (
+          <Banner imageUrl={data.imageUrl} />
+        ) : (
+          <Banner imageUrl="/tree.jpg" />
+        )}
+        <div className="space-x-3 px-6 lg:pt-12">
+          <h2 className="md:mt-0 mt-4 text-3xl md:text-6xl font-bold text-[#005844]">
             {data.clinic_name}
           </h2>
         </div>
@@ -39,12 +47,12 @@ function Clinic({ data }) {
           <p className="mt-1 text-lg text-[#005844]">{data.phoneNumber}</p>
           <p className="text-lg text-[#005844]">{data.email}</p>
 
-          <h2 className="mt-6 text-3xl font-bold text-[#005844]">
-            Location details
-          </h2>
+          <h2 className="mt-6 text-3xl font-bold text-[#005844]">Location</h2>
           <p className="mt-1 text-lg text-[#005844]">{data.address}</p>
 
-          <h2 className="mt-6 mb-8 text-3xl font-bold text-[#005844]">Providers</h2>
+          <h2 className="mt-6 mb-8 text-3xl font-bold text-[#005844]">
+            Providers
+          </h2>
           <Image
             alt="/Avatar.png"
             className="rounded-full"
@@ -56,13 +64,21 @@ function Clinic({ data }) {
             {data.owner}
           </p>
         </div>
+        <ListView className="overflow-scroll scrollbar-hide " />
       </main>
+
       <footer className="fixed font-noto bottom-0 inset-x-0 flex justify-between shadow-black/10 shadow-3xl bg-white">
         <div className="bottomNav">
-        <div onClick={handleClick} className="cursor-pointer inline-flex items-center buttonPrimary">
-            <AddCircleIcon className="h-8 w-8 lg:h-10 lg:w-10"/>
-            <span className="text-xl pl-3 font-medium lg:text-2xl"> จองนัด </span>
-        </div>
+          <div
+            onClick={handleClick}
+            className="cursor-pointer inline-flex items-center buttonPrimary"
+          >
+            <AddCircleIcon className="h-8 w-8 lg:h-10 lg:w-10" />
+            <span className="text-xl pl-3 font-medium lg:text-2xl">
+              {" "}
+              จองนัด{" "}
+            </span>
+          </div>
         </div>
       </footer>
     </div>
