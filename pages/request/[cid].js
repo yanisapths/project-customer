@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useSession } from "next-auth/react";
+import { signIn,useSession } from "next-auth/react";
 import { useRouter, withRouter } from "next/router";
-import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { Controller, useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
@@ -13,45 +12,36 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl, { useFormControl } from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
-import dayjs from "dayjs";
-import OLDatePicker from "../../components/OLDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import ReactDatePicker from "react-datepicker";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
+import axios from "axios";
+
+const place = [
+  { id: 1, label: "บ้าน" },
+  { id: 2, label: "คลีนิก" },
+];
 
 function Request(props) {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState();
-  const [value, setValue] = useState();
+
   const router = useRouter();
-  
-  const handleDialogTimeChange = (newValue) => {
-    const hours = new Date().getHours().toString().padStart(2, "0");
-    const minutes = new Date().getMinutes().toString().padStart(2, "0")
-    const textValue = hours + ':' + minutes;
-    setValue(textValue);
-  }
+  const { cid } = router.query;
 
-  const place = [
-    { id: 1, label: "บ้าน" },
-    { id: 2, label: "คลีนิก" },
-  ];
-
-  const onSubmit = async (event) => {
-    if (loading) return;
-    setLoading(true);
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const data = {
       customerName: event.target.customerName.value,
       phoneNumber: event.target.phoneNumber.value,
       create_At: Date.now(),
-      date: event.target.date.value,
-      time: event.target.time.value,
-      place: event.target.place.value,
+      appointmentDate: event.target.appointmentDate, 
+      appointmentTime: event.target.appointmentTime,
+      appointmentPlace: event.target.place,
       description: event.target.description.value,
     };
-
-    {console.log(handleDialogTimeChange(event.target.time.value))}
 
     let axiosConfig = {
       headers: {
@@ -59,31 +49,43 @@ function Request(props) {
         "Access-Control-Allow-Origin": "*",
       },
     };
-
-    try {
-      const response = await axios.post(
-        `https://olive-service-api.vercel.app/appointment/create${props.router.query.cid}`,
+    const response = await axios
+      .post(
+        `https://olive-service-api.vercel.app/appointment/create/${props.router.query.cid}`,
         data,
         axiosConfig
-      );
-      toast.success(`your appointment request has been sent to the clinic! 🎉`);
-
-      console.log(data);
-    } catch (err) {
-      toast.error(err);
-    }
-    setLoading(false);
+      )
+      .then(async (res) => {
+        console.log("RESPONSE RECEIVED: ", res.data);
+        toast.success(
+          `your appointment request has been sent to the clinic! 🎉`
+        );
+        router.push({
+          pathname: "/",
+        });
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+      });
   };
 
   const {
     register,
-    handleSubmit,
     watch,
     control,
     formState: { errors, isValid },
   } = useForm({
     mode: "onSubmit",
     reValidateMode: "onChange",
+    defaultValues: {
+      customerName: "",
+      phoneNumber: "",
+      place: "",
+      price: "",
+      description: "",
+      appointmentDate: "",
+      appointmentTime:""
+    },
   });
 
   console.log(
@@ -91,8 +93,8 @@ function Request(props) {
       "customerName",
       "phoneNumber",
       "place",
-      "date",
-      "time",
+      "appointmentDate",
+      "appointmentTime",
       "description",
     ])
   );
@@ -121,7 +123,7 @@ function Request(props) {
             </div>
             <form
               className="max-w-md mx-auto mt-2 md:mt-6"
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit}
             >
               <div className="relative">
                 <Grid item xs={6} md={8} className="pb-8">
@@ -139,7 +141,7 @@ function Request(props) {
                           <TextField
                             id="outlined-textarea"
                             placeholder="กรุณากรอกชื่อจริง"
-                            value={value || ""}
+                            {...register("customerName", { required: true })}
                             onChange={onChange}
                             multiline
                           />
@@ -163,7 +165,7 @@ function Request(props) {
                           <TextField
                             id="outlined-textarea"
                             placeholder="089564546"
-                            value={value || ""}
+                            {...register("phoneNumber", { required: true })}
                             onChange={onChange}
                             multiline
                           />
@@ -192,7 +194,11 @@ function Request(props) {
                             onChange={onChange}
                           >
                             {place.map((input, key) => (
-                              <MenuItem key={input.id} value={input.label}>
+                              <MenuItem
+                                key={input.id}
+                                value={input.label}
+                                {...register("place", { required: true })}
+                              >
                                 {input.label}
                               </MenuItem>
                             ))}
@@ -210,17 +216,11 @@ function Request(props) {
                   </InputLabel>
                   <FormControl fullWidth>
                     <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <OLDatePicker
-                            input={{ placeholder: "Select a date" }}
-                            value={value || ""}
-                            onChange={onChange}
-                          />
-                        </>
-                      )}
-                      name="date"
                       control={control}
+                      name="appointmentDate"
+                      render={({ field: { onChange, value } }) => (
+                        <ReactDatePicker onChange={onChange} selected={value} />
+                      )}
                     />
                   </FormControl>
                 </Grid>
@@ -229,23 +229,22 @@ function Request(props) {
                     เวลา
                   </InputLabel>
                   <FormControl fullWidth>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Controller
                       render={({ field: { onChange, value } }) => (
                         <>
-                      <TimePicker
-                        label="Time"
-                        value={dayjs(value)}
-                        onChange={onChange}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                      {console.log(handleDialogTimeChange(value))}
-                       </>
+                          <DatePicker
+                           onChange={onChange} selected={value}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={15}
+                            timeCaption="Time"
+                            dateFormat="h:mm aa"
+                          />
+                        </>
                       )}
-                      name="time"
+                      name="appointmentTime"
                       control={control}
                     />
-                    </LocalizationProvider>
                   </FormControl>
                 </Grid>
                 <Grid item xs={6} md={12} className="pb-8">
@@ -259,7 +258,7 @@ function Request(props) {
                           <TextField
                             id="outlined-textarea"
                             placeholder="เช่น กายภาพส่วนหลัง"
-                            value={value || undefined}
+                            {...register("description", { required: true })}
                             onChange={onChange}
                             multiline
                           />
@@ -275,13 +274,10 @@ function Request(props) {
                 </Grid>
               </div>
               <div className="relative text-center">
-                <button
-                  disabled={!isValid}
+                <input
                   type="submit"
                   className="lg:w-full lg:px-[180px] font-bold bg-[#7BC6B7] cursor-pointer inline-flex items-center buttonPrimary"
-                >
-                  Book Now!
-                </button>
+                />
               </div>
             </form>
           </div>
@@ -301,8 +297,8 @@ function Request(props) {
           <h1 className="mt-5 mb-6 text-3xl font-extrabold text-[#7BC6B7]">
             สร้างนัดดูแล
           </h1>
-          <button className="buttonPrimary text-xl">
-            <Link href="/auth/signin">เข้าสู่ระบบ</Link>
+          <button className="buttonPrimary text-xl" onClick={signIn}>
+            เข้าสู่ระบบ
           </button>
         </section>
         <Footer />

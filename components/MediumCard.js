@@ -17,7 +17,9 @@ function MediumCard({
     >
       <div className="relative h-60 w-50 md:w-100 md:h-80 flex-shrink-0">
         <Link href={`/clinic/${_id}`}>
+          <a>
           <Image src={imageUrl} layout="fill" className="rounded-xl" />
+          </a>
         </Link>
       </div>
       <div className="px-4 pt-4 ">

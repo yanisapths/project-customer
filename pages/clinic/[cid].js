@@ -13,9 +13,9 @@ function Clinic({ data }) {
   const handleClick = (e) => {
     e.preventDefault()
     router.push({
-      pathname: `/request/${data.clinic_name}`,
-      query: { cid: cid, clinic_name: data.clinic_name}
-  },  `/request/${data.clinic_name}`)
+      pathname: `/request/${data.cid}`,
+      query: { cid: data.cid, clinic_name: data.clinic_name}
+  },  `/request/${cid}`)
   }
 
   return (
