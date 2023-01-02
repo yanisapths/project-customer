@@ -21,11 +21,12 @@ Coded by www.creative-tim.com
 
 export default {
     background: {
-      default: "#f0f2f5",
+      main: "#ffffff",
+      lightgrey: "#f8f8f8",
     },
   
     text: {
-      main: "#7b809a",
+      main: "#121212",
       focus: "#7b809a",
     },
   
@@ -45,8 +46,9 @@ export default {
     },
   
     primary: {
-      main: "#7BC6B7",
-      focus: "#7BC6B7",
+      main: "#7bc6b7",
+      light: "#acded5",
+      focus: "#005844",
     },
   
     secondary: {
@@ -55,7 +57,7 @@ export default {
     },
   
     info: {
-      main: "#1A73E8",
+      main: "#0921FF",
       focus: "#1662C4",
     },
   

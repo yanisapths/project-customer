@@ -8,9 +8,26 @@ import pxToRem from "../theme/functions/pxToRem";
 import colors from "../theme/base/colors";
 
 
-export default createTheme({
+const theme = createTheme({
   palette: { ...colors },
   functions: {
     pxToRem,
   },
+  typography: {
+    fontFamily: ['Mitr','sans-serif'].join(','), 
+  },
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        "@font-face": [
+          {
+            fontFamily: "Mitr",
+            fontDisplay: "swap",
+          },
+        ],
+      },
+    },
+  },
 });
+
+export default theme;
