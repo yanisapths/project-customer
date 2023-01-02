@@ -11,6 +11,8 @@ import '@fullcalendar/timegrid/main.css'
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 // Material Kit 2 React themes
 import theme from "../theme";
@@ -36,10 +38,12 @@ function MyApp({
 
   return (
     <SessionProvider session={session}>
+     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ThemeProvider theme={theme}>
          <Toaster />
           <Component {...pageProps} />
        </ThemeProvider>
+       </LocalizationProvider>
     </SessionProvider>
   )
 }
