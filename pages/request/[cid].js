@@ -27,9 +27,8 @@ const place = [
 function Request(props) {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState();
-
+  const { query } = useRouter();
   const router = useRouter();
-  const { cid } = router.query;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,6 +40,7 @@ function Request(props) {
       appointmentTime: event.target.appointmentTime,
       appointmentPlace: event.target.place,
       description: event.target.description.value,
+      owner_id: query.owner_id
     };
 
     let axiosConfig = {
@@ -51,7 +51,7 @@ function Request(props) {
     };
     const response = await axios
       .post(
-        `https://olive-service-api.vercel.app/appointment/create/${props.router.query.cid}`,
+        `https://olive-service-api.vercel.app/appointment/create/${query.cid}`,
         data,
         axiosConfig
       )
@@ -84,7 +84,8 @@ function Request(props) {
       price: "",
       description: "",
       appointmentDate: "",
-      appointmentTime:""
+      appointmentTime:"",
+      owner_id: query.owner_id
     },
   });
 

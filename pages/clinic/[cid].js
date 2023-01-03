@@ -9,16 +9,16 @@ import ListView from "./view/ListView";
 
 function Clinic({ data }) {
   const router = useRouter();
-  const { cid } = router.query;
+  const { cid,clinic_name,owner_id } = router.query;
+  console.log(data)
 
   const handleClick = (e) => {
     e.preventDefault();
     router.push(
       {
-        pathname: `/request/${data.cid}`,
-        query: { cid: data.cid, clinic_name: data.clinic_name },
+        pathname: `/request/${cid}`,
+        query: { cid: data.cid, clinic_name: data.clinic_name, owner_id: data.owner_id },
       },
-      `/request/${cid}`
     );
   };
 
