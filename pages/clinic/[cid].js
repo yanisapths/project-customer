@@ -9,17 +9,19 @@ import ListView from "./view/ListView";
 
 function Clinic({ data }) {
   const router = useRouter();
-  const { cid,clinic_name,owner_id } = router.query;
-  console.log(data)
+  const { cid, clinic_name, owner_id } = router.query;
+  console.log(data);
 
   const handleClick = (e) => {
     e.preventDefault();
-    router.push(
-      {
-        pathname: `/request/${cid}`,
-        query: { cid: data.cid, clinic_name: data.clinic_name, owner_id: data.owner_id },
+    router.push({
+      pathname: `/request/${cid}`,
+      query: {
+        cid: data.cid,
+        clinic_name: data.clinic_name,
+        owner_id: data.owner_id,
       },
-    );
+    });
   };
 
   return (
@@ -43,15 +45,26 @@ function Clinic({ data }) {
         <div className="px-6">
           <p className="mt-3 text-lg text-[#005844]">{data.description}</p>
 
-          <h2 className="mt-6 text-3xl font-bold text-[#005844]">Contact</h2>
-          <p className="mt-1 text-lg text-[#005844]">{data.phoneNumber}</p>
-          <p className="text-lg text-[#005844]">{data.email}</p>
+          <h2 className="mt-6 h6 tracking-wide text-gray-500 uppercase">
+            ติดต่อ
+          </h2>
+          <p className="mt-1 h5">{data.phoneNumber}</p>
+          <p className="h5">{data.email}</p>
+          <ul className="mt-8 space-y-1 text-gray-700">
+            <span className="mt-6 h6 tracking-wide text-gray-500 uppercase">
+              วันและเวลาทำการ
+            </span>
+            <li className="h5 text-black">
+              {data.openDay}: {data.openTime} am - {data.closeTime} pm
+            </li>
+          </ul>
+          <h2 className="mt-6 h6 tracking-wide text-gray-500 uppercase">
+            ที่อยู่
+          </h2>
+          <p className="mt-1 h5">{data.address}</p>
 
-          <h2 className="mt-6 text-3xl font-bold text-[#005844]">Location</h2>
-          <p className="mt-1 text-lg text-[#005844]">{data.address}</p>
-
-          <h2 className="mt-6 mb-8 text-3xl font-bold text-[#005844]">
-            Providers
+          <h2 className="mt-6 h6 tracking-wide text-gray-500 uppercase">
+            ผู้ให้บริการ
           </h2>
           <Image
             alt="/Avatar.png"
@@ -60,9 +73,7 @@ function Clinic({ data }) {
             width="120"
             height="120"
           />
-          <p className="mt-2 pl-4 text-xl font-bold text-[#005844]">
-            {data.owner}
-          </p>
+          <p className="mt-2 pl-4 h5">{data.owner}</p>
         </div>
         <ListView className="overflow-scroll scrollbar-hide " />
       </main>
