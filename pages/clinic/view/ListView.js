@@ -4,6 +4,7 @@ import Tabs from "../../../components/Tabs";
 import SimpleChip from "../../../components/OLChip/SimpleChip";
 import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import Link from "next/link";
 
 const courses = [
   {
@@ -141,7 +142,9 @@ function ListView() {
                 totalPrice,
                 procedures,
               }) => (
-                <div className="mx-4 space-y-4 pb-4" key={id}>
+                <div key={id}>
+                  <Link href={`/course/${id}`}>
+                  <div className="cursor-pointer mx-4 space-y-4 pb-4" >
                   <BannerCard
                     courseName={courseName}
                     amount={amount}
@@ -166,6 +169,8 @@ function ListView() {
                       ดูเพิ่มเติม
                     </Typography>
                   </div>
+                  </div>
+                  </Link>
                 </div>
               )
             )}
