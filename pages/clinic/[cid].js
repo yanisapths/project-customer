@@ -75,7 +75,7 @@ function Clinic({ data }) {
           />
           <p className="mt-2 pl-4 h5">{data.owner}</p>
         </div>
-        <ListView className="overflow-scroll scrollbar-hide " />
+        <ListView className="overflow-scroll scrollbar-hide " data={data} />
       </main>
 
       <footer className="fixed font-noto bottom-0 inset-x-0 flex justify-between shadow-black/10 shadow-3xl bg-white">
