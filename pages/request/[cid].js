@@ -24,6 +24,11 @@ const place = [
   { id: 2, label: "คลีนิก" },
 ];
 
+const course = [
+  { id: 1, courseName: "ลดปวดเบสิก" },
+  { id: 2, courseName: "ลดปวดมหากาพย์" },
+];
+
 function Request(props) {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState();
@@ -33,12 +38,15 @@ function Request(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {
-      customerName: event.target.customerName.value,
+      firstName: event.target.firstName.value,
+      lastName: event.target.lastName.value,
+      nickname: event.target.nickname.value,
       phoneNumber: event.target.phoneNumber.value,
       create_At: Date.now(),
       appointmentDate: event.target.appointmentDate,
       appointmentTime: event.target.appointmentTime,
       appointmentPlace: event.target.place,
+      course: event.target.course,
       description: event.target.description.value,
       owner_id: query.owner_id,
     };
@@ -78,9 +86,12 @@ function Request(props) {
     mode: "onSubmit",
     reValidateMode: "onChange",
     defaultValues: {
-      customerName: "",
+      firstName: "",
+      lastName: "",
+      nickname: "",
       phoneNumber: "",
       place: "",
+      course: "",
       price: "",
       description: "",
       appointmentDate: "",
@@ -91,9 +102,12 @@ function Request(props) {
 
   console.log(
     watch([
-      "customerName",
+      "firstName",
+      "lastName",
+      "nickname",
       "phoneNumber",
       "place",
+      "course",
       "appointmentDate",
       "appointmentTime",
       "description",
@@ -129,7 +143,7 @@ function Request(props) {
               <div className="relative">
                 <Grid item xs={6} md={8} className="pb-8">
                   <InputLabel shrink style={{ fontSize: "24px" }}>
-                    บุคคลรับการดูแล
+                    ชื่อจริง
                   </InputLabel>
                   <FormControl
                     sx={{ width: "100%" }}
@@ -141,14 +155,66 @@ function Request(props) {
                         <>
                           <TextField
                             id="outlined-textarea"
-                            placeholder="กรุณากรอกชื่อจริง"
-                            {...register("customerName", { required: true })}
+                            placeholder="ใส่ชื่อจริง"
+                            {...register("firstName", { required: true })}
                             onChange={onChange}
                             multiline
                           />
                         </>
                       )}
-                      name="customerName"
+                      name="firstName"
+                      control={control}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={6} md={8} className="pb-8">
+                  <InputLabel shrink style={{ fontSize: "24px" }}>
+                    นามสกุล
+                  </InputLabel>
+                  <FormControl
+                    sx={{ width: "100%" }}
+                    variant="outlined"
+                    required
+                  >
+                    <Controller
+                      render={({ field: { onChange, value } }) => (
+                        <>
+                          <TextField
+                            id="outlined-textarea"
+                            placeholder="ใส่นามสกุล"
+                            {...register("lastName", { required: true })}
+                            onChange={onChange}
+                            multiline
+                          />
+                        </>
+                      )}
+                      name="lastName"
+                      control={control}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={6} md={8} className="pb-8">
+                  <InputLabel shrink style={{ fontSize: "24px" }}>
+                    ชื่อเล่น
+                  </InputLabel>
+                  <FormControl
+                    sx={{ width: "100%" }}
+                    variant="outlined"
+                    required
+                  >
+                    <Controller
+                      render={({ field: { onChange, value } }) => (
+                        <>
+                          <TextField
+                            id="outlined-textarea"
+                            placeholder="ใส่ชื่อเล่น"
+                            {...register("nickname", { required: true })}
+                            onChange={onChange}
+                            multiline
+                          />
+                        </>
+                      )}
+                      name="nickname"
                       control={control}
                     />
                   </FormControl>
@@ -211,6 +277,40 @@ function Request(props) {
                     />
                   </FormControl>
                 </Grid>
+                <Grid item xs={6} md={8} className="pb-8">
+                  <FormControl
+                    sx={{ width: "100%" }}
+                    variant="outlined"
+                    required
+                  >
+                    <Controller
+                      render={({ field: { onChange, value } }) => (
+                        <>
+                          <InputLabel id="place">คอร์ส</InputLabel>
+                          <Select
+                            labelId="course"
+                            id="course"
+                            value={value || ""}
+                            label="เลือกคอร์ส"
+                            onChange={onChange}
+                          >
+                            {course.map((input, key) => (
+                              <MenuItem
+                                key={input.id}
+                                value={input.courseName}
+                                {...register("course", { required: true })}
+                              >
+                                {input.courseName}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </>
+                      )}
+                      name="course"
+                      control={control}
+                    />
+                  </FormControl>
+                </Grid>
                 <Grid item xs={6} md={12} className="pb-8">
                   <InputLabel shrink style={{ fontSize: "24px" }}>
                     วันที่ต้องการจอง
@@ -251,7 +351,7 @@ function Request(props) {
                 </Grid>
                 <Grid item xs={6} md={12} className="pb-8">
                   <InputLabel shrink style={{ fontSize: "24px" }}>
-                    การดูแลที่ต้องการ
+                    รายละเอียดเพิ่มเติม
                   </InputLabel>
                   <FormControl sx={{ width: "100%" }} variant="standard">
                     <Controller
@@ -259,7 +359,7 @@ function Request(props) {
                         <>
                           <TextField
                             id="outlined-textarea"
-                            placeholder="เช่น กายภาพส่วนหลัง"
+                            placeholder="..."
                             {...register("description", { required: true })}
                             onChange={onChange}
                             multiline
