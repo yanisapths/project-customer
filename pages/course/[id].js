@@ -82,7 +82,7 @@ function CourseDetail({ data }) {
           {procedureLists.procedures.map((procedure) => {
             return (
               <div
-                className="flex justify-between p-2 bg-gray-100 mb-1  mx-2 md:ml-8 lg:w-5/6 md:lg-h6 lg:h5"
+                className="flex justify-between p-2 bg-gray-100 mb-1  mx-2 md:ml-8 lg:w-5/6 body1 md:h6 lg:h5"
                 key={procedure.procedureName}
               >
                 <div>
