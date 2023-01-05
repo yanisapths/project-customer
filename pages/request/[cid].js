@@ -122,7 +122,7 @@ function Request(props) {
     return (
       <div className="whitespace-nowrap overflow-auto scrollbar-hide">
         <Head>
-          <title>Olive | Request </title>
+          <title>Olive | Book Appointment </title>
           <link rel="icon" href="favicon.ico" />
         </Head>
         <Header />
@@ -286,7 +286,7 @@ function Request(props) {
                     <Controller
                       render={({ field: { onChange, value } }) => (
                         <>
-                          <InputLabel id="place">คอร์ส</InputLabel>
+                          <InputLabel id="course">คอร์ส</InputLabel>
                           <Select
                             labelId="course"
                             id="course"
@@ -391,7 +391,7 @@ function Request(props) {
     return (
       <div className="h-screen">
         <Head>
-          <title>Olive | Book Request </title>
+          <title>Olive | Book Appointment </title>
           <link rel="icon" href="favicon.ico" />
         </Head>
         <Header />
