@@ -17,7 +17,7 @@ function Footer() {
           หน้าหลัก
         </b>
       </Link>
-      <Link href="/calendar/" className="b">
+      <Link href="/schedule/" className="b">
         <b>
           <CalendarIcon className="footer-icon" />
           ตารางนัด
