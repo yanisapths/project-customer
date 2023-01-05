@@ -45,8 +45,8 @@ function Request(props) {
       create_At: Date.now(),
       appointmentDate: event.target.appointmentDate,
       appointmentTime: event.target.appointmentTime,
-      appointmentPlace: event.target.place,
-      course: event.target.course,
+      appointmentPlace: event.target.place.value,
+      course: event.target.course.value,
       description: event.target.description.value,
       owner_id: query.owner_id,
     };
@@ -81,6 +81,7 @@ function Request(props) {
     register,
     watch,
     control,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     mode: "onSubmit",
@@ -250,21 +251,18 @@ function Request(props) {
                     required
                   >
                     <Controller
-                      render={({ field: { onChange, value } }) => (
+                      render={({ field: { field, onChange, value } }) => (
                         <>
-                          <InputLabel id="place">สถานที่รับการดูแล</InputLabel>
+                          <InputLabel id="place">สถานที่</InputLabel>
                           <Select
-                            labelId="place"
-                            id="place"
-                            value={value || ""}
-                            label="สถานที่รับการดูแล"
-                            onChange={onChange}
+                            {...field}
+                            {...register("place", { required: true })}
                           >
                             {place.map((input, key) => (
                               <MenuItem
                                 key={input.id}
                                 value={input.label}
-                                {...register("place", { required: true })}
+                                onChange={onChange}
                               >
                                 {input.label}
                               </MenuItem>
@@ -284,21 +282,18 @@ function Request(props) {
                     required
                   >
                     <Controller
-                      render={({ field: { onChange, value } }) => (
+                      render={({ field: { field, onChange, value } }) => (
                         <>
                           <InputLabel id="course">คอร์ส</InputLabel>
                           <Select
-                            labelId="course"
-                            id="course"
-                            value={value || ""}
-                            label="เลือกคอร์ส"
-                            onChange={onChange}
+                            {...field}
+                            {...register("course", { required: true })}
                           >
                             {course.map((input, key) => (
                               <MenuItem
+                                onChange={onChange}
                                 key={input.id}
                                 value={input.courseName}
-                                {...register("course", { required: true })}
                               >
                                 {input.courseName}
                               </MenuItem>
