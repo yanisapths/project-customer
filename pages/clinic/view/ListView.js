@@ -4,6 +4,8 @@ import Tabs from "../../../components/Tabs";
 import SimpleChip from "../../../components/OLChip/SimpleChip";
 import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const courses = [
   {
@@ -79,10 +81,13 @@ const reviews = [
   },
 ];
 
-function ListView() {
+function ListView({ data }) {
   const theme = useTheme();
   const [selected, setSelected] = useState("");
   const [view, setView] = useState([]);
+  const router = useRouter();
+  const { cid, clinic_name, owner_id } = router.query;
+  console.log(data);
 
   const list = [
     {
@@ -141,30 +146,45 @@ function ListView() {
                 totalPrice,
                 procedures,
               }) => (
-                <div className="mx-4 space-y-4 pb-4" key={id}>
-                  <BannerCard
-                    courseName={courseName}
-                    amount={amount}
-                    duration={duration}
-                    totalPrice={totalPrice}
-                    procedures={procedures}
-                  />
-                  <div className="flex space-x-2">
-                    <SimpleChip
-                      prefix="ราคา"
-                      text={totalPrice}
-                      quantify="บาท"
+                <div key={id}>
+                  <div
+                    className="cursor-pointer mx-4 space-y-4 pb-4"
+                    onClick={() =>
+                      router.push({
+                        pathname: `/course/${id}`,
+                        query: {
+                          id: id,
+                          cid: cid,
+                          clinic_name: data.clinic_name,
+                          owner_id: data.owner_id,
+                        },
+                      })
+                    }
+                  >
+                    <BannerCard
+                      courseName={courseName}
+                      amount={amount}
+                      duration={duration}
+                      totalPrice={totalPrice}
+                      procedures={procedures}
                     />
-                    <SimpleChip text={duration} quantify="ชั่วโมง" />
-                    <SimpleChip text={amount} quantify="ครั้ง" />
-                  </div>
-                  <div className="mx-2 md:pt-2">
-                    <Typography
-                      variant="body2"
-                      sx={{ color: theme.palette.info.main }}
-                    >
-                      ดูเพิ่มเติม
-                    </Typography>
+                    <div className="flex space-x-2">
+                      <SimpleChip
+                        prefix="ราคา"
+                        text={totalPrice}
+                        quantify="บาท"
+                      />
+                      <SimpleChip text={duration} quantify="ชั่วโมง" />
+                      <SimpleChip text={amount} quantify="ครั้ง" />
+                    </div>
+                    <div className="mx-2 md:pt-2">
+                      <Typography
+                        variant="body2"
+                        sx={{ color: theme.palette.info.main }}
+                      >
+                        ดูเพิ่มเติม
+                      </Typography>
+                    </div>
                   </div>
                 </div>
               )

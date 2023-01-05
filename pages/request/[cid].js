@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { signIn,useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter, withRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import { Controller, useForm } from "react-hook-form";
@@ -36,11 +36,11 @@ function Request(props) {
       customerName: event.target.customerName.value,
       phoneNumber: event.target.phoneNumber.value,
       create_At: Date.now(),
-      appointmentDate: event.target.appointmentDate, 
+      appointmentDate: event.target.appointmentDate,
       appointmentTime: event.target.appointmentTime,
       appointmentPlace: event.target.place,
       description: event.target.description.value,
-      owner_id: query.owner_id
+      owner_id: query.owner_id,
     };
 
     let axiosConfig = {
@@ -84,8 +84,8 @@ function Request(props) {
       price: "",
       description: "",
       appointmentDate: "",
-      appointmentTime:"",
-      owner_id: query.owner_id
+      appointmentTime: "",
+      owner_id: query.owner_id,
     },
   });
 
@@ -234,7 +234,8 @@ function Request(props) {
                       render={({ field: { onChange, value } }) => (
                         <>
                           <DatePicker
-                           onChange={onChange} selected={value}
+                            onChange={onChange}
+                            selected={value}
                             showTimeSelect
                             showTimeSelectOnly
                             timeIntervals={15}
