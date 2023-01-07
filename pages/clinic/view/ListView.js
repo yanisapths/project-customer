@@ -1,77 +1,9 @@
 import React, { useState, useEffect } from "react";
-import BannerCard from "../../../components/OLCard/BannerCard";
-import Tabs from "../../../components/Tabs";
-import SimpleChip from "../../../components/OLChip/SimpleChip";
-import { Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-
-const courses = [
-  {
-    id: 1,
-    courseName: "ลดปวดเบสิก",
-    amount: "1",
-    duration: "2",
-    totalPrice: "3270",
-    procedures: [
-      {
-        procedureName: "Ultrasound",
-        price: "1590",
-      },
-      {
-        procedureName: "Laser",
-        price: "990",
-      },
-      {
-        procedureName: "จัดกระดูกและนวดศรีษะ",
-        price: "690",
-      },
-    ],
-  },
-  {
-    id: 2,
-    courseName: "ลดปวดเบสิก",
-    amount: "1",
-    duration: "2",
-    totalPrice: "3270",
-    procedures: [
-      {
-        procedureName: "Ultrasound",
-        price: "1590",
-      },
-      {
-        procedureName: "Laser",
-        price: "990",
-      },
-      {
-        procedureName: "จัดกระดูกและนวดศรีษะ",
-        price: "690",
-      },
-    ],
-  },
-  {
-    id: 3,
-    courseName: "ลดปวดเบสิก",
-    amount: "1",
-    duration: "2",
-    totalPrice: "3270",
-    procedures: [
-      {
-        procedureName: "Ultrasound",
-        price: "1590",
-      },
-      {
-        procedureName: "Laser",
-        price: "990",
-      },
-      {
-        procedureName: "จัดกระดูกและนวดศรีษะ",
-        price: "690",
-      },
-    ],
-  },
-];
+import Tabs from "../../../components/Tabs";
+import { useTheme } from "@mui/material/styles";
+import CourseListView from "./CourseListView";
 
 const reviews = [
   {
@@ -81,13 +13,10 @@ const reviews = [
   },
 ];
 
-function ListView({ data }) {
+function ListView({ courses }) {
   const theme = useTheme();
   const [selected, setSelected] = useState("");
   const [view, setView] = useState([]);
-  const router = useRouter();
-  const { cid, clinic_name, owner_id } = router.query;
-  console.log(data);
 
   const list = [
     {
@@ -110,6 +39,7 @@ function ListView({ data }) {
         break;
       default:
         setView(courses);
+        break;
     }
   }, [selected]);
 
@@ -139,53 +69,23 @@ function ListView({ data }) {
             ))
           : view?.map(
               ({
-                id,
+                _id,
                 courseName,
                 amount,
                 duration,
                 totalPrice,
                 procedures,
               }) => (
-                <div key={id}>
-                  <div
-                    className="cursor-pointer mx-4 space-y-4 pb-4"
-                    onClick={() =>
-                      router.push({
-                        pathname: `/course/${id}`,
-                        query: {
-                          id: id,
-                          cid: cid,
-                          clinic_name: data.clinic_name,
-                          owner_id: data.owner_id,
-                        },
-                      })
-                    }
-                  >
-                    <BannerCard
-                      courseName={courseName}
-                      amount={amount}
-                      duration={duration}
-                      totalPrice={totalPrice}
-                      procedures={procedures}
-                    />
-                    <div className="flex space-x-2">
-                      <SimpleChip
-                        prefix="ราคา"
-                        text={totalPrice}
-                        quantify="บาท"
-                      />
-                      <SimpleChip text={duration} quantify="ชั่วโมง" />
-                      <SimpleChip text={amount} quantify="ครั้ง" />
-                    </div>
-                    <div className="mx-2 md:pt-2">
-                      <Typography
-                        variant="body2"
-                        sx={{ color: theme.palette.info.main }}
-                      >
-                        ดูเพิ่มเติม
-                      </Typography>
-                    </div>
-                  </div>
+                <div key={_id}>
+                  <CourseListView
+                    key={_id}
+                    _id={_id}
+                    courseName={courseName}
+                    amount={amount}
+                    duration={duration}
+                    totalPrice={totalPrice}
+                    procedures={procedures}
+                  />
                 </div>
               )
             )}
