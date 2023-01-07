@@ -15,6 +15,7 @@ body {
   margin-bottom: 100px;
   padding-bottom: 40px;
   font-family: "Mitr", sans-serif;
+  background-color: #F8F8F8;
 }
 
 a {
@@ -82,7 +83,7 @@ a {
     @apply md:w-8 md:h-8 mb-2 mx-auto text-teal-600  w-6 h-6;
   }
   .main {
-    @apply mx-auto px-8 sm:px-16 bg-white;
+    @apply mx-auto px-8 sm:px-16 bg-[#F8F8F8];
   }
   .buttonPrimary {
     @apply rounded-full border border-[#7BC6B7] bg-[#7BC6B7] px-28 py-4 shadow-lg text-white hover:bg-transparent hover:text-[#7BC6B7] focus:outline-none focus:ring active:text-[#7BC6B7]

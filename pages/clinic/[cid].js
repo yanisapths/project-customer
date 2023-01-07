@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Header from "../../components/Header";
@@ -6,11 +6,12 @@ import Banner from "../../components/Banner";
 import { useRouter } from "next/router";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ListView from "./view/ListView";
+import { useTheme } from "@mui/material/styles";
 
-function Clinic({ data }) {
+function Clinic({ data, courses }) {
   const router = useRouter();
+  const theme = useTheme();
   const { cid, clinic_name, owner_id } = router.query;
-  console.log(data);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -27,7 +28,7 @@ function Clinic({ data }) {
   return (
     <div>
       <Head>
-        <title>Olive | Happy places for Elders</title>
+        <title>Olive | Happybody</title>
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
@@ -75,7 +76,11 @@ function Clinic({ data }) {
           />
           <p className="mt-2 pl-4 h5">{data.owner}</p>
         </div>
-        <ListView className="overflow-scroll scrollbar-hide " data={data} />
+        <ListView
+          className="overflow-scroll scrollbar-hide"
+          data={data}
+          courses={courses}
+        />
       </main>
 
       <footer className="fixed font-noto bottom-0 inset-x-0 flex justify-between shadow-black/10 shadow-3xl bg-white">
@@ -123,7 +128,13 @@ export async function getStaticProps({ params }) {
     `https://olive-service-api.vercel.app/clinic/${clinicId}`
   );
   const data = await res.json();
+
+  const courseRes = await fetch(
+    `https://olive-service-api.vercel.app/course/match/${clinicId}`
+  );
+  const courses = await courseRes.json();
+
   return {
-    props: { data },
+    props: { data, courses },
   };
 }
