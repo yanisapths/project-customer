@@ -9,7 +9,7 @@ export default function Home({ session, data }) {
   return (
     <div className="">
       <Head>
-        <title>Olive | Happy places for Elders</title>
+        <title>Olive | Happybody</title>
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />

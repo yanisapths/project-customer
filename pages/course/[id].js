@@ -3,35 +3,14 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../components/Header";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useTheme } from "@mui/material/styles";
+import { Box } from "@mui/material";
 
-const course = {
-  id: 1,
-  courseName: "ลดปวดเบสิก",
-  amount: "1",
-  duration: "2",
-  totalPrice: "3270",
-  procedures: [
-    {
-      procedureName: "Ultrasound",
-      price: "1590",
-    },
-    {
-      procedureName: "Laser",
-      price: "990",
-    },
-    {
-      procedureName: "จัดกระดูกและนวดศรีษะ",
-      price: "690",
-    },
-  ],
-};
-
-function CourseDetail({ data }) {
+function CourseDetail({ data, course }) {
   const router = useRouter();
+  const theme = useTheme();
   const procedureLists = { procedures: course.procedures };
-  console.log(procedureLists);
   const { cid, clinic_name, owner_id } = router.query;
-  console.log(course);
 
   const navigateBack = (e) => {
     e.preventDefault();
@@ -56,21 +35,23 @@ function CourseDetail({ data }) {
   return (
     <div>
       <Head>
-        <title>Olive | Happy places for Elders</title>
+        <title>Olive | Happybody</title>
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
       <main className="h-screen overflow-scroll scrollbar-hide">
-        <div className="px-6 pt-12 lg:px-96">
+        <div className="px-6 pt-12 xl:px-96">
           <p
             className="caption lg:body1 lg:pl-6 tracking-wide text-black/50 cursor-pointer hover:text-[#0921FF]"
             onClick={navigateBack}
           >
             ย้อนกลับ
           </p>
-          <h2 className="pt-6 h3 lg:h1 text-center">{course.courseName}</h2>
-          <section className="lg:w-5/6 mb-2 pt-10 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 border-black/20  border-b-[1px] border-dashed">
-            <div className="flex justify-between lg:body1 tracking-wide">
+          <h2 className="pt-6 h3 lg:h1 text-center text-[#005844]">
+            {course.courseName}
+          </h2>
+          <section className="xl:w-5/6 mb-2 pt-10 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 border-black/20  border-b-[1px] border-dashed">
+            <div className="flex justify-between lg:body1 tracking-wide  text-black/50">
               <div className="relative block ">
                 <p>การรักษา</p>
               </div>
@@ -81,25 +62,32 @@ function CourseDetail({ data }) {
           </section>
           {procedureLists.procedures.map((procedure) => {
             return (
-              <div
-                className="flex justify-between p-2 bg-gray-100 mb-1  mx-2 md:ml-8 lg:w-5/6 body1 md:h6 lg:h5"
+              <Box
+                sx={{
+                  bgcolor: theme.palette.background.gray,
+                  color: theme.palette.secondary.main,
+                }}
+                className="flex justify-between p-2 mb-2 xl:mb-4  mx-2 md:ml-8 xl:w-5/6 body1 md:h6 xl:h5 rounded-md"
                 key={procedure.procedureName}
               >
                 <div>
                   <p>{procedure.procedureName}</p>
                 </div>
                 <p>{procedure.price}</p>
-              </div>
+              </Box>
             );
           })}
-          <section className="mb-2  pt-10 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 lg:w-5/6 border-black/20  border-b-[1px] border-dashed">
+          <section className="mb-2  pt-10 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 xl:w-5/6 border-black/20  border-b-[1px] border-dashed">
             <div className="flex justify-between">
-              <div className="relative block lg:body1 tracking-wide">
+              <div className="relative block lg:body1 tracking-wide text-black/50">
                 <p>ค่าใช้จ่ายและระยะเวลา</p>
               </div>
             </div>
           </section>
-          <div className="p-2 h5 lg:h4 mb-1 mx-2 md:ml-8 lg:w-5/6">
+          <Box
+            className="p-2 h5 mb-1 mx-2 md:ml-8 xl:w-5/6 "
+            sx={{ color: theme.palette.secondary.main }}
+          >
             <div>
               <p>คอร์ส {course.amount} ครั้ง</p>
             </div>
@@ -107,7 +95,7 @@ function CourseDetail({ data }) {
               <p>{course.duration} ชั่วโมง</p>
               <p>{course.totalPrice} บาท</p>
             </div>
-          </div>
+          </Box>
         </div>
       </main>
       <footer className="fixed font-noto bottom-0 inset-x-0 flex justify-between shadow-black/10 shadow-3xl bg-white">
@@ -129,3 +117,34 @@ function CourseDetail({ data }) {
 }
 
 export default CourseDetail;
+
+export async function getStaticPaths() {
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
+
+  // Call an external API endpoint to get courses
+  const res = await fetch("https://olive-service-api.vercel.app/course");
+  const courses = await res.json();
+
+  const paths = courses.map((course) => ({
+    params: { id: course._id },
+  }));
+  // { fallback: false } means other routes should 404
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const courseId = params.id;
+  const res = await fetch(
+    `https://olive-service-api.vercel.app/course/${courseId}`
+  );
+  const course = await res.json();
+
+  return {
+    props: { course },
+  };
+}

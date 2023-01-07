@@ -23,6 +23,8 @@ export default {
     background: {
       main: "#ffffff",
       lightgrey: "#f8f8f8",
+      base: "#fdfff5",
+      gray: "#f0f1f2"
     },
   
     text: {
@@ -52,8 +54,8 @@ export default {
     },
   
     secondary: {
-      main: "#7b809a",
-      focus: "#8f93a9",
+      main: "#005844",
+      focus: "#005844",
     },
   
     info: {

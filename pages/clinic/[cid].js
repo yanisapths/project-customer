@@ -6,9 +6,11 @@ import Banner from "../../components/Banner";
 import { useRouter } from "next/router";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ListView from "./view/ListView";
+import { useTheme } from "@mui/material/styles";
 
 function Clinic({ data, courses }) {
   const router = useRouter();
+  const theme = useTheme();
   const { cid, clinic_name, owner_id } = router.query;
 
   const handleClick = (e) => {
@@ -26,7 +28,7 @@ function Clinic({ data, courses }) {
   return (
     <div>
       <Head>
-        <title>Olive | Happy places for Elders</title>
+        <title>Olive | Happybody</title>
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
@@ -75,7 +77,7 @@ function Clinic({ data, courses }) {
           <p className="mt-2 pl-4 h5">{data.owner}</p>
         </div>
         <ListView
-          className="overflow-scroll scrollbar-hide "
+          className="overflow-scroll scrollbar-hide"
           data={data}
           courses={courses}
         />

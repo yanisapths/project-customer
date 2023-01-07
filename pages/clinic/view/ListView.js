@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import Tabs from "../../../components/Tabs";
 import { useTheme } from "@mui/material/styles";
 import CourseListView from "./CourseListView";
@@ -13,7 +11,7 @@ const reviews = [
   },
 ];
 
-function ListView({ courses }) {
+function ListView({ data, courses }) {
   const theme = useTheme();
   const [selected, setSelected] = useState("");
   const [view, setView] = useState([]);
@@ -60,7 +58,7 @@ function ListView({ courses }) {
           </div>
         ))}
       </section>
-      <div className="pt-4 md:grid md:grid-cols-3">
+      <div className="pt-4  lg:grid lg:grid-cols-2  xl:grid xl:grid-cols-3 px-4 pb-8 space-y-4 lg:space-y-0 xl:space-y-0 gap-10">
         {selected == "reviews"
           ? view?.map(({ id, customerName, comments }) => (
               <div className="mx-4 space-y-4" key={id}>
@@ -78,6 +76,7 @@ function ListView({ courses }) {
               }) => (
                 <div key={_id}>
                   <CourseListView
+                    data={data}
                     key={_id}
                     _id={_id}
                     courseName={courseName}
