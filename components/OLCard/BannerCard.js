@@ -10,8 +10,8 @@ function BannerCard({ courseName, procedures }) {
   );
 
   return (
-    <div>
-      <p className="h4 pt-6 p-4 pb-2 font-mitr text-[#005844]">{courseName}</p>
+    <div className="px-4 xl:px-8">
+      <p className="h4 pt-6 p-4 pb-2 font-mitr text-[#005844] truncate">{courseName}</p>
       {procedures ? (
         <p className="pb-4 px-4 pr-24 tracking-wide body1 text-[#005844] truncate">
           {procedureList}

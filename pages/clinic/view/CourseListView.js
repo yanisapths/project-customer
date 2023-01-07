@@ -21,7 +21,7 @@ function CourseListView({
   return (
     <>
       <Box
-        className="cursor-pointer rounded-3xl shadow-xl"
+        className="cursor-pointer rounded-2xl shadow-xl pb-6 mx-auto overflow-x-auto"
         sx={{ bgcolor: theme.palette.background.base }}
         onClick={() =>
           router.push({
@@ -42,17 +42,16 @@ function CourseListView({
           totalPrice={totalPrice}
           procedures={procedures}
         />
-        <div className="flex space-x-2 px-2 pb-6">
+        <div className="flex space-x-2 px-6 lg:px-10 pb-6 xl:px-10">
           <SimpleChip prefix="ราคา" text={totalPrice} quantify="บาท" />
           <SimpleChip text={duration} quantify="ชั่วโมง" />
           <SimpleChip text={amount} quantify="ครั้ง" />
         </div>
-        <Box
-          sx={{ bgcolor: theme.palette.primary.main }}
-          className="px-16 py-4 bottom-0 text-center rounded-3xl shadow-lg"
-        >
-          <p className="body2 text-white">ดูเพิ่มเติม</p>
-        </Box>
+        <div className="flex justify-end px-4 md:px-8">
+          <div className="py-2 w-24 ml-10 text-white text-center rounded-3xl bg-[#7bc6b7] hover:bg-[#7bc6b7]/80">
+            <p className="body2 ">ดูเพิ่มเติม</p>
+          </div>
+        </div>
       </Box>
     </>
   );

@@ -38,12 +38,12 @@ function Clinic({ data, courses }) {
         ) : (
           <Banner imageUrl="/tree.jpg" />
         )}
-        <div className="space-x-3 px-6 lg:pt-12">
+        <div className="space-x-3 px-8 lg:px-24 lg:pt-12">
           <h2 className="md:mt-0 mt-4 text-3xl md:text-6xl font-bold text-[#005844]">
             {data.clinic_name}
           </h2>
         </div>
-        <div className="px-6">
+        <div className="px-8 lg:px-24">
           <p className="mt-3 text-lg text-[#005844]">{data.description}</p>
 
           <h2 className="mt-6 h6 tracking-wide text-gray-500 uppercase">
@@ -89,8 +89,8 @@ function Clinic({ data, courses }) {
             onClick={handleClick}
             className="cursor-pointer inline-flex items-center buttonPrimary"
           >
-            <AddCircleIcon className="h-8 w-8 lg:h-10 lg:w-10" />
-            <span className="text-xl pl-3 font-medium lg:text-2xl">
+            <AddCircleIcon className="h-8 w-8 xl:h-10 xl:w-10" />
+            <span className="text-xl pl-3 font-medium xl:text-2xl text-center">
               {" "}
               จองนัด{" "}
             </span>
