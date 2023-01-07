@@ -51,6 +51,7 @@ export default {
       main: "#7bc6b7",
       light: "#acded5",
       focus: "#005844",
+      dark: "#005844",
     },
   
     secondary: {

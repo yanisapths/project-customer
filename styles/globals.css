@@ -76,7 +76,7 @@ a {
     transform duration-100 ease-out cursor-pointer;
   }
   .bottomNav {
-    @apply w-full block py-5 px-3 text-center transition 
+    @apply w-full block py-5 px-3 text-center transition
     transform duration-100 ease-out cursor-pointer;
   }
   .footer-icon {
@@ -87,6 +87,6 @@ a {
   }
   .buttonPrimary {
     @apply rounded-full border border-[#7BC6B7] bg-[#7BC6B7] px-28 py-4 shadow-lg text-white hover:bg-transparent hover:text-[#7BC6B7] focus:outline-none focus:ring active:text-[#7BC6B7]
-    lg:w-6/12 lg:px-96 lg:py-6;
+     xl:px-96 xl:py-6 lg:px-60; 
   }
 }

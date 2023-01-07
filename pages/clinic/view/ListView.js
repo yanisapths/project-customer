@@ -43,7 +43,7 @@ function ListView({ data, courses }) {
 
   return (
     <>
-      <section className="pt-10 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-6 md:ml-8 md:w-4/6 border-black/20  border-b-[1px] border-dashed">
+      <section className="pt-10 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-10 lg:mx-24 md:ml-8 md:w-4/6 border-black/20  border-b-[1px] border-dashed">
         {list.map((item) => (
           <div key={item.id} className="inline-flex">
             <div className="relative block">
@@ -58,7 +58,7 @@ function ListView({ data, courses }) {
           </div>
         ))}
       </section>
-      <div className="pt-4  lg:grid lg:grid-cols-2  xl:grid xl:grid-cols-3 px-4 pb-8 space-y-4 lg:space-y-0 xl:space-y-0 gap-10">
+      <div className="lg:mx-20 pt-6 mx-4 px-1 md:mx-auto overflow-x-auto md:grid md:grid-cols-1 lg:grid lg:grid-cols-1  xl:grid xl:grid-cols-3 pb-8 space-y-6 lg:space-y-0 xl:space-y-0 gap-10">
         {selected == "reviews"
           ? view?.map(({ id, customerName, comments }) => (
               <div className="mx-4 space-y-4" key={id}>
