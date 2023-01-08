@@ -17,7 +17,7 @@ export default function Home({ session, data }) {
       <main className="main h-screen overflow-scroll scrollbar-hide">
         <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 lg:pt-12"></div>
         <section className=" py-4 flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 "></section>
-        <div className="flex flex-col md:grid md:grid-cols-3 md:space-x-8">
+        <div className="flex flex-col  lg:grid lg:grid-cols-2 lg:space-x-4 xl:grid xl:grid-cols-3 xl:space-x-8">
           {data?.map(
             ({
               _id,

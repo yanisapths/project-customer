@@ -19,7 +19,7 @@ module.exports = withTM(
       "firebasestorage.googleapis.com",
       "www.pngplay.com","upload.wikimedia.org","www.freepnglogos.com","iconape.com",
       "ontariocaregiver.ca",
-      "*"
+      "southamptonprimarycare.org.uk","bodyperformance.co.uk","www.figma.com","static.wixstatic.com"
     ],
   
     },
