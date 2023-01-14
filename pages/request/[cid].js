@@ -49,6 +49,12 @@ function Request(props) {
       course: event.target.course.value,
       description: event.target.description.value,
       owner_id: query.owner_id,
+      location:
+        event.target.address +
+        event.target.province +
+        event.target.district +
+        event.target.subDistrict +
+        event.target.postalCode,
     };
 
     let axiosConfig = {
@@ -112,6 +118,8 @@ function Request(props) {
       "appointmentDate",
       "appointmentTime",
       "description",
+      "address",
+      "subDistrict",
     ])
   );
 
@@ -142,104 +150,142 @@ function Request(props) {
               onSubmit={handleSubmit}
             >
               <div className="relative">
+                <div className="mx-auto space-x-4 grid grid-cols-2 pb-8">
+                  <Grid item xs={6} md={8}>
+                    <InputLabel shrink style={{ fontSize: "24px" }}>
+                      ชื่อจริง
+                    </InputLabel>
+                    <FormControl
+                      sx={{ width: "100%" }}
+                      variant="outlined"
+                      required
+                    >
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <TextField
+                              id="outlined-textarea"
+                              placeholder="ใส่ชื่อจริง"
+                              {...register("firstName", { required: true })}
+                              onChange={onChange}
+                              multiline
+                            />
+                          </>
+                        )}
+                        name="firstName"
+                        control={control}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={6} md={8}>
+                    <InputLabel shrink style={{ fontSize: "24px" }}>
+                      นามสกุล
+                    </InputLabel>
+                    <FormControl
+                      sx={{ width: "100%" }}
+                      variant="outlined"
+                      required
+                    >
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <TextField
+                              id="outlined-textarea"
+                              placeholder="ใส่นามสกุล"
+                              {...register("lastName", { required: true })}
+                              onChange={onChange}
+                              multiline
+                            />
+                          </>
+                        )}
+                        name="lastName"
+                        control={control}
+                      />
+                    </FormControl>
+                  </Grid>
+                </div>
+                <div className="mx-auto space-x-4 grid grid-cols-2 pb-8">
+                  <Grid item xs={6} md={8}>
+                    <InputLabel shrink style={{ fontSize: "24px" }}>
+                      ชื่อเล่น
+                    </InputLabel>
+                    <FormControl
+                      sx={{ width: "100%" }}
+                      variant="outlined"
+                      required
+                    >
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <TextField
+                              id="outlined-textarea"
+                              placeholder="ใส่ชื่อเล่น"
+                              {...register("nickname", { required: true })}
+                              onChange={onChange}
+                              multiline
+                            />
+                          </>
+                        )}
+                        name="nickname"
+                        control={control}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={6} md={8}>
+                    <InputLabel shrink style={{ fontSize: "24px" }}>
+                      เบอร์ติดต่อ
+                    </InputLabel>
+                    <FormControl
+                      sx={{ width: "100%" }}
+                      variant="outlined"
+                      required
+                    >
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <TextField
+                              id="outlined-textarea"
+                              placeholder="089564546"
+                              {...register("phoneNumber", { required: true })}
+                              onChange={onChange}
+                              multiline
+                            />
+                          </>
+                        )}
+                        name="phoneNumber"
+                        control={control}
+                      />
+                    </FormControl>
+                  </Grid>
+                </div>
+
                 <Grid item xs={6} md={8} className="pb-8">
-                  <InputLabel shrink style={{ fontSize: "24px" }}>
-                    ชื่อจริง
-                  </InputLabel>
                   <FormControl
                     sx={{ width: "100%" }}
                     variant="outlined"
                     required
                   >
                     <Controller
-                      render={({ field: { onChange, value } }) => (
+                      render={({ field: { field, onChange, value } }) => (
                         <>
-                          <TextField
-                            id="outlined-textarea"
-                            placeholder="ใส่ชื่อจริง"
-                            {...register("firstName", { required: true })}
-                            onChange={onChange}
-                            multiline
-                          />
+                          <InputLabel id="course">คอร์ส</InputLabel>
+                          <Select
+                            {...field}
+                            {...register("course", { required: true })}
+                          >
+                            {course.map((input, key) => (
+                              <MenuItem
+                                onChange={onChange}
+                                key={input.id}
+                                value={input.courseName}
+                              >
+                                {input.courseName}
+                              </MenuItem>
+                            ))}
+                          </Select>
                         </>
                       )}
-                      name="firstName"
-                      control={control}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={6} md={8} className="pb-8">
-                  <InputLabel shrink style={{ fontSize: "24px" }}>
-                    นามสกุล
-                  </InputLabel>
-                  <FormControl
-                    sx={{ width: "100%" }}
-                    variant="outlined"
-                    required
-                  >
-                    <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <TextField
-                            id="outlined-textarea"
-                            placeholder="ใส่นามสกุล"
-                            {...register("lastName", { required: true })}
-                            onChange={onChange}
-                            multiline
-                          />
-                        </>
-                      )}
-                      name="lastName"
-                      control={control}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={6} md={8} className="pb-8">
-                  <InputLabel shrink style={{ fontSize: "24px" }}>
-                    ชื่อเล่น
-                  </InputLabel>
-                  <FormControl
-                    sx={{ width: "100%" }}
-                    variant="outlined"
-                    required
-                  >
-                    <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <TextField
-                            id="outlined-textarea"
-                            placeholder="ใส่ชื่อเล่น"
-                            {...register("nickname", { required: true })}
-                            onChange={onChange}
-                            multiline
-                          />
-                        </>
-                      )}
-                      name="nickname"
-                      control={control}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={6} md={8} className="pb-8">
-                  <InputLabel id="phoneNumber">เบอร์ติดต่อ</InputLabel>
-                  <FormControl
-                    sx={{ width: "100%" }}
-                    variant="outlined"
-                    required
-                  >
-                    <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <TextField
-                            id="outlined-textarea"
-                            placeholder="089564546"
-                            {...register("phoneNumber", { required: true })}
-                            onChange={onChange}
-                            multiline
-                          />
-                        </>
-                      )}
-                      name="phoneNumber"
+                      name="course"
                       control={control}
                     />
                   </FormControl>
@@ -275,75 +321,165 @@ function Request(props) {
                     />
                   </FormControl>
                 </Grid>
-                <Grid item xs={6} md={8} className="pb-8">
-                  <FormControl
-                    sx={{ width: "100%" }}
-                    variant="outlined"
-                    required
-                  >
-                    <Controller
-                      render={({ field: { field, onChange, value } }) => (
-                        <>
-                          <InputLabel id="course">คอร์ส</InputLabel>
-                          <Select
-                            {...field}
-                            {...register("course", { required: true })}
-                          >
-                            {course.map((input, key) => (
-                              <MenuItem
-                                onChange={onChange}
-                                key={input.id}
-                                value={input.courseName}
-                              >
-                                {input.courseName}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </>
-                      )}
-                      name="course"
-                      control={control}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={6} md={12} className="pb-8">
+                <Grid container direction="row" className="pb-4">
                   <InputLabel shrink style={{ fontSize: "24px" }}>
-                    วันที่ต้องการจอง
+                    กรอกที่อยู่
                   </InputLabel>
-                  <FormControl fullWidth>
-                    <Controller
-                      control={control}
-                      name="appointmentDate"
-                      render={({ field: { onChange, value } }) => (
-                        <ReactDatePicker onChange={onChange} selected={value} />
-                      )}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={6} md={12} className="pb-8">
-                  <InputLabel shrink style={{ fontSize: "24px" }}>
-                    เวลา
-                  </InputLabel>
-                  <FormControl fullWidth>
+                  <FormControl sx={{ width: "100%" }} variant="standard">
                     <Controller
                       render={({ field: { onChange, value } }) => (
                         <>
-                          <DatePicker
+                          <TextField
+                            id="outlined-basic"
+                            label="ที่อยู่ (บ้านเลขที่, หมู่, ตรอกซอย, ถนน)"
+                            variant="outlined"
                             onChange={onChange}
-                            selected={value}
-                            showTimeSelect
-                            showTimeSelectOnly
-                            timeIntervals={15}
-                            timeCaption="Time"
-                            dateFormat="h:mm aa"
                           />
                         </>
                       )}
-                      name="appointmentTime"
+                      name="address"
                       control={control}
+                      rules={{
+                        required: false,
+                      }}
                     />
                   </FormControl>
                 </Grid>
+                <div className="mx-auto space-x-4 grid grid-cols-2 pb-4">
+                  <FormControl variant="standard">
+                    <Controller
+                      render={({ field: { onChange, value } }) => (
+                        <>
+                          <TextField
+                            xs={2}
+                            id="outlined-basic"
+                            label="จังหวัด"
+                            variant="outlined"
+                            onChange={onChange}
+                          />
+                        </>
+                      )}
+                      name="province"
+                      control={control}
+                      rules={{
+                        required: false,
+                      }}
+                    />
+                  </FormControl>
+                  <FormControl variant="standard">
+                    <Controller
+                      render={({ field: { onChange, value } }) => (
+                        <>
+                          <TextField
+                            xs={2}
+                            id="outlined-basic"
+                            label="เขต/อำเภอ"
+                            variant="outlined"
+                            onChange={onChange}
+                          />
+                        </>
+                      )}
+                      name="district"
+                      control={control}
+                      rules={{
+                        required: false,
+                      }}
+                    />
+                  </FormControl>
+                </div>
+                <div className="mx-auto space-x-4 grid grid-cols-2 pb-4">
+                  <FormControl variant="standard">
+                    <Controller
+                      render={({ field: { onChange, value } }) => (
+                        <>
+                          <TextField
+                            xs={2}
+                            id="outlined-basic"
+                            label="แขวง/ตำบล"
+                            variant="outlined"
+                            onChange={onChange}
+                          />
+                        </>
+                      )}
+                      name="subDistrict"
+                      control={control}
+                      rules={{
+                        required: false,
+                      }}
+                    />
+                  </FormControl>
+                  <FormControl variant="standard">
+                    <Controller
+                      render={({ field: { onChange, value } }) => (
+                        <>
+                          <TextField
+                            xs={2}
+                            id="outlined-basic"
+                            label="รหัสไปรษณีย์"
+                            variant="outlined"
+                            onChange={onChange}
+                          />
+                        </>
+                      )}
+                      name="postalCode"
+                      control={control}
+                      rules={{
+                        required: false,
+                      }}
+                    />
+                  </FormControl>
+                </div>
+
+                <div className="mx-auto space-x-4 grid grid-cols-2">
+                  <Grid item xs={4} className="pb-8">
+                    <InputLabel shrink style={{ fontSize: "24px" }}>
+                      วันที่ต้องการจอง
+                    </InputLabel>
+                    <FormControl>
+                      <Controller
+                        control={control}
+                        name="appointmentDate"
+                        render={({ field: { onChange, value } }) => (
+                          <ReactDatePicker
+                            className="rounded-sm outline-none border-2 border-black/25
+                         w-full px-4 py-2 focus:border-[#7bc6b7]
+                         hover:border-black"
+                            onChange={onChange}
+                            selected={value}
+                          />
+                        )}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={4} className="pb-8">
+                    <InputLabel shrink style={{ fontSize: "24px" }}>
+                      เวลา
+                    </InputLabel>
+                    <FormControl>
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <DatePicker
+                              onChange={onChange}
+                              className="rounded-sm outline-none border-2 border-black/25
+                          w-full px-4 py-2 focus:border-[#7bc6b7]
+                          hover:border-black"
+                              selected={value}
+                              showTimeSelect
+                              showTimeSelectOnly
+                              timeIntervals={15}
+                              timeCaption="Time"
+                              dateFormat="h:mm aa"
+                            />
+                          </>
+                        )}
+                        name="appointmentTime"
+                        control={control}
+                      />
+                    </FormControl>
+                  </Grid>
+                </div>
+
                 <Grid item xs={6} md={12} className="pb-8">
                   <InputLabel shrink style={{ fontSize: "24px" }}>
                     รายละเอียดเพิ่มเติม
@@ -355,7 +491,7 @@ function Request(props) {
                           <TextField
                             id="outlined-textarea"
                             placeholder="..."
-                            {...register("description", { required: true })}
+                            {...register("description", { required: false })}
                             onChange={onChange}
                             multiline
                           />
