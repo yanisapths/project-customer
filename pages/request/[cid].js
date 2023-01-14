@@ -14,6 +14,15 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import ReactDatePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import EditLocationIcon from "@mui/icons-material/EditLocation";
+import { useTheme } from "@mui/material/styles";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -34,6 +43,18 @@ function Request(props) {
   const [loading, setLoading] = useState();
   const { query } = useRouter();
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason !== "backdropClick") {
+      setOpen(false);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -290,146 +311,201 @@ function Request(props) {
                     />
                   </FormControl>
                 </Grid>
-                <Grid item xs={6} md={8} className="pb-8">
-                  <FormControl
-                    sx={{ width: "100%" }}
-                    variant="outlined"
-                    required
-                  >
-                    <Controller
-                      render={({ field: { field, onChange, value } }) => (
-                        <>
-                          <InputLabel id="place">สถานที่</InputLabel>
-                          <Select
-                            {...field}
-                            {...register("place", { required: true })}
-                          >
-                            {place.map((input, key) => (
-                              <MenuItem
-                                key={input.id}
-                                value={input.label}
-                                onChange={onChange}
-                              >
-                                {input.label}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </>
-                      )}
-                      name="place"
-                      control={control}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid container direction="row" className="pb-4">
-                  <InputLabel shrink style={{ fontSize: "24px" }}>
-                    กรอกที่อยู่
-                  </InputLabel>
-                  <FormControl sx={{ width: "100%" }} variant="standard">
-                    <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <TextField
-                            id="outlined-basic"
-                            label="ที่อยู่ (บ้านเลขที่, หมู่, ตรอกซอย, ถนน)"
-                            variant="outlined"
-                            onChange={onChange}
-                          />
-                        </>
-                      )}
-                      name="address"
-                      control={control}
-                      rules={{
-                        required: false,
+                <div className="mx-auto space-x-4 flex pb-8">
+                  <Grid item xs={6} md={8} className="w-full">
+                    <FormControl
+                      sx={{ width: "100%" }}
+                      variant="outlined"
+                      required
+                    >
+                      <Controller
+                        render={({ field: { field, onChange, value } }) => (
+                          <>
+                            <InputLabel id="place">สถานที่</InputLabel>
+                            <Select
+                              {...field}
+                              {...register("place", { required: true })}
+                            >
+                              {place.map((input, key) => (
+                                <MenuItem
+                                  key={input.id}
+                                  value={input.label}
+                                  onChange={onChange}
+                                >
+                                  {input.label}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </>
+                        )}
+                        name="place"
+                        control={control}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <div className="pt-1">
+                    <Button
+                      onClick={handleClickOpen}
+                      variant="contained"
+                      size="large"
+                      endIcon={<EditLocationIcon />}
+                      sx={{
+                        backgroundColor: theme.palette.primary.light,
+                        color: theme.palette.common.black,
+                        fontSize: 18,
+                        "&:hover": {
+                          backgroundColor: theme.palette.primary.main,
+                          borderColor: theme.palette.primary.main,
+                          boxShadow: "none",
+                          color: theme.palette.common.white,
+                        },
                       }}
-                    />
-                  </FormControl>
-                </Grid>
-                <div className="mx-auto space-x-4 grid grid-cols-2 pb-4">
-                  <FormControl variant="standard">
-                    <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <TextField
-                            xs={2}
-                            id="outlined-basic"
-                            label="จังหวัด"
-                            variant="outlined"
-                            onChange={onChange}
-                          />
-                        </>
-                      )}
-                      name="province"
-                      control={control}
-                      rules={{
-                        required: false,
-                      }}
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <TextField
-                            xs={2}
-                            id="outlined-basic"
-                            label="เขต/อำเภอ"
-                            variant="outlined"
-                            onChange={onChange}
-                          />
-                        </>
-                      )}
-                      name="district"
-                      control={control}
-                      rules={{
-                        required: false,
-                      }}
-                    />
-                  </FormControl>
-                </div>
-                <div className="mx-auto space-x-4 grid grid-cols-2 pb-4">
-                  <FormControl variant="standard">
-                    <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <TextField
-                            xs={2}
-                            id="outlined-basic"
-                            label="แขวง/ตำบล"
-                            variant="outlined"
-                            onChange={onChange}
-                          />
-                        </>
-                      )}
-                      name="subDistrict"
-                      control={control}
-                      rules={{
-                        required: false,
-                      }}
-                    />
-                  </FormControl>
-                  <FormControl variant="standard">
-                    <Controller
-                      render={({ field: { onChange, value } }) => (
-                        <>
-                          <TextField
-                            xs={2}
-                            id="outlined-basic"
-                            label="รหัสไปรษณีย์"
-                            variant="outlined"
-                            onChange={onChange}
-                          />
-                        </>
-                      )}
-                      name="postalCode"
-                      control={control}
-                      rules={{
-                        required: false,
-                      }}
-                    />
-                  </FormControl>
+                    >
+                      กรอกที่อยู่
+                    </Button>
+                  </div>
                 </div>
 
+                <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
+                  <DialogTitle
+                    sx={{
+                      color: theme.palette.primary.main,
+                      fontSize: 24,
+                      mx: 5,
+                      mt: 2,
+                    }}
+                  >
+                    กรอกที่อยู่
+                  </DialogTitle>
+                  <DialogContent>
+                    <Box
+                      component="form"
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        m: 1,
+                        minWidth: 120,
+                      }}
+                    >
+                      <FormControl
+                        sx={{
+                          width: "100%",
+                          pb: 2,
+                          px: { md: 4 },
+                        }}
+                        variant="outlined"
+                        required
+                      >
+                        <Controller
+                          render={({ field: { onChange, value } }) => (
+                            <>
+                              <TextField
+                                id="outlined-basic"
+                                label="ที่อยู่ (บ้านเลขที่, หมู่, ตรอกซอย, ถนน)"
+                                variant="outlined"
+                                onChange={onChange}
+                              />
+                            </>
+                          )}
+                          name="address"
+                          control={control}
+                          rules={{
+                            required: true,
+                          }}
+                        />
+                      </FormControl>
+
+                      <div className="mx-auto space-x-4 grid grid-cols-2 pb-4">
+                        <FormControl variant="standard">
+                          <Controller
+                            render={({ field: { onChange, value } }) => (
+                              <>
+                                <TextField
+                                  xs={2}
+                                  id="outlined-basic"
+                                  label="จังหวัด"
+                                  variant="outlined"
+                                  onChange={onChange}
+                                />
+                              </>
+                            )}
+                            name="province"
+                            control={control}
+                            rules={{
+                              required: true,
+                            }}
+                          />
+                        </FormControl>
+                        <FormControl variant="standard">
+                          <Controller
+                            render={({ field: { onChange, value } }) => (
+                              <>
+                                <TextField
+                                  xs={2}
+                                  id="outlined-basic"
+                                  label="เขต/อำเภอ"
+                                  variant="outlined"
+                                  onChange={onChange}
+                                />
+                              </>
+                            )}
+                            name="district"
+                            control={control}
+                            rules={{
+                              required: true,
+                            }}
+                          />
+                        </FormControl>
+                      </div>
+                      <div className="mx-auto space-x-4 grid grid-cols-2">
+                        <FormControl variant="standard">
+                          <Controller
+                            render={({ field: { onChange, value } }) => (
+                              <>
+                                <TextField
+                                  xs={2}
+                                  id="outlined-basic"
+                                  label="แขวง/ตำบล"
+                                  variant="outlined"
+                                  onChange={onChange}
+                                />
+                              </>
+                            )}
+                            name="subDistrict"
+                            control={control}
+                            rules={{
+                              required: true,
+                            }}
+                          />
+                        </FormControl>
+                        <FormControl variant="standard">
+                          <Controller
+                            render={({ field: { onChange, value } }) => (
+                              <>
+                                <TextField
+                                  xs={2}
+                                  id="outlined-basic"
+                                  label="รหัสไปรษณีย์"
+                                  variant="outlined"
+                                  onChange={onChange}
+                                />
+                              </>
+                            )}
+                            name="postalCode"
+                            control={control}
+                            rules={{
+                              required: true,
+                            }}
+                          />
+                        </FormControl>
+                      </div>
+                    </Box>
+                  </DialogContent>
+                  <DialogActions sx={{ mx: 4, mb: 4 }}>
+                    <Button onClick={handleClose}>ยกเลิก</Button>
+                    <Button onClick={handleClose}>ตกลง</Button>
+                  </DialogActions>
+                </Dialog>
                 <div className="mx-auto space-x-4 grid grid-cols-2">
                   <Grid item xs={4} className="pb-8">
                     <InputLabel shrink style={{ fontSize: "24px" }}>
