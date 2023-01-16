@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -9,19 +9,11 @@ import { Controller, useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl, { useFormControl } from "@mui/material/FormControl";
+import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import ReactDatePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import EditLocationIcon from "@mui/icons-material/EditLocation";
 import { useTheme } from "@mui/material/styles";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -43,21 +35,15 @@ function Request(props) {
   const [loading, setLoading] = useState();
   const { query } = useRouter();
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const theme = useTheme();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason !== "backdropClick") {
-      setOpen(false);
-    }
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const location =
+      event.target.address.value +
+      event.target.province.value +
+      event.target.district.value +
+      event.target.subDistrict.value +
+      event.target.postalCode.value;
     const data = {
       firstName: event.target.firstName.value,
       lastName: event.target.lastName.value,
@@ -70,12 +56,7 @@ function Request(props) {
       course: event.target.course.value,
       description: event.target.description.value,
       owner_id: query.owner_id,
-      location:
-        event.target.address +
-        event.target.province +
-        event.target.district +
-        event.target.subDistrict +
-        event.target.postalCode,
+      location: location,
     };
 
     let axiosConfig = {
@@ -96,7 +77,7 @@ function Request(props) {
           `your appointment request has been sent to the clinic! 🎉`
         );
         router.push({
-          pathname: "/",
+          pathname: `/clinic/${query.cid}`,
         });
       })
       .catch((err) => {
@@ -343,169 +324,131 @@ function Request(props) {
                       />
                     </FormControl>
                   </Grid>
-                  <div className="pt-1">
-                    <Button
-                      onClick={handleClickOpen}
-                      variant="contained"
-                      size="large"
-                      endIcon={<EditLocationIcon />}
-                      sx={{
-                        backgroundColor: theme.palette.primary.light,
-                        color: theme.palette.common.black,
-                        fontSize: 18,
-                        "&:hover": {
-                          backgroundColor: theme.palette.primary.main,
-                          borderColor: theme.palette.primary.main,
-                          boxShadow: "none",
-                          color: theme.palette.common.white,
-                        },
-                      }}
-                    >
-                      กรอกที่อยู่
-                    </Button>
-                  </div>
                 </div>
-
-                <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-                  <DialogTitle
+                <div>
+                  <p className="h5 text-[#b1c2be]">กรอกที่อยู่</p>
+                </div>
+                <Grid item xs={6} md={8} className="pb-8">
+                  <FormControl
                     sx={{
-                      color: theme.palette.primary.main,
-                      fontSize: 24,
-                      mx: 5,
-                      mt: 2,
+                      width: "100%",
+                      pb: 2,
+                      pt: 2,
                     }}
+                    variant="outlined"
+                    required
                   >
-                    กรอกที่อยู่
-                  </DialogTitle>
-                  <DialogContent>
-                    <Box
-                      component="form"
-                      sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        m: 1,
-                        minWidth: 120,
+                    <Controller
+                      render={({ field: { onChange, value } }) => (
+                        <>
+                          <TextField
+                            id="outlined-basic"
+                            label="ที่อยู่ (บ้านเลขที่, หมู่, ตรอกซอย, ถนน)"
+                            variant="outlined"
+                            onChange={onChange}
+                            value={value}
+                            {...register("address", { required: false })}
+                          />
+                        </>
+                      )}
+                      name="address"
+                      control={control}
+                      rules={{
+                        required: false,
                       }}
-                    >
-                      <FormControl
-                        sx={{
-                          width: "100%",
-                          pb: 2,
-                          px: { md: 4 },
-                        }}
-                        variant="outlined"
-                        required
-                      >
-                        <Controller
-                          render={({ field: { onChange, value } }) => (
-                            <>
-                              <TextField
-                                id="outlined-basic"
-                                label="ที่อยู่ (บ้านเลขที่, หมู่, ตรอกซอย, ถนน)"
-                                variant="outlined"
-                                onChange={onChange}
-                              />
-                            </>
-                          )}
-                          name="address"
-                          control={control}
-                          rules={{
-                            required: true,
-                          }}
-                        />
-                      </FormControl>
+                    />
+                  </FormControl>
 
-                      <div className="mx-auto space-x-4 grid grid-cols-2 pb-4">
-                        <FormControl variant="standard">
-                          <Controller
-                            render={({ field: { onChange, value } }) => (
-                              <>
-                                <TextField
-                                  xs={2}
-                                  id="outlined-basic"
-                                  label="จังหวัด"
-                                  variant="outlined"
-                                  onChange={onChange}
-                                />
-                              </>
-                            )}
-                            name="province"
-                            control={control}
-                            rules={{
-                              required: true,
-                            }}
-                          />
-                        </FormControl>
-                        <FormControl variant="standard">
-                          <Controller
-                            render={({ field: { onChange, value } }) => (
-                              <>
-                                <TextField
-                                  xs={2}
-                                  id="outlined-basic"
-                                  label="เขต/อำเภอ"
-                                  variant="outlined"
-                                  onChange={onChange}
-                                />
-                              </>
-                            )}
-                            name="district"
-                            control={control}
-                            rules={{
-                              required: true,
-                            }}
-                          />
-                        </FormControl>
-                      </div>
-                      <div className="mx-auto space-x-4 grid grid-cols-2">
-                        <FormControl variant="standard">
-                          <Controller
-                            render={({ field: { onChange, value } }) => (
-                              <>
-                                <TextField
-                                  xs={2}
-                                  id="outlined-basic"
-                                  label="แขวง/ตำบล"
-                                  variant="outlined"
-                                  onChange={onChange}
-                                />
-                              </>
-                            )}
-                            name="subDistrict"
-                            control={control}
-                            rules={{
-                              required: true,
-                            }}
-                          />
-                        </FormControl>
-                        <FormControl variant="standard">
-                          <Controller
-                            render={({ field: { onChange, value } }) => (
-                              <>
-                                <TextField
-                                  xs={2}
-                                  id="outlined-basic"
-                                  label="รหัสไปรษณีย์"
-                                  variant="outlined"
-                                  onChange={onChange}
-                                />
-                              </>
-                            )}
-                            name="postalCode"
-                            control={control}
-                            rules={{
-                              required: true,
-                            }}
-                          />
-                        </FormControl>
-                      </div>
-                    </Box>
-                  </DialogContent>
-                  <DialogActions sx={{ mx: 4, mb: 4 }}>
-                    <Button onClick={handleClose}>ยกเลิก</Button>
-                    <Button onClick={handleClose}>ตกลง</Button>
-                  </DialogActions>
-                </Dialog>
+                  <div className="mx-auto space-x-4 grid grid-cols-2 pb-4">
+                    <FormControl variant="standard">
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <TextField
+                              xs={2}
+                              id="outlined-basic"
+                              label="จังหวัด"
+                              variant="outlined"
+                              onChange={onChange}
+                              {...register("province", { required: true })}
+                            />
+                          </>
+                        )}
+                        name="province"
+                        control={control}
+                        rules={{
+                          required: false,
+                        }}
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <TextField
+                              xs={2}
+                              id="outlined-basic"
+                              label="เขต/อำเภอ"
+                              variant="outlined"
+                              onChange={onChange}
+                              {...register("district", { required: false })}
+                            />
+                          </>
+                        )}
+                        name="district"
+                        control={control}
+                        rules={{
+                          required: false,
+                        }}
+                      />
+                    </FormControl>
+                  </div>
+                  <div className="mx-auto space-x-4 grid grid-cols-2">
+                    <FormControl variant="standard">
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <TextField
+                              xs={2}
+                              id="outlined-basic"
+                              label="แขวง/ตำบล"
+                              variant="outlined"
+                              onChange={onChange}
+                              {...register("subDistrict", { required: false })}
+                            />
+                          </>
+                        )}
+                        name="subDistrict"
+                        control={control}
+                        rules={{
+                          required: false,
+                        }}
+                      />
+                    </FormControl>
+                    <FormControl variant="standard">
+                      <Controller
+                        render={({ field: { onChange, value } }) => (
+                          <>
+                            <TextField
+                              xs={2}
+                              id="outlined-basic"
+                              label="รหัสไปรษณีย์"
+                              variant="outlined"
+                              onChange={onChange}
+                              {...register("postalCode", { required: false })}
+                            />
+                          </>
+                        )}
+                        name="postalCode"
+                        control={control}
+                        rules={{
+                          required: false,
+                        }}
+                      />
+                    </FormControl>
+                  </div>
+                </Grid>
+
                 <div className="mx-auto space-x-4 grid grid-cols-2">
                   <Grid item xs={4} className="pb-8">
                     <InputLabel shrink style={{ fontSize: "24px" }}>
