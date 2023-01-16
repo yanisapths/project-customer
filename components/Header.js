@@ -1,11 +1,9 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import { Menu, Transition } from "@headlessui/react";
 import { SearchIcon, GlobeAltIcon, UsersIcon } from "@heroicons/react/solid";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
 import { useRouter } from "next/dist/client/router";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -13,15 +11,7 @@ import Link from "next/link";
 function Header({ placeholder }) {
   const { data: session } = useSession();
   const [searchInput, setSearchInput] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [noOfGuests, setNoOfGuests] = useState(1);
   const router = useRouter();
-
-  const handleSelect = (ranges) => {
-    setStartDate(ranges.selection.startDate);
-    setEndDate(ranges.selection.endDate);
-  };
 
   const resetInput = () => {
     setSearchInput("");
@@ -31,18 +21,9 @@ function Header({ placeholder }) {
     router.push({
       pathname: "search",
       query: {
-        location: searchInput,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        noOfGuests,
+        address: searchInput,
       },
     });
-  };
-
-  const selectionRange = {
-    startDate: startDate,
-    endDate: endDate,
-    key: "selection",
   };
 
   return (
@@ -70,16 +51,20 @@ function Header({ placeholder }) {
           onChange={(e) => setSearchInput(e.target.value)}
           className=" flex-grow pl-5 text-teal-900 bg-transparent outline-none border-none appearance-none focus:outline-none"
           type="text"
-          placeholder={placeholder || "ค้นหาคลีนิก"}
+          placeholder={placeholder || "ค้นหาคลินิกในจังหวัด..."}
         />
-        <SearchIcon className="hidden md:inline-flex h-8 bg-teal-500 text-white rounded-full p-2 cursor-pointer md:mx-2" />
+        <SearchIcon
+          onClick={search}
+          className="hidden md:inline-flex h-8 bg-[#7bc6b7] text-white rounded-full p-2 cursor-pointer md:mx-2"
+        />
       </div>
 
       {/* Right */}
       <div className="flex items-center space-x-4 justify-end text-teal-900">
         <Link href="https://daycare-portal.vercel.app/">
           <p className="hidden md:inline text-teal-900 cursor-pointer">
-            เป็นเจ้าของศูนย์ดูแล <GlobeAltIcon className="h-6  md:inline " />
+            เป็นเจ้าของคลิกนิกกายภาพ{" "}
+            <GlobeAltIcon className="h-6  md:inline " />
           </p>
         </Link>
 
@@ -133,7 +118,7 @@ function Header({ placeholder }) {
                         <button
                           onClick={signIn}
                           className={`${
-                            active ? "bg-teal-500 text-white" : "text-gray-900"
+                            active ? "bg-[#7bc6b7] text-white" : "text-gray-900"
                           } group flex rounded-md items-center w-full px-4 py-2 text-sm  md:text-lg`}
                         >
                           Sign In | Register
@@ -149,7 +134,7 @@ function Header({ placeholder }) {
                         <button
                           onClick={signOut}
                           className={`${
-                            active ? "bg-teal-500 text-white" : "text-gray-900"
+                            active ? "bg-[#7bc6b7] text-white" : "text-gray-900"
                           } group flex rounded-md items-center w-full px-4 py-2 text-sm md:text-lg`}
                         >
                           Sign Out
@@ -164,42 +149,20 @@ function Header({ placeholder }) {
         </Menu>
       </div>
       {searchInput && (
-        <div className="flex flex-col col-span-3 mx-auto">
-          <DateRangePicker
-            ranges={[selectionRange]}
-            minDate={new Date()}
-            rangeColors={["#7BC6B7"]}
-            onChange={handleSelect}
-          />
-          <div>
-            <div className="flex items-center border-b mb-4">
-              <h2 className="text-2xl flex-grow font-semibold text-teal-900">
-                จำนวนผู้ต้องการดูแล
-              </h2>
-
-              <UsersIcon className="h-5" />
-              <input
-                value={noOfGuests}
-                onChange={(e) => setNoOfGuests(e.target.value)}
-                type="number"
-                min={1}
-                className="w-12 pl-2 text-xl outline-none border-0  text-teal-600 font-semibold border-none appearance-none focus:outline-none "
-              />
-            </div>
-            <div className="flex">
-              <button
-                onClick={resetInput}
-                className="flex-grow text-gray-500 text-2xl font-semibold"
-              >
-                ยกเลิก
-              </button>
-              <button
-                onClick={search}
-                className="flex-grow text-teal-600 text-2xl font-semibold"
-              >
-                ค้นหา
-              </button>
-            </div>
+        <div className="flex flex-col col-span-3 mx-auto pt-8">
+          <div className="flex justify-between space-x-8">
+            <button
+              onClick={resetInput}
+              className="flex-grow text-gray-500 text-xl border-2 px-4 rounded-full"
+            >
+              ยกเลิก
+            </button>
+            <button
+              onClick={search}
+              className="flex-grow text-white text-xl bg-[#7bc6b7] border-2 px-4 rounded-full"
+            >
+              ค้นหา
+            </button>
           </div>
         </div>
       )}
