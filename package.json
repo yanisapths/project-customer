@@ -39,6 +39,7 @@
     "next-transpile-modules": "^9.1.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
+    "react-collapsed": "^3.6.0",
     "react-date-range": "^1.4.0",
     "react-datepicker": "^4.8.0",
     "react-datetime": "^3.2.0",
@@ -50,6 +51,7 @@
     "react-multi-select-component": "^4.2.4",
     "react-time-picker": "^5.1.0",
     "recoil": "^0.6.1",
+    "sweetalert2": "^11.7.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss-filters": "^3.0.0"
   },
