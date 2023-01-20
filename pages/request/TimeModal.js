@@ -44,9 +44,7 @@ function TimeModal({
             <div className="mx-auto max-w-screen-xl">
               <div>
                 <Calendar
-                  key={data._id}
                   availables={data}
-                  active={selected === data._id}
                   setSelected={setSelected}
                   getSelectedDate={getSelectedDate}
                 />
