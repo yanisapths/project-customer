@@ -113,6 +113,7 @@ function Request(props) {
       create_At: Date.now(),
       appointmentDate: event.target.appointmentDate || appointmentDate,
       appointmentTime: event.target.appointmentTime || appointmentTime,
+      endTime: endTime,
       appointmentPlace: event.target.place.value,
       course: event.target.course.value,
       description: event.target.description.value,
@@ -128,7 +129,7 @@ function Request(props) {
     };
     const response = await axios
       .post(
-        `http://localhost:5000/appointment/create/${query.cid}`,
+        `https://olive-service-api.vercel.app/appointment/create/${query.cid}`,
         data,
         axiosConfig
       )
@@ -166,6 +167,7 @@ function Request(props) {
       description: "",
       appointmentDate: "",
       appointmentTime: "",
+      endTime:"",
       owner_id: query.owner_id,
     },
   });
@@ -183,6 +185,7 @@ function Request(props) {
       "description",
       "address",
       "subDistrict",
+      "endTime"
     ])
   );
 
@@ -570,12 +573,32 @@ function Request(props) {
                                   }
                                 )}{" "}
                                 -{" "}
-                                {new Date(endTime).toLocaleTimeString("en-EN", {
-                                  hour: "numeric",
-                                  minute: "2-digit",
-                                  hour12: true,
-                                })}
                               </strong>
+                            </div>
+                          )}
+                        />
+                      </FormControl>
+                      <FormControl>
+                        <Controller
+                          control={control}
+                          name="endTime"
+                          render={({ field: { onChange, value } }) => (
+                            <div className="">
+                              <div className="">
+                              <strong
+                                className="body1 pt-2"
+                                onChange={onChange}
+                                {...register("endTime", {
+                                  required: false,
+                                })}
+                              >
+                              {new Date(endTime).toLocaleTimeString("en-EN", {
+                                hour: "numeric",
+                                minute: "2-digit",
+                                hour12: true,
+                              })}
+                              </strong>
+                              </div>
                             </div>
                           )}
                         />
@@ -667,7 +690,7 @@ function Request(props) {
               <div className="relative text-center">
                 <input
                   type="submit"
-                  className="lg:w-full lg:px-[180px] font-bold bg-[#7BC6B7] cursor-pointer inline-flex items-center buttonPrimary"
+                  className="lg:w-full lg:px-[200px] font-bold bg-[#7BC6B7] cursor-pointer inline-flex items-center buttonPrimary"
                 />
               </div>
             </form>
