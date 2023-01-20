@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -15,6 +15,7 @@ import Grid from "@mui/material/Grid";
 import ReactDatePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
 import { useTheme } from "@mui/material/styles";
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -35,6 +36,31 @@ function Request(props) {
   const [loading, setLoading] = useState();
   const { query } = useRouter();
   const router = useRouter();
+  const [courseData, setCourseData] = useState([]);
+  console.log(query.owner_id);
+  async function fetchData() {
+    await delay(1000);
+    const url = `https://olive-service-api.vercel.app/course/match/owner/${query.owner_id}`;
+    //course
+
+    const res = await fetch(url);
+    try {
+      const courseData = await res.json();
+      if (courseData) {
+        setCourseData(courseData);
+      } else return;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/signin/");
+    } else {
+      fetchData();
+    }
+  }, [status]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -275,7 +301,7 @@ function Request(props) {
                             {...field}
                             {...register("course", { required: true })}
                           >
-                            {course.map((input, key) => (
+                            {courseData?.map((input, key) => (
                               <MenuItem
                                 onChange={onChange}
                                 key={input.id}
