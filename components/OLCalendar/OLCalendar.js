@@ -95,18 +95,6 @@ const Calendar = ({ availables, setSelected, getSelectedDate }) => {
                   if (
                     date.getDate() == new Date(data.availableDate).getDate()
                   ) {
-                    const time = `${new Date(data.startTime).toLocaleTimeString(
-                      "en-EN",
-                      {
-                        hour: "numeric",
-                        minute: "2-digit",
-                        hour12: true,
-                      }
-                    )} - ${new Date(data.endTime).toLocaleTimeString("en-EN", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}`;
                     return (
                       <button
                         key={data._id}
@@ -117,8 +105,9 @@ const Calendar = ({ availables, setSelected, getSelectedDate }) => {
                       "
                         onClick={() =>
                           getSelectedDate(
-                            new Date(data.availableDate).toDateString(),
-                            time
+                            data.availableDate,
+                            data.startTime,
+                            data.endTime
                           )
                         }
                       >

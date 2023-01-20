@@ -42,6 +42,7 @@ function Request(props) {
   const [open, setOpen] = useState(false);
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -59,11 +60,10 @@ function Request(props) {
     }
   };
 
-  function getSelectedDate(appointmentDate, appointmentTime) {
+  function getSelectedDate(appointmentDate, appointmentTime, endTime) {
     setAppointmentDate(appointmentDate);
     setAppointmentTime(appointmentTime);
-    console.log(appointmentDate);
-    console.log(appointmentTime);
+    setEndTime(endTime);
   }
 
   async function fetchData() {
@@ -93,7 +93,7 @@ function Request(props) {
       router.push("/auth/signin/");
     } else {
       fetchData();
-      getSelectedDate(appointmentDate, appointmentTime);
+      getSelectedDate(appointmentDate, appointmentTime, endTime);
     }
   }, [status]);
 
@@ -128,7 +128,7 @@ function Request(props) {
     };
     const response = await axios
       .post(
-        `https://olive-service-api.vercel.app/appointment/create/${query.cid}`,
+        `http://localhost:5000/appointment/create/${query.cid}`,
         data,
         axiosConfig
       )
@@ -527,46 +527,64 @@ function Request(props) {
                     handleDateSelect={handleDateSelect}
                     getSelectedDate={getSelectedDate}
                   />
-                  <div className="text-center whitespace-nowrap space-x-4 flex w-fit px-4 rounded-lg text-[#005844] body1 bg-[#ACDED5]/30">
-                    <FormControl>
-                      <Controller
-                        control={control}
-                        name="appointmentDate"
-                        render={({ field: { onChange, value } }) => (
-                          <div>
-                            <strong
-                              className="body1 pt-2"
-                              onChange={onChange}
-                              {...register("appointmentDate", {
-                                required: false,
-                              })}
-                            >
-                              {appointmentDate}
-                            </strong>
-                          </div>
-                        )}
-                      />
-                    </FormControl>
-                    <FormControl>
-                      <Controller
-                        control={control}
-                        name="appointmentTime"
-                        render={({ field: { onChange, value } }) => (
-                          <div className="">
-                            <strong
-                              className="body1 pt-2"
-                              onChange={onChange}
-                              {...register("appointmentTime", {
-                                required: false,
-                              })}
-                            >
-                              {appointmentTime}
-                            </strong>
-                          </div>
-                        )}
-                      />
-                    </FormControl>
-                  </div>
+                  {appointmentDate && appointmentTime ? (
+                    <div className="text-center whitespace-nowrap space-x-4 flex w-fit px-4 rounded-lg text-[#005844] body1 bg-[#ACDED5]/30">
+                      <FormControl>
+                        <Controller
+                          control={control}
+                          name="appointmentDate"
+                          render={({ field: { onChange, value } }) => (
+                            <div>
+                              <strong
+                                className="body1 pt-2"
+                                onChange={onChange}
+                                {...register("appointmentDate", {
+                                  required: false,
+                                })}
+                              >
+                                {new Date(appointmentDate).toDateString()}
+                              </strong>
+                            </div>
+                          )}
+                        />
+                      </FormControl>
+                      <FormControl>
+                        <Controller
+                          control={control}
+                          name="appointmentTime"
+                          render={({ field: { onChange, value } }) => (
+                            <div className="">
+                              <strong
+                                className="body1 pt-2"
+                                onChange={onChange}
+                                {...register("appointmentTime", {
+                                  required: false,
+                                })}
+                              >
+                                {new Date(appointmentTime).toLocaleTimeString(
+                                  "en-EN",
+                                  {
+                                    hour: "numeric",
+                                    minute: "2-digit",
+                                    hour12: true,
+                                  }
+                                )}{" "}
+                                -{" "}
+                                {new Date(endTime).toLocaleTimeString("en-EN", {
+                                  hour: "numeric",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                })}
+                              </strong>
+                            </div>
+                          )}
+                        />
+                      </FormControl>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
                   <p className="pt-6 text-black/50">หรือ กำหนดเอง</p>
                   <div className="border-black/20  border-b-[1px] border-dashed" />
                   <div className="mx-auto space-x-4 grid grid-cols-2">
