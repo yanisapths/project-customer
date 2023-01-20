@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <Head>
             <style>
               @import
-              url(`&#39;`https://fonts.googleapis.com/css2?family=Mitr&display=swap`&#39;`);
+              url(&#39;https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&display=swap&#39;);
             </style>
           </Head>
           <Toaster />

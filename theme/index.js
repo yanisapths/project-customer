@@ -14,14 +14,14 @@ const theme = createTheme({
     pxToRem,
   },
   typography: {
-    fontFamily: ['Mitr','sans-serif'].join(','), 
+    fontFamily: ['IBM Plex Sans Thai','sans-serif'].join(','), 
   },
   overrides: {
     MuiCssBaseline: {
       "@global": {
         "@font-face": [
           {
-            fontFamily: "Mitr",
+            fontFamily: "IBM Plex Sans Thai",
             fontDisplay: "swap",
           },
         ],
