@@ -3,11 +3,10 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import TimeModal from "./TimeModal";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter, withRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import { Controller, useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -45,33 +44,26 @@ function Request(props) {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
-  const handleClickOpen = async (event) => {
+  const handleClickOpen = (event) => {
     event.preventDefault();
     setOpen(true);
   };
 
-  const handleClose = async (event, reason) => {
+  const handleClose = (event, reason) => {
     event.preventDefault();
-    setAppointmentDate("");
-    setAppointmentTime("");
-    setEndTime("");
     if (reason !== "backdropClick") {
       setOpen(false);
     }
   };
 
-  const handleDateSelect = async (event, reason) => {
+  const handleDateSelect = (event, reason) => {
     event.preventDefault();
-    setAppointmentDate(appointmentDate);
-    setAppointmentTime(appointmentTime);
-    setEndTime(endTime);
     if (reason !== "backdropClick") {
       setOpen(false);
     }
   };
 
   function getSelectedDate(appointmentDate, appointmentTime, endTime) {
-    event.preventDefault();
     setAppointmentDate(appointmentDate);
     setAppointmentTime(appointmentTime);
     setEndTime(endTime);
@@ -104,7 +96,7 @@ function Request(props) {
       router.push("/auth/signin/");
     } else {
       fetchData();
-      // getSelectedDate(appointmentDate, appointmentTime, endTime);
+      getSelectedDate(appointmentDate, appointmentTime, endTime);
     }
   }, [status]);
 
@@ -120,8 +112,8 @@ function Request(props) {
       firstName: event.target.firstName.value,
       lastName: event.target.lastName.value,
       nickname: event.target.nickname.value,
-      customer_id: session.user.id,
       phoneNumber: event.target.phoneNumber.value,
+      customer_id: session.user.id,
       create_At: Date.now(),
       appointmentDate: event.target.appointmentDate || appointmentDate,
       appointmentTime: event.target.appointmentTime || appointmentTime,
@@ -163,9 +155,8 @@ function Request(props) {
     register,
     watch,
     control,
-    setError,
     setValue,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
   } = useForm({
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -180,7 +171,7 @@ function Request(props) {
       description: "",
       appointmentDate: "",
       appointmentTime: "",
-      endTime: "",
+      endTime:"",
       owner_id: query.owner_id,
     },
   });
@@ -198,7 +189,7 @@ function Request(props) {
       "description",
       "address",
       "subDistrict",
-      "endTime",
+      "endTime"
     ])
   );
 
@@ -234,30 +225,25 @@ function Request(props) {
                     <InputLabel shrink style={{ fontSize: "24px" }}>
                       ชื่อจริง
                     </InputLabel>
-                    <FormControl sx={{ width: "100%" }} variant="outlined">
+                    <FormControl
+                      sx={{ width: "100%" }}
+                      variant="outlined"
+                      required
+                    >
                       <Controller
                         render={({ field: { onChange, value } }) => (
                           <>
                             <TextField
                               id="outlined-textarea"
                               placeholder="ใส่ชื่อจริง"
-                              {...register("firstName", {
-                                required: "Required",
-                                pattern: {
-                                  message: "This field is required",
-                                },
-                              })}
+                              {...register("firstName", { required: true })}
                               onChange={onChange}
                               multiline
                             />
-                            {errors.firstName && errors.firstName.message}
                           </>
                         )}
                         name="firstName"
                         control={control}
-                        rules={{
-                          required: true,
-                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -268,7 +254,7 @@ function Request(props) {
                     <FormControl
                       sx={{ width: "100%" }}
                       variant="outlined"
-                      required={true}
+                      required
                     >
                       <Controller
                         render={({ field: { onChange, value } }) => (
@@ -284,9 +270,6 @@ function Request(props) {
                         )}
                         name="lastName"
                         control={control}
-                        rules={{
-                          required: true,
-                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -299,7 +282,7 @@ function Request(props) {
                     <FormControl
                       sx={{ width: "100%" }}
                       variant="outlined"
-                      required={true}
+                      required
                     >
                       <Controller
                         render={({ field: { onChange, value } }) => (
@@ -315,9 +298,6 @@ function Request(props) {
                         )}
                         name="nickname"
                         control={control}
-                        rules={{
-                          required: true,
-                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -328,7 +308,7 @@ function Request(props) {
                     <FormControl
                       sx={{ width: "100%" }}
                       variant="outlined"
-                      required={true}
+                      required
                     >
                       <Controller
                         render={({ field: { onChange, value } }) => (
@@ -336,9 +316,7 @@ function Request(props) {
                             <TextField
                               id="outlined-textarea"
                               placeholder="089564546"
-                              {...register("phoneNumber", {
-                                required: "This is required.",
-                              })}
+                              {...register("phoneNumber", { required: true })}
                               onChange={onChange}
                               multiline
                             />
@@ -346,14 +324,10 @@ function Request(props) {
                         )}
                         name="phoneNumber"
                         control={control}
-                        rules={{
-                          required: true,
-                        }}
                       />
                     </FormControl>
                   </Grid>
                 </div>
-
                 <section className="space-y-4">
                   <p className="text-black/50">เลือกวันเวลาที่คลินิกว่าง</p>
                   <div className="border-black/20  border-b-[1px] border-dashed" />
@@ -365,15 +339,13 @@ function Request(props) {
                       เลือกวัน/เวลา
                     </p>
                   </button>
-                  <FormControl>
-                    <TimeModal
-                      open={open}
-                      handleClose={handleClose}
-                      data={availData}
-                      handleDateSelect={handleDateSelect}
-                      getSelectedDate={getSelectedDate}
-                    />
-                  </FormControl>
+                  <TimeModal
+                    open={open}
+                    handleClose={handleClose}
+                    data={availData}
+                    handleDateSelect={handleDateSelect}
+                    getSelectedDate={getSelectedDate}
+                  />
                   {appointmentDate && appointmentTime ? (
                     <div className="text-center whitespace-nowrap space-x-4 flex w-fit px-4 rounded-lg text-[#005844] body1 bg-[#ACDED5]/30">
                       <FormControl>
@@ -429,22 +401,19 @@ function Request(props) {
                           render={({ field: { onChange, value } }) => (
                             <div className="">
                               <div className="">
-                                <strong
-                                  className="body1 pt-2"
-                                  onChange={onChange}
-                                  {...register("endTime", {
-                                    required: false,
-                                  })}
-                                >
-                                  {new Date(endTime).toLocaleTimeString(
-                                    "en-EN",
-                                    {
-                                      hour: "numeric",
-                                      minute: "2-digit",
-                                      hour12: true,
-                                    }
-                                  )}
-                                </strong>
+                              <strong
+                                className="body1 pt-2"
+                                onChange={onChange}
+                                {...register("endTime", {
+                                  required: false,
+                                })}
+                              >
+                              {new Date(endTime).toLocaleTimeString("en-EN", {
+                                hour: "numeric",
+                                minute: "2-digit",
+                                hour12: true,
+                              })}
+                              </strong>
                               </div>
                             </div>
                           )}
@@ -525,7 +494,7 @@ function Request(props) {
                             {courseData?.map((input, key) => (
                               <MenuItem
                                 onChange={onChange}
-                                key={key}
+                                key={input.id}
                                 value={input.courseName}
                               >
                                 {input.courseName}
@@ -556,7 +525,7 @@ function Request(props) {
                             >
                               {place.map((input, key) => (
                                 <MenuItem
-                                  key={key}
+                                  key={input.id}
                                   value={input.label}
                                   onChange={onChange}
                                 >
@@ -695,7 +664,7 @@ function Request(props) {
                     </FormControl>
                   </div>
                 </Grid>
-
+               
                 <Grid item xs={6} md={12} className="pb-8">
                   <InputLabel shrink style={{ fontSize: "24px" }}>
                     รายละเอียดเพิ่มเติม
@@ -724,12 +693,9 @@ function Request(props) {
               </div>
               <div className="relative text-center">
                 <button
-                  disabled={!isDirty || !isValid}
-                  onClick={handleSubmit}
                   type="submit"
                   className="lg:w-full lg:px-[200px] font-bold bg-[#7BC6B7] cursor-pointer inline-flex items-center buttonPrimary"
-                >
-                  ส่งคำขอ
+                >ส่งคำขอ
                 </button>
               </div>
             </form>
@@ -761,11 +727,3 @@ function Request(props) {
 }
 
 export default withRouter(Request);
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  return {
-    props: { session },
-  };
-}

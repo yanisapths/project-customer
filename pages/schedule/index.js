@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -42,6 +44,32 @@ const appointments = [
 ];
 
 function Schedule() {
+  const [requestList, setRequestList] = useState([]);
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const fetchData = async () => {
+    let isSubscribed = true;
+    const res = await fetch(
+      `https://olive-service-api.vercel.app/appointment/match/customer/${session.user.id}`
+    );
+    const requestList = await res.json();
+
+    if (isSubscribed) {
+      setRequestList(requestList);
+      console.log(requestList)
+    }
+    return () => (isSubscribed = false);
+  };
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/signin/");
+    } else {
+      fetchData().catch(console.error);
+    }
+  }, [status]);
+
   return (
     <div>
       <Head>
