@@ -109,6 +109,7 @@ function Request(props) {
       firstName: event.target.firstName.value,
       lastName: event.target.lastName.value,
       nickname: event.target.nickname.value,
+      customer_id: session.user.id,
       phoneNumber: event.target.phoneNumber.value,
       create_At: Date.now(),
       appointmentDate: event.target.appointmentDate || appointmentDate,
@@ -129,7 +130,7 @@ function Request(props) {
     };
     const response = await axios
       .post(
-        `https://olive-service-api.vercel.app/appointment/create/${query.cid}`,
+        `http://localhost:5000/appointment/create/${query.cid}`,
         data,
         axiosConfig
       )

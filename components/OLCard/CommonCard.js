@@ -70,14 +70,14 @@ function CommonCard({
         )}{" "}
       </div>
       <div className="p-8">
-        <div class="relative top-4">
-          <div class=" bottom-0 left-0">
+        <div className="relative top-4">
+          <div className=" bottom-0 left-0">
             {" "}
             <p className="h4 text-[#005844]">{clinic_name}</p>
           </div>
         </div>
-        <div class="relative top-4">
-          <div class="absolute bottom-0 right-0">
+        <div className="relative top-4">
+          <div className="absolute bottom-0 right-0">
             {" "}
             {tag ? (
               <div className="whitespace-nowrap rounded-full px-3 py-2 bg-[#A5A6F6]/40  w-fit h-fit text-center">
