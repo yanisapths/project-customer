@@ -24,12 +24,7 @@ import axios from "axios";
 
 const place = [
   { id: 1, label: "บ้าน" },
-  { id: 2, label: "คลีนิก" },
-];
-
-const course = [
-  { id: 1, courseName: "ลดปวดเบสิก" },
-  { id: 2, courseName: "ลดปวดมหากาพย์" },
+  { id: 2, label: "คลินิก" },
 ];
 
 function Request(props) {
@@ -114,12 +109,13 @@ function Request(props) {
       nickname: event.target.nickname.value,
       phoneNumber: event.target.phoneNumber.value,
       customer_id: session.user.id,
+      clinicName: query.clinic_name,
       create_At: Date.now(),
       appointmentDate: event.target.appointmentDate || appointmentDate,
       appointmentTime: event.target.appointmentTime || appointmentTime,
       endTime: endTime,
       appointmentPlace: event.target.place.value,
-      course: event.target.course.value,
+      course_id: event.target.course_id.value,
       description: event.target.description.value,
       owner_id: query.owner_id,
       location: location,
@@ -166,7 +162,7 @@ function Request(props) {
       nickname: "",
       phoneNumber: "",
       place: "",
-      course: "",
+      course_id: "",
       price: "",
       description: "",
       appointmentDate: "",
@@ -183,7 +179,7 @@ function Request(props) {
       "nickname",
       "phoneNumber",
       "place",
-      "course",
+      "course_id",
       "appointmentDate",
       "appointmentTime",
       "description",
@@ -486,16 +482,16 @@ function Request(props) {
                     <Controller
                       render={({ field: { field, onChange, value } }) => (
                         <>
-                          <InputLabel id="course">คอร์ส</InputLabel>
+                          <InputLabel id="course_id">คอร์ส</InputLabel>
                           <Select
                             {...field}
-                            {...register("course", { required: true })}
+                            {...register("course_id", { required: true })}
                           >
                             {courseData?.map((input, key) => (
                               <MenuItem
                                 onChange={onChange}
                                 key={input.id}
-                                value={input.courseName}
+                                value={input._id}
                               >
                                 {input.courseName}
                               </MenuItem>
@@ -503,7 +499,7 @@ function Request(props) {
                           </Select>
                         </>
                       )}
-                      name="course"
+                      name="course_id"
                       control={control}
                     />
                   </FormControl>
