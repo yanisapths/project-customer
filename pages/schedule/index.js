@@ -2,6 +2,44 @@ import React from "react";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import CommonCard from "../../components/OLCard/CommonCard";
+
+const appointments = [
+  {
+    id: 1,
+    courseName: "คอร์ส 1",
+    clinic_name: "ศวิตาคลินิก",
+    status: "Approved",
+    procedures: [{ procedureName: "Ultrasound" }, { procedureName: "Laser" }],
+  },
+  {
+    id: 2,
+    courseName: "คอร์ส 2",
+    clinic_name: "ศวิตาคลินิก",
+    status: "pending",
+    procedures: [{ procedureName: "Ultrasound" }, { procedureName: "Laser" }],
+  },
+  {
+    id: 3,
+    courseName: "คอร์ส 2",
+    clinic_name: "ศวิตาคลินิก",
+    status: "rejected",
+    rejectReason:
+      "เวลาไม่ตรงกับคลินิก คุณลูกค้าสามารถเช็คเวลาแล้วขอมาใหม่ได้ค่ะ",
+    tag: "เวลาไม่สะดวก",
+    procedures: [{ procedureName: "Ultrasound" }, { procedureName: "Laser" }],
+  },
+  {
+    id: 4,
+    courseName: "คอร์ส 2",
+    clinic_name: "ศวิตาคลินิก",
+    status: "rejected",
+    rejectReason:
+      "เวลาไม่ตรงกับคลินิก คุณลูกค้าสามารถเช็คเวลาแล้วขอมาใหม่ได้ค่ะ",
+    tag: "เวลาไม่สะดวก",
+    procedures: [{ procedureName: "Ultrasound" }, { procedureName: "Laser" }],
+  },
+];
 
 function Schedule() {
   return (
@@ -11,69 +49,22 @@ function Schedule() {
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
-      <main className="lg:pb-32 h-screen overflow-scroll scrollbar-hide">
-        <div className="px-6 pt-12 lg:px-96 text-center">
-          <p className="body1 tracking-wide text-black/50">ตารางนัด</p>
-          <h2 className="py-6 h3 lg:h1">ลดปวดเบสิก</h2>
-          <div className="bg-[#7BC6B7] w-60 py-2 lg:py-3 rounded-full mx-auto">
-            <p className="h6 text-white">คลินิกบ้านสวยริมสวน</p>
-          </div>
-          <div className="flex justify-between body1  lg:h6 tracking-wide mt-6 lg:mt-12 lg:px-96">
-            <div>
-              <p className=" text-black/50">ติดต่อคลินิก</p>
-              <p className=" hover:text-[#0921FF]">06-12423492</p>
-            </div>
-            <div>
-              <p className="text-black/50">ติดต่อลูกค้า</p>
-              <p className=" hover:text-[#0921FF]">089-1242342</p>
-            </div>
-          </div>
-          <section className="lg:w-full mb-2 pt-12 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 border-black/20 border-b-[1px] border-dashed">
-            <div className="flex justify-between lg:body1 tracking-wide">
-              <div className="relative block md:w-1/6">
-                <p className="">ครั้งที่</p>
-              </div>
-              <div className="relative block md:w-4/6">
-                <p>วันรักษา</p>
-              </div>
-              <div className="relative block md:w-1/6">
-                <p>สถานะ</p>
-              </div>
-            </div>
-          </section>
-
-          <div className="flex justify-between p-2 bg-gray-100 text-black/50 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5">
-            <div className="md:w-1/6">
-              <p>1</p>
-            </div>
-            <div className="md:w-4/6">
-              <p>01/02/2022</p>
-            </div>
-            <div className="md:w-1/6">
-              <p>สำเร็จ</p>
-            </div>
-          </div>
-          <div className="flex justify-between p-2 bg-gray-100 text-black/50 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5">
-            <div className="md:w-1/6">
-              <p>2</p>
-            </div>
-            <div className="md:w-4/6">
-              <p>10/02/2022</p>
-            </div>
-            <div className="md:w-1/6">
-              <p>สำเร็จ</p>
-            </div>
-          </div>
-          <div className="flex justify-between p-2 bg-[#acded5] mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5">
-            <div className="md:w-1/6">
-              <p>3</p>
-            </div>
-            <div className="md:w-4/6">
-              <p className="cursor-pointer hover:text-[#0921FF]">เลือกวัน</p>
-            </div>
-            <div className="md:w-1/6">
-              <p>ยังไม่เริ่ม</p>
-            </div>
+      <main className="max-w-screen lg:pb-32 h-screen overflow-scroll scrollbar-hide content-center lg:px-24 xl:px-36 xxl:px-48">
+        <div className="px-6 pt-12">
+          <p className="h6 text-black text-center">นัดทั้งหมด</p>
+          <div className="grid grid-cols-1 py-6 lg:grid lg:grid-cols-3 lg:gap-4">
+            {appointments &&
+              appointments.map((data) => {
+                return <CommonCard
+                  key={data.id}
+                  courseName={data.courseName}
+                  clinic_name={data.clinic_name}
+                  status={data.status}
+                  rejectReason={data.rejectReason}
+                  procedures={data.procedures}
+                  tag={data.tag}
+                />;
+              })}
           </div>
         </div>
       </main>
