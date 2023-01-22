@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
 import useCollapse from "react-collapsed";
 import { useRouter } from "next/router";
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -17,16 +16,6 @@ const Calendar = ({ availables, setSelected, getSelectedDate }) => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed).getDate();
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({});
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "available",
-  });
 
   const selectionRange = {
     startDate: startDate,
@@ -96,7 +85,7 @@ const Calendar = ({ availables, setSelected, getSelectedDate }) => {
                     date.getDate() == new Date(data.availableDate).getDate()
                   ) {
                     return (
-                      <button
+                      <div
                         key={data._id}
                         className="cursor-pointer flex rounded-lg text-[#005844] body1 bg-[#ACDED5]/30 
                       py-1 px-3 w-full whitespace-nowrap my-2
@@ -129,7 +118,7 @@ const Calendar = ({ availables, setSelected, getSelectedDate }) => {
                             hour12: true,
                           })}
                         </p>
-                      </button>
+                      </div>
                     );
                   } else {
                     return;

@@ -25,7 +25,7 @@ function TimeModal({
         disableEscapeKeyDown
         open={open}
         onClose={handleClose}
-        maxWidth
+        maxWidth="xl"
         sx={{ justifyContent: "center" }}
       >
         <DialogTitle

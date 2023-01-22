@@ -3,10 +3,11 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import TimeModal from "./TimeModal";
-import { signIn, useSession } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useRouter, withRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import { Controller, useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -44,23 +45,33 @@ function Request(props) {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
-  const handleClickOpen = () => {
+  const handleClickOpen = async (event) => {
+    event.preventDefault();
     setOpen(true);
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = async (event, reason) => {
+    event.preventDefault();
+    setAppointmentDate("");
+    setAppointmentTime("");
+    setEndTime("");
     if (reason !== "backdropClick") {
       setOpen(false);
     }
   };
 
-  const handleDateSelect = (event, reason) => {
+  const handleDateSelect = async (event, reason) => {
+    event.preventDefault();
+    setAppointmentDate(appointmentDate);
+    setAppointmentTime(appointmentTime);
+    setEndTime(endTime);
     if (reason !== "backdropClick") {
       setOpen(false);
     }
   };
 
   function getSelectedDate(appointmentDate, appointmentTime, endTime) {
+    event.preventDefault();
     setAppointmentDate(appointmentDate);
     setAppointmentTime(appointmentTime);
     setEndTime(endTime);
@@ -93,7 +104,7 @@ function Request(props) {
       router.push("/auth/signin/");
     } else {
       fetchData();
-      getSelectedDate(appointmentDate, appointmentTime, endTime);
+      // getSelectedDate(appointmentDate, appointmentTime, endTime);
     }
   }, [status]);
 
@@ -130,7 +141,7 @@ function Request(props) {
     };
     const response = await axios
       .post(
-        `http://localhost:5000/appointment/create/${query.cid}`,
+        `https://olive-service-api.vercel.app/appointment/create/${query.cid}`,
         data,
         axiosConfig
       )
@@ -152,8 +163,9 @@ function Request(props) {
     register,
     watch,
     control,
+    setError,
     setValue,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
   } = useForm({
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -168,7 +180,7 @@ function Request(props) {
       description: "",
       appointmentDate: "",
       appointmentTime: "",
-      endTime:"",
+      endTime: "",
       owner_id: query.owner_id,
     },
   });
@@ -186,7 +198,7 @@ function Request(props) {
       "description",
       "address",
       "subDistrict",
-      "endTime"
+      "endTime",
     ])
   );
 
@@ -222,25 +234,30 @@ function Request(props) {
                     <InputLabel shrink style={{ fontSize: "24px" }}>
                       ชื่อจริง
                     </InputLabel>
-                    <FormControl
-                      sx={{ width: "100%" }}
-                      variant="outlined"
-                      required
-                    >
+                    <FormControl sx={{ width: "100%" }} variant="outlined">
                       <Controller
                         render={({ field: { onChange, value } }) => (
                           <>
                             <TextField
                               id="outlined-textarea"
                               placeholder="ใส่ชื่อจริง"
-                              {...register("firstName", { required: true })}
+                              {...register("firstName", {
+                                required: "Required",
+                                pattern: {
+                                  message: "This field is required",
+                                },
+                              })}
                               onChange={onChange}
                               multiline
                             />
+                            {errors.firstName && errors.firstName.message}
                           </>
                         )}
                         name="firstName"
                         control={control}
+                        rules={{
+                          required: true,
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -251,7 +268,7 @@ function Request(props) {
                     <FormControl
                       sx={{ width: "100%" }}
                       variant="outlined"
-                      required
+                      required={true}
                     >
                       <Controller
                         render={({ field: { onChange, value } }) => (
@@ -267,6 +284,9 @@ function Request(props) {
                         )}
                         name="lastName"
                         control={control}
+                        rules={{
+                          required: true,
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -279,7 +299,7 @@ function Request(props) {
                     <FormControl
                       sx={{ width: "100%" }}
                       variant="outlined"
-                      required
+                      required={true}
                     >
                       <Controller
                         render={({ field: { onChange, value } }) => (
@@ -295,6 +315,9 @@ function Request(props) {
                         )}
                         name="nickname"
                         control={control}
+                        rules={{
+                          required: true,
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -305,7 +328,7 @@ function Request(props) {
                     <FormControl
                       sx={{ width: "100%" }}
                       variant="outlined"
-                      required
+                      required={true}
                     >
                       <Controller
                         render={({ field: { onChange, value } }) => (
@@ -313,7 +336,9 @@ function Request(props) {
                             <TextField
                               id="outlined-textarea"
                               placeholder="089564546"
-                              {...register("phoneNumber", { required: true })}
+                              {...register("phoneNumber", {
+                                required: "This is required.",
+                              })}
                               onChange={onChange}
                               multiline
                             />
@@ -321,10 +346,167 @@ function Request(props) {
                         )}
                         name="phoneNumber"
                         control={control}
+                        rules={{
+                          required: true,
+                        }}
                       />
                     </FormControl>
                   </Grid>
                 </div>
+
+                <section className="space-y-4">
+                  <p className="text-black/50">เลือกวันเวลาที่คลินิกว่าง</p>
+                  <div className="border-black/20  border-b-[1px] border-dashed" />
+                  <button
+                    onClick={handleClickOpen}
+                    className="rounded-xl bg-[#ACDED5]/30 shadow-lg px-10 py-2"
+                  >
+                    <p className="text-[#005844] font-semibold text-lg">
+                      เลือกวัน/เวลา
+                    </p>
+                  </button>
+                  <FormControl>
+                    <TimeModal
+                      open={open}
+                      handleClose={handleClose}
+                      data={availData}
+                      handleDateSelect={handleDateSelect}
+                      getSelectedDate={getSelectedDate}
+                    />
+                  </FormControl>
+                  {appointmentDate && appointmentTime ? (
+                    <div className="text-center whitespace-nowrap space-x-4 flex w-fit px-4 rounded-lg text-[#005844] body1 bg-[#ACDED5]/30">
+                      <FormControl>
+                        <Controller
+                          control={control}
+                          name="appointmentDate"
+                          render={({ field: { onChange, value } }) => (
+                            <div>
+                              <strong
+                                className="body1 pt-2"
+                                onChange={onChange}
+                                {...register("appointmentDate", {
+                                  required: false,
+                                })}
+                              >
+                                {new Date(appointmentDate).toDateString()}
+                              </strong>
+                            </div>
+                          )}
+                        />
+                      </FormControl>
+                      <FormControl>
+                        <Controller
+                          control={control}
+                          name="appointmentTime"
+                          render={({ field: { onChange, value } }) => (
+                            <div className="">
+                              <strong
+                                className="body1 pt-2"
+                                onChange={onChange}
+                                {...register("appointmentTime", {
+                                  required: false,
+                                })}
+                              >
+                                {new Date(appointmentTime).toLocaleTimeString(
+                                  "en-EN",
+                                  {
+                                    hour: "numeric",
+                                    minute: "2-digit",
+                                    hour12: true,
+                                  }
+                                )}{" "}
+                                -{" "}
+                              </strong>
+                            </div>
+                          )}
+                        />
+                      </FormControl>
+                      <FormControl>
+                        <Controller
+                          control={control}
+                          name="endTime"
+                          render={({ field: { onChange, value } }) => (
+                            <div className="">
+                              <div className="">
+                                <strong
+                                  className="body1 pt-2"
+                                  onChange={onChange}
+                                  {...register("endTime", {
+                                    required: false,
+                                  })}
+                                >
+                                  {new Date(endTime).toLocaleTimeString(
+                                    "en-EN",
+                                    {
+                                      hour: "numeric",
+                                      minute: "2-digit",
+                                      hour12: true,
+                                    }
+                                  )}
+                                </strong>
+                              </div>
+                            </div>
+                          )}
+                        />
+                      </FormControl>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
+                  <p className="pt-6 text-black/50">หรือ กำหนดเอง</p>
+                  <div className="border-black/20  border-b-[1px] border-dashed" />
+                  <div className="mx-auto space-x-4 grid grid-cols-2">
+                    <Grid item xs={4} className="pb-8">
+                      <InputLabel shrink style={{ fontSize: "24px" }}>
+                        วัน
+                      </InputLabel>
+                      <FormControl>
+                        <Controller
+                          control={control}
+                          name="appointmentDate"
+                          render={({ field: { onChange, value } }) => (
+                            <ReactDatePicker
+                              className="outline-none border-2 rounded-lg border-black/15
+                         w-full px-4 py-2 focus:border-[#7bc6b7]
+                         hover:border-black"
+                              onChange={onChange}
+                              selected={value}
+                            />
+                          )}
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={4} className="pb-8">
+                      <InputLabel shrink style={{ fontSize: "24px" }}>
+                        เวลา
+                      </InputLabel>
+                      <FormControl>
+                        <Controller
+                          render={({ field: { onChange, value } }) => (
+                            <>
+                              <DatePicker
+                                onChange={onChange}
+                                className="outline-none border-2 rounded-lg border-black/15
+                          w-full px-4 py-2 focus:border-[#7bc6b7]
+                          hover:border-black"
+                                selected={value}
+                                showTimeSelect
+                                showTimeSelectOnly
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="h:mm aa"
+                              />
+                            </>
+                          )}
+                          name="appointmentTime"
+                          control={control}
+                        />
+                      </FormControl>
+                    </Grid>
+                  </div>
+                </section>
 
                 <Grid item xs={6} md={8} className="pb-8">
                   <FormControl
@@ -343,7 +525,7 @@ function Request(props) {
                             {courseData?.map((input, key) => (
                               <MenuItem
                                 onChange={onChange}
-                                key={input.id}
+                                key={key}
                                 value={input.courseName}
                               >
                                 {input.courseName}
@@ -374,7 +556,7 @@ function Request(props) {
                             >
                               {place.map((input, key) => (
                                 <MenuItem
-                                  key={input.id}
+                                  key={key}
                                   value={input.label}
                                   onChange={onChange}
                                 >
@@ -513,154 +695,6 @@ function Request(props) {
                     </FormControl>
                   </div>
                 </Grid>
-                <section className="space-y-4">
-                  <p className="text-black/50">เลือกวันเวลาที่คลินิกว่าง</p>
-                  <div className="border-black/20  border-b-[1px] border-dashed" />
-                  <button
-                    onClick={handleClickOpen}
-                    className="rounded-xl bg-[#ACDED5]/30 shadow-lg px-10 py-2"
-                  >
-                    <p className="text-[#005844] font-semibold text-lg">
-                      เลือกวัน/เวลา
-                    </p>
-                  </button>
-                  <TimeModal
-                    open={open}
-                    handleClose={handleClose}
-                    data={availData}
-                    handleDateSelect={handleDateSelect}
-                    getSelectedDate={getSelectedDate}
-                  />
-                  {appointmentDate && appointmentTime ? (
-                    <div className="text-center whitespace-nowrap space-x-4 flex w-fit px-4 rounded-lg text-[#005844] body1 bg-[#ACDED5]/30">
-                      <FormControl>
-                        <Controller
-                          control={control}
-                          name="appointmentDate"
-                          render={({ field: { onChange, value } }) => (
-                            <div>
-                              <strong
-                                className="body1 pt-2"
-                                onChange={onChange}
-                                {...register("appointmentDate", {
-                                  required: false,
-                                })}
-                              >
-                                {new Date(appointmentDate).toDateString()}
-                              </strong>
-                            </div>
-                          )}
-                        />
-                      </FormControl>
-                      <FormControl>
-                        <Controller
-                          control={control}
-                          name="appointmentTime"
-                          render={({ field: { onChange, value } }) => (
-                            <div className="">
-                              <strong
-                                className="body1 pt-2"
-                                onChange={onChange}
-                                {...register("appointmentTime", {
-                                  required: false,
-                                })}
-                              >
-                                {new Date(appointmentTime).toLocaleTimeString(
-                                  "en-EN",
-                                  {
-                                    hour: "numeric",
-                                    minute: "2-digit",
-                                    hour12: true,
-                                  }
-                                )}{" "}
-                                -{" "}
-                              </strong>
-                            </div>
-                          )}
-                        />
-                      </FormControl>
-                      <FormControl>
-                        <Controller
-                          control={control}
-                          name="endTime"
-                          render={({ field: { onChange, value } }) => (
-                            <div className="">
-                              <div className="">
-                              <strong
-                                className="body1 pt-2"
-                                onChange={onChange}
-                                {...register("endTime", {
-                                  required: false,
-                                })}
-                              >
-                              {new Date(endTime).toLocaleTimeString("en-EN", {
-                                hour: "numeric",
-                                minute: "2-digit",
-                                hour12: true,
-                              })}
-                              </strong>
-                              </div>
-                            </div>
-                          )}
-                        />
-                      </FormControl>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-
-                  <p className="pt-6 text-black/50">หรือ กำหนดเอง</p>
-                  <div className="border-black/20  border-b-[1px] border-dashed" />
-                  <div className="mx-auto space-x-4 grid grid-cols-2">
-                    <Grid item xs={4} className="pb-8">
-                      <InputLabel shrink style={{ fontSize: "24px" }}>
-                        วัน
-                      </InputLabel>
-                      <FormControl>
-                        <Controller
-                          control={control}
-                          name="appointmentDate"
-                          render={({ field: { onChange, value } }) => (
-                            <ReactDatePicker
-                              className="outline-none border-2 rounded-lg border-black/15
-                         w-full px-4 py-2 focus:border-[#7bc6b7]
-                         hover:border-black"
-                              onChange={onChange}
-                              selected={value}
-                            />
-                          )}
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={4} className="pb-8">
-                      <InputLabel shrink style={{ fontSize: "24px" }}>
-                        เวลา
-                      </InputLabel>
-                      <FormControl>
-                        <Controller
-                          render={({ field: { onChange, value } }) => (
-                            <>
-                              <DatePicker
-                                onChange={onChange}
-                                className="outline-none border-2 rounded-lg border-black/15
-                          w-full px-4 py-2 focus:border-[#7bc6b7]
-                          hover:border-black"
-                                selected={value}
-                                showTimeSelect
-                                showTimeSelectOnly
-                                timeIntervals={15}
-                                timeCaption="Time"
-                                dateFormat="h:mm aa"
-                              />
-                            </>
-                          )}
-                          name="appointmentTime"
-                          control={control}
-                        />
-                      </FormControl>
-                    </Grid>
-                  </div>
-                </section>
 
                 <Grid item xs={6} md={12} className="pb-8">
                   <InputLabel shrink style={{ fontSize: "24px" }}>
@@ -689,10 +723,14 @@ function Request(props) {
                 </Grid>
               </div>
               <div className="relative text-center">
-                <input
+                <button
+                  disabled={!isDirty || !isValid}
+                  onClick={handleSubmit}
                   type="submit"
                   className="lg:w-full lg:px-[200px] font-bold bg-[#7BC6B7] cursor-pointer inline-flex items-center buttonPrimary"
-                />
+                >
+                  ส่งคำขอ
+                </button>
               </div>
             </form>
           </div>
@@ -723,3 +761,11 @@ function Request(props) {
 }
 
 export default withRouter(Request);
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  return {
+    props: { session },
+  };
+}
