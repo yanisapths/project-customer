@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 function CommonCard({
+  schedule_id,
   course_id,
   clinicName,
   status,
@@ -32,10 +33,10 @@ function CommonCard({
   };
 
   useEffect(() => {
-    if(course_id) {
+    if (course_id) {
       fetchData().catch(console.error);
     }
-  },);
+  });
 
   const procedureList = courses.procedures ? (
     courses.procedures?.map(({ procedureName }) => procedureName + ",")
@@ -49,7 +50,7 @@ function CommonCard({
       sx={{ bgcolor: theme.palette.background.white, width: "100%" }}
     >
       <div className="px-8 flex justify-between">
-        <div className="flex space-x-6"> 
+        <div className="flex space-x-6">
           <p className="h4 pt-2">{courses.courseName}</p>
           <div
             className={
@@ -65,10 +66,17 @@ function CommonCard({
             </strong>
           </div>
         </div>
-        <IconButton
-          icon={<OpenInNewIcon className="text-black/40 hover:text-black/80 xl:w-16 xl:h-8" />}
-          title="ดูตาราง"
-        />
+        {status != "Rejected" ? (
+          <IconButton
+            path={`/schedule/${schedule_id}`}
+            icon={
+              <OpenInNewIcon className="text-black/40 hover:text-black/80 xl:w-16 xl:h-8" />
+            }
+            title="ดูตาราง"
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <div>
         {courses.procedures ? (

@@ -1,10 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import NavigateBack from "../../components/OLNavigateBack/NavigateBack";
 
-function ScheduleDetail() {
+function ScheduleDetail({data}) {
+  const [course, setCourse] = useState({});
+  const [clinic, setClinic] = useState({});
+  const router = useRouter();
+
+  const fetchData = async () => {
+    let isSubscribed = true;
+    const courseData = await fetch(
+      `https://olive-service-api.vercel.app/course/${data.course_id}`
+    );
+    const clinicData = await fetch(
+      `https://olive-service-api.vercel.app/clinic/${data.clinic_id}`
+    );
+    const course = await courseData.json();
+    const clinic = await clinicData.json();
+
+    if (isSubscribed) {
+      setCourse(course);
+      setClinic(clinic);
+    }
+    return () => (isSubscribed = false);
+  };
+
+  useEffect(() => {
+    const courseId = data.course_id;
+    if(courseId) {
+      fetchData().catch(console.error);
+    }
+  },);
+
   return (
     <div>
       <Head>
@@ -13,21 +43,21 @@ function ScheduleDetail() {
       </Head>
       <Header />
       <main className="lg:pb-32 h-screen overflow-scroll scrollbar-hide">
-      <NavigateBack path="/" />
+         <NavigateBack path="/schedule" />
         <div className="px-6 pt-12 lg:px-96 text-center">
           <p className="body1 tracking-wide text-black/50">ตารางนัด</p>
-          <h2 className="py-6 h3 lg:h1">ลดปวดเบสิก</h2>
-          <div className="bg-[#7BC6B7] w-60 py-2 lg:py-3 rounded-full mx-auto">
-            <p className="h6 text-white">คลินิกบ้านสวยริมสวน</p>
+          <h2 className="py-6 h3 lg:h1">{course.courseName}</h2>
+          <div className="bg-[#7BC6B7] w-fit px-6 py-2 lg:py-3 rounded-full mx-auto">
+            <p className="h6 text-white">{data.clinicName}</p>
           </div>
           <div className="flex justify-between body1  lg:h6 tracking-wide mt-6 lg:mt-12 lg:px-96">
             <div>
               <p className=" text-black/50">ติดต่อคลินิก</p>
-              <p className=" hover:text-[#0921FF]">06-12423492</p>
+              <p className=" hover:text-[#0921FF]">{clinic.phoneNumber}</p>
             </div>
             <div>
               <p className="text-black/50">ติดต่อลูกค้า</p>
-              <p className=" hover:text-[#0921FF]">089-1242342</p>
+              <p className=" hover:text-[#0921FF]">{data.phoneNumber}</p>
             </div>
           </div>
           <section className="lg:w-full mb-2 pt-12 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 border-black/20 border-b-[1px] border-dashed">
@@ -85,3 +115,31 @@ function ScheduleDetail() {
 }
 
 export default ScheduleDetail;
+
+export async function getStaticPaths() {
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
+  const res = await fetch("https://olive-service-api.vercel.app/appointment");
+  const appointments = await res.json();
+
+  const paths = appointments.map((appointment) => ({
+    params: { sid: appointment._id },
+  }));
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const appointmentId = params.sid;
+  const res = await fetch(
+    `https://olive-service-api.vercel.app/appointment/${appointmentId}`
+  );
+  const data = await res.json();
+  return {
+    props: { data },
+  };
+}
+

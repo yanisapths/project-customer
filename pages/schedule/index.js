@@ -59,6 +59,7 @@ function Schedule() {
                         rejectReason={data.rejectReason}
                         procedures={data.procedures}
                         tag={data.tag}
+                        schedule_id={data._id}
                       />
                     ) : (
                       <></>
