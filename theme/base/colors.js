@@ -22,6 +22,7 @@ Coded by www.creative-tim.com
 export default {
     background: {
       main: "#ffffff",
+      white: "#ffffff",
       lightgrey: "#f8f8f8",
       base: "#fdfff5",
       gray: "#f0f1f2"

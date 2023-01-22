@@ -77,7 +77,7 @@ function Clinic({ data, courses }) {
           <p className="mt-2 pl-4 h5">{data.owner}</p>
         </div>
         <ListView
-          className="overflow-scroll scrollbar-hide"
+          className="pt-6 max-w-screen h-screen content-center overflow-scroll scrollbar-hide"
           data={data}
           courses={courses}
         />
