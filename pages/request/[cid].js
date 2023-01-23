@@ -87,13 +87,9 @@ function Request(props) {
   }
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/auth/signin/");
-    } else {
-      fetchData();
-      getSelectedDate(appointmentDate, appointmentTime, endTime);
-    }
-  }, [status]);
+    fetchData();
+    getSelectedDate(appointmentDate, appointmentTime, endTime);
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -167,7 +163,7 @@ function Request(props) {
       description: "",
       appointmentDate: "",
       appointmentTime: "",
-      endTime:"",
+      endTime: "",
       owner_id: query.owner_id,
     },
   });
@@ -185,7 +181,7 @@ function Request(props) {
       "description",
       "address",
       "subDistrict",
-      "endTime"
+      "endTime",
     ])
   );
 
@@ -397,19 +393,22 @@ function Request(props) {
                           render={({ field: { onChange, value } }) => (
                             <div className="">
                               <div className="">
-                              <strong
-                                className="body1 pt-2"
-                                onChange={onChange}
-                                {...register("endTime", {
-                                  required: false,
-                                })}
-                              >
-                              {new Date(endTime).toLocaleTimeString("en-EN", {
-                                hour: "numeric",
-                                minute: "2-digit",
-                                hour12: true,
-                              })}
-                              </strong>
+                                <strong
+                                  className="body1 pt-2"
+                                  onChange={onChange}
+                                  {...register("endTime", {
+                                    required: false,
+                                  })}
+                                >
+                                  {new Date(endTime).toLocaleTimeString(
+                                    "en-EN",
+                                    {
+                                      hour: "numeric",
+                                      minute: "2-digit",
+                                      hour12: true,
+                                    }
+                                  )}
+                                </strong>
                               </div>
                             </div>
                           )}
@@ -660,7 +659,7 @@ function Request(props) {
                     </FormControl>
                   </div>
                 </Grid>
-               
+
                 <Grid item xs={6} md={12} className="pb-8">
                   <InputLabel shrink style={{ fontSize: "24px" }}>
                     รายละเอียดเพิ่มเติม
@@ -691,7 +690,8 @@ function Request(props) {
                 <button
                   type="submit"
                   className="lg:w-full lg:px-[200px] font-bold bg-[#7BC6B7] cursor-pointer inline-flex items-center buttonPrimary"
-                >ส่งคำขอ
+                >
+                  ส่งคำขอ
                 </button>
               </div>
             </form>
@@ -712,6 +712,9 @@ function Request(props) {
           <h1 className="mt-5 mb-6 text-3xl font-extrabold text-[#7BC6B7]">
             สร้างนัดดูแล
           </h1>
+          <p className="mt-5 mb-6 text-xl text-[#7BC6B7]">
+            เข้าสู่ระบบเพื่อสร้างนัดดูแล
+          </p>
           <button className="buttonPrimary text-xl" onClick={signIn}>
             เข้าสู่ระบบ
           </button>
