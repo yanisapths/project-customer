@@ -6,7 +6,7 @@ function HeroBanner() {
     <h1 className="text-3xl font-extrabold text-[#005844] lg:text-5xl">
       {" "}
       A platform
-      <span className="text-[#7BC6B7]"> "Olive" </span> that brings
+      <span className="text-[#7BC6B7]"> &#34;Olive&#34; </span> that brings
       together
     </h1>
 
