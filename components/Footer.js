@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { HomeIcon, CalendarIcon } from "@heroicons/react/solid";
+import { HomeIcon, CalendarIcon, TemplateIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 
 function Footer() {
@@ -22,7 +22,7 @@ function Footer() {
   return (
     <footer className="fixed bottom-5 inset-x-0 flex justify-between shadow-black/10 shadow-3xl rounded-full mx-8 md:mx-40 lg:mx-60 xl:mx-96 transition-colors duration-500 dark:bg-[#FDFFF5]">
       {list.map((item) => (
-        <Link href={item.path}>
+        <Link href={item.path} key={item.id}>
           <footer-container>
             <div className="footer-icon">{item.icon}</div>
             <p className="caption lg:caption xl:body2">{item.title}</p>
