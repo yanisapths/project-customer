@@ -137,22 +137,35 @@ export async function getStaticPaths() {
     return { paths, fallback: false };
   }
   else {
-    return <>404</>
+    const paths = []
+    // { fallback: false } means other routes should 404
+    return { paths, fallback: false };
   }
 }
 
 export async function getStaticProps({ params }) {
   const courseId = params.id;
-  const res = await fetch(
-    `${process.env.local}/course/${courseId}`
-  );
-  const course = await res.json();
-  if(course){
+  if(courseId){
+    const res = await fetch(
+      `${process.env.local}/course/${courseId}`
+    );
+    const course = await res.json();
+    if(course){
+        return {
+          props: { course },
+        };
+    }
+    else {
+      const course = {};
       return {
         props: { course },
       };
+    }
   }
   else {
-    return 
+    const course = {};
+    return {
+      props: { course },
+    };
   }
 }
