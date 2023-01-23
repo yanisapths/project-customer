@@ -22,7 +22,6 @@ function Schedule() {
 
     if (isSubscribed) {
       setRequestList(appointments);
-      console.log(appointments);
     }
     return () => (isSubscribed = false);
   };

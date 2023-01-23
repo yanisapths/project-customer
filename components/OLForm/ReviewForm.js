@@ -13,8 +13,8 @@ const ratingChanged = (newRating) => {
 };
 
 function ReviewForm({ clinic_id }) {
-  const { data: session, status } = useSession();
-  const theme = useTheme();
+    const { data: session, status } = useSession();
+    const theme = useTheme();
 
   const {
     register,
@@ -29,9 +29,9 @@ function ReviewForm({ clinic_id }) {
     defaultValues: {
       comments: "",
       score: "",
-      status: "",
     },
   });
+
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -45,7 +45,7 @@ function ReviewForm({ clinic_id }) {
       },
     };
     const response = await axios
-      .put(
+      .post(
         `https://olive-service-api.vercel.app/review/create/${clinic_id}`,
         json,
         axiosConfig
@@ -57,6 +57,13 @@ function ReviewForm({ clinic_id }) {
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
       });
+     console.log(
+    watch([
+      "score",
+      "status",
+      "customerName",
+    ])
+  );
   };
 
   return (
@@ -67,10 +74,11 @@ function ReviewForm({ clinic_id }) {
             <FormControl>
               <Controller
                 render={({ field: { onChange, value } }) => (
-                  <>
+                  <div className="flex gap-4">
+                  <p className="pt-4 caption">การให้บริการ</p>
                     <ReactStars
                       count={5}
-                      onChange={ratingChanged}
+                      onChange={onChange}
                       size={34}
                       isHalf={true}
                       emptyIcon={<i className="far fa-star"></i>}
@@ -78,9 +86,9 @@ function ReviewForm({ clinic_id }) {
                       fullIcon={<i className="fa fa-star"></i>}
                       activeColor="#ffd700"
                     />
-                  </>
+                  </div>
                 )}
-                name="comments"
+                name="score"
                 control={control}
               />
             </FormControl>
