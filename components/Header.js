@@ -27,22 +27,34 @@ function Header({ placeholder }) {
   };
 
   return (
-    <header className="mx-auto max-w-screen-xxl  bg-[#f8f8f8] max-h-fit py-1 rounded-b-2xl px-6 md:px-12 xl:px-40 font-noto sticky top-0 z-50 grid grid-cols-3 
-    backdrop-blur-xl transition-colors duration-500 supports-backdrop-blur:bg-white dark:bg-[#f8f8f8]/60">
+    <header
+      className="mx-auto bg-[#f8f8f8] max-h-fit py-1 rounded-b-2xl px-6 md:px-12 xl:px-40 font-noto sticky top-0 z-50 grid grid-cols-3
+    backdrop-blur-xl transition-colors duration-500 supports-backdrop-blur:bg-white dark:bg-[#f8f8f8]/60"
+    >
       {/* Left */}
-      <div
-        onClick={() => router.push("/")}
-        className="relative flex items-center h-16 cursor-pointer my-auto"
-      >
+      <div className=" flex items-center my-auto cursor-pointer">
         <Image
+          onClick={() => router.push("/")}
           src="/olivelogo.png"
           alt="/Avatar.png"
-          width={110}
-          height={110}
+          width={80}
+          height={80}
           //    layout="fill"
           objectFit="contain"
           objectPosition="left"
         />
+        <div className=" m-auto cursor-pointer md:visible invisible flex gap-4">
+          <Link href="/about">
+            <div className="rounded-full md:w-fit md:px-6 md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
+              <p className=" md:body2 font-bold">About</p>
+            </div>
+          </Link>
+          <Link href="/demo">
+            <div className="rounded-full  md:w-fit  md:px-6  md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
+              <p className=" md:body2 font-bold">Demo</p>
+            </div>
+          </Link>
+        </div>
       </div>
 
       {/* Middle  - Search */}
@@ -63,11 +75,11 @@ function Header({ placeholder }) {
       {/* Right */}
       <div className="flex items-center space-x-4 justify-end text-teal-900">
         <Link href="https://daycare-portal.vercel.app/">
-          <div className="rounded-full lg:p-3 lg:bg-[#7bc6b7] cursor-pointer translation hover:-translate-y-0.5 hover:shadow-lg duration-800 ease-in-out">
-          <p className="hidden lg:inline text-white ">
-            เป็นเจ้าของคลิกนิกกายภาพ{" "}
-            <GlobeAltIcon className="h-6  lg:inline " />
-          </p>
+          <div className="rounded-full lg:p-3 lg:bg-[#ACDED5]/20 cursor-pointer translation hover:shadow-lg hover:shadow-black/5 duration-800 ease-in-out">
+            <p className="hidden lg:inline text-[#005844">
+              เป็นเจ้าของคลิกนิกกายภาพ{" "}
+              <GlobeAltIcon className="h-6  lg:inline " />
+            </p>
           </div>
         </Link>
 
