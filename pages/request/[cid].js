@@ -198,7 +198,7 @@ function Request(props) {
         </Head>
         <Header />
         <main className="">
-          <div className="flex-grow pt-10  md:pt-30 mt-5 px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-white rounded-md ">
+          <div className="flex-grow pt-10  md:pt-30 mt-5 px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-white rounded-md pb-48">
             <div className="max-w-lg mx-auto text-center pb-8 ">
               <h1 className="font-medium pb-2 text-xl text-[#b1c2be] sm:text-3xl">
                 จองนัดกับคลีนิก

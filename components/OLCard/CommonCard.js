@@ -46,7 +46,7 @@ function CommonCard({
 
   return (
     <Box
-      className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto p-4 pt-8 w-full lg:mb-8 mb-4 h-fit transition hover:shadow-2xl"
+      className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto p-4 pt-8 w-full lg:mb-8 mb-4 h-[300px] transition hover:shadow-2xl"
       sx={{ bgcolor: theme.palette.background.white, width: "100%" }}
     >
       <div className="px-8 flex justify-between">
@@ -100,12 +100,21 @@ function CommonCard({
         )}{" "}
       </div>
       <div className="p-8">
+      {rejectReason ? (
         <div className="relative top-4">
-          <div className=" bottom-0 left-0">
+          <div className="bottom-0 left-0">
             {" "}
             <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
           </div>
         </div>
+         ) : (
+          <div className="relative top-16">
+          <div className="bottom-0 left-0">
+            {" "}
+            <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
+          </div>
+        </div>
+        )}
         <div className="relative top-4">
           <div className="absolute bottom-0 right-0">
             {" "}

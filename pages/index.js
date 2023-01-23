@@ -23,7 +23,7 @@ export default function Home({ session, data }) {
           className="absolute inset-x-0 top-0 -z-20 mx-auto"
         ></motion.div>
         <HeroBanner />
-        <div className="absolute xl:-right-5 xl:-top-20 inset-y-0">
+        <div className="absolute xl:-right-16 xl:-top-20 inset-y-0">
           <div className="rounded-full -mt-40 xl:mt-0 xl:h-96 xl:w-96 bg-[#7BC6B7]"></div>
           <div className="rounded-full xl:h-20 xl:w-20 top-[50vh] inset-y-0 right-80 bg-[#94CDDA]"></div>
         </div>
