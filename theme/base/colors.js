@@ -258,6 +258,12 @@ export default {
       light: "#adb5bd",
       dark: "#404040",
     },
+
+    iris: {
+      main: "#7879F1",
+      dark: "#5D5FEF",
+      light: "#A5A6F6",
+    },
   
     inputBorderColor: "#d2d6da",
   
