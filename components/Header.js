@@ -27,45 +27,60 @@ function Header({ placeholder }) {
   };
 
   return (
-    <header className="font-noto sticky top-0 z-50 grid grid-cols-3 shadow-md bg-white p-5 md:px-10 rounded-b-2xl">
+    <header
+      className="mx-auto bg-[#f8f8f8] max-h-fit py-1 rounded-b-2xl px-6 md:px-12 xl:px-40 font-noto sticky top-0 z-50 grid grid-cols-3
+    backdrop-blur-xl transition-colors duration-500 supports-backdrop-blur:bg-white dark:bg-[#f8f8f8]/60"
+    >
       {/* Left */}
-      <div
-        onClick={() => router.push("/")}
-        className="relative flex items-center h-16 cursor-pointer my-auto"
-      >
+      <div className=" flex items-center my-auto cursor-pointer">
         <Image
+          onClick={() => router.push("/")}
           src="/olivelogo.png"
           alt="/Avatar.png"
-          width={110}
-          height={110}
+          width={80}
+          height={80}
           //    layout="fill"
           objectFit="contain"
           objectPosition="left"
         />
+        <div className=" m-auto cursor-pointer md:visible invisible flex gap-4">
+          <Link href="/about">
+            <div className="rounded-full md:w-fit md:px-6 md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
+              <p className=" md:body2 font-bold">About</p>
+            </div>
+          </Link>
+          <Link href="/demo">
+            <div className="rounded-full  md:w-fit  md:px-6  md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
+              <p className=" md:body2 font-bold">Demo</p>
+            </div>
+          </Link>
+        </div>
       </div>
 
       {/* Middle  - Search */}
-      <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm appearance-none outline-none ">
+      <div className="flex items-center rounded-full appearance-none outline-none my-2 bg-[#f0f1f2]">
         <input
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className=" flex-grow pl-5 text-teal-900 bg-transparent outline-none border-none appearance-none focus:outline-none"
+          className="flex-grow pl-5 bg-transparent outline-none border-none appearance-none rounded-full focus:outline-none"
           type="text"
-          placeholder={placeholder || "ค้นหาคลินิกในจังหวัด..."}
+          placeholder={placeholder || "ค้นหาจังหวัด"}
         />
         <SearchIcon
           onClick={search}
-          className="hidden md:inline-flex h-8 bg-[#7bc6b7] text-white rounded-full p-2 cursor-pointer md:mx-2"
+          className="hidden lg:inline-flex lg:h-8 lg:bg-[#7bc6b7] lg:text-white lg:rounded-full lg:p-2 cursor-pointer lg:mx-2"
         />
       </div>
 
       {/* Right */}
       <div className="flex items-center space-x-4 justify-end text-teal-900">
         <Link href="https://daycare-portal.vercel.app/">
-          <p className="hidden md:inline text-teal-900 cursor-pointer">
-            เป็นเจ้าของคลิกนิกกายภาพ{" "}
-            <GlobeAltIcon className="h-6  md:inline " />
-          </p>
+          <div className="rounded-full lg:p-3 lg:bg-[#ACDED5]/20 cursor-pointer translation hover:shadow-lg hover:shadow-black/5 duration-800 ease-in-out">
+            <p className="hidden lg:inline text-[#005844">
+              เป็นเจ้าของคลิกนิกกายภาพ{" "}
+              <GlobeAltIcon className="h-6  lg:inline " />
+            </p>
+          </div>
         </Link>
 
         <Menu as="div" className="relative inline-block text-left">
@@ -78,8 +93,8 @@ function Header({ placeholder }) {
                     className="rounded-full cursor-pointer"
                     src="/Avatar.png"
                     alt="/Avatar.png"
-                    width="55"
-                    height="55"
+                    width="50"
+                    height="50"
                     layout="fixed"
                   />
                 </>
@@ -92,8 +107,8 @@ function Header({ placeholder }) {
                       className="rounded-full cursor-pointer"
                       src={session.user.image}
                       layout="fixed"
-                      width="55"
-                      height="55"
+                      width="50"
+                      height="50"
                     />
                   )}
                 </>
@@ -110,7 +125,7 @@ function Header({ placeholder }) {
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <div className="px-1 py-1 ">
+              <div className="px-1 py-1">
                 {!session && (
                   <>
                     <Menu.Item>
