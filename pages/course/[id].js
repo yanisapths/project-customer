@@ -6,11 +6,30 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
-function CourseDetail({ data, course }) {
+function CourseDetail({ data }) {
   const router = useRouter();
   const theme = useTheme();
+  const { cid, clinic_name, owner_id, id} = router.query;
+  const [course, setCourse] = useState({});
   const procedureLists = { procedures: course?.procedures };
-  const { cid, clinic_name, owner_id } = router.query;
+
+  const fetchData = async () => {
+    let isSubscribed = true;
+    const courseData = await fetch(
+      `${process.env.local}/course/${id}`
+    );
+    const course = await courseData.json();
+
+    if (isSubscribed) {
+      setCourse(course);
+    }
+    return () => (isSubscribed = false);
+  };
+
+  useEffect(() => {
+    fetchData().catch(console.error);
+  },);
+
 
   const navigateBack = (e) => {
     e.preventDefault();
@@ -118,54 +137,33 @@ function CourseDetail({ data, course }) {
 
 export default CourseDetail;
 
-export async function getStaticPaths() {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: "blocking",
-    };
-  }
+// export async function getStaticPaths() {
+//   if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+//     return {
+//       paths: [],
+//       fallback: "blocking",
+//     };
+//   }
 
-  // Call an external API endpoint to get courses
-  const res = await fetch(`${process.env.local}/course`);
-  const courses = await res.json();
-  if(courses) {
-    const paths = courses.map((course) => ({
-      params: { id: course._id },
-    }));
-    // { fallback: false } means other routes should 404
-    return { paths, fallback: false };
-  }
-  else {
-    const paths = []
-    // { fallback: false } means other routes should 404
-    return { paths, fallback: false };
-  }
-}
+//   // Call an external API endpoint to get courses
+//   const res = await fetch(`${process.env.local}/course`);
+//   const courses = await res.json();
 
-export async function getStaticProps({ params }) {
-  const courseId = params.id;
-  if(courseId){
-    const res = await fetch(
-      `${process.env.local}/course/${courseId}`
-    );
-    const course = await res.json();
-    if(course){
-        return {
-          props: { course },
-        };
-    }
-    else {
-      const course = {};
-      return {
-        props: { course },
-      };
-    }
-  }
-  else {
-    const course = {};
-    return {
-      props: { course },
-    };
-  }
-}
+//   const paths = courses.map((course) => ({
+//     params: { id: course._id },
+//   }));
+//   // { fallback: false } means other routes should 404
+//   return { paths, fallback: false };
+// }
+
+// export async function getStaticProps({ params }) {
+//   const courseId = params.id;
+//   const res = await fetch(
+//     `${process.env.local}/course/${courseId}`
+//   );
+//   const course = await res.json();
+
+//   return {
+//     props: { course },
+//   };
+// }
