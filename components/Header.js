@@ -77,7 +77,7 @@ function Header({ placeholder }) {
         <Link href="https://daycare-portal.vercel.app/">
           <div className="rounded-full lg:p-3 lg:bg-[#ACDED5]/20 cursor-pointer translation hover:shadow-lg hover:shadow-black/5 duration-800 ease-in-out">
             <p className="hidden lg:inline text-[#005844">
-              เป็นเจ้าของคลิกนิกกายภาพ{" "}
+              เป็นเจ้าของคลินิกกายภาพ{" "}
               <GlobeAltIcon className="h-6  lg:inline " />
             </p>
           </div>

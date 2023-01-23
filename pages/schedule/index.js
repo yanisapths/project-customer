@@ -6,6 +6,7 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommonCard from "../../components/OLCard/CommonCard";
+import ReviewCard from "../../components/OLCard/ReviewCard";
 
 function Schedule() {
   const [appointments, setRequestList] = useState([]);
@@ -21,7 +22,6 @@ function Schedule() {
 
     if (isSubscribed) {
       setRequestList(appointments);
-      console.log(appointments);
     }
     return () => (isSubscribed = false);
   };
@@ -59,7 +59,15 @@ function Schedule() {
                           schedule_id={data._id}
                         />
                       ) : (
-                        <></>
+                        <ReviewCard 
+                        key={data.id}
+                        course={data.course}
+                        course_id={data.course_id}
+                        clinicName={data.clinicName}
+                        status={data.status}
+                        schedule_id={data._id}
+                        clinic_id={data.clinic_id}
+                        />
                       )}
                     </>
                   );

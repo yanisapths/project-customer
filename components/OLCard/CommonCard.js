@@ -115,7 +115,7 @@ function CommonCard({
           </div>
         </div>
         )}
-        <div className="relative top-4">
+        <div className="relative xl:top-4">
           <div className="absolute bottom-0 right-0">
             {" "}
             {tag ? (
