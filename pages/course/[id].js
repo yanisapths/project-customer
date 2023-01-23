@@ -133,12 +133,12 @@ export async function getStaticPaths() {
     const paths = courses.map((course) => ({
       params: { id: course._id },
     }));
+    // { fallback: false } means other routes should 404
+    return { paths, fallback: false };
   }
   else {
-
+    return <>404</>
   }
-  // { fallback: false } means other routes should 404
-  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
@@ -147,8 +147,12 @@ export async function getStaticProps({ params }) {
     `${process.env.local}/course/${courseId}`
   );
   const course = await res.json();
-
-  return {
-    props: { course },
-  };
+  if(course){
+      return {
+        props: { course },
+      };
+  }
+  else {
+    return 
+  }
 }
