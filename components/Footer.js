@@ -20,7 +20,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="fixed bottom-5 inset-x-0 flex justify-between shadow-black/10 shadow-3xl rounded-full mx-8 md:mx-40 lg:mx-60 xl:mx-96 transition-colors duration-500 dark:bg-[#FDFFF5]">
+    <footer className="fixed bottom-5 inset-x-0 flex justify-between shadow-black/10 shadow-3xl rounded-full mx-8 md:mx-40 lg:mx-60 xl:mx-96 bg-[#FDFFF5]">
       {list.map((item) => (
         <Link href={item.path} key={item.id}>
           <footer-container>
