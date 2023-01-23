@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
@@ -12,7 +12,6 @@ function ScheduleDetail({ data }) {
   const [course, setCourse] = useState({});
   const [clinic, setClinic] = useState({});
   const router = useRouter();
-  console.log(data)
 
   const fetchData = async () => {
     let isSubscribed = true;
@@ -33,13 +32,10 @@ function ScheduleDetail({ data }) {
   };
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/auth/signin/");
-    } else {
-      fetchData().catch(console.error);
-    }
-  }, [status]);
+    fetchData().catch(console.error);
+  },);
 
+  if (status === "authenticated") {
   return (
     <div>
       <Head>
@@ -119,6 +115,26 @@ function ScheduleDetail({ data }) {
       <Footer />
     </div>
   );
+} else {
+  return (
+    <div className="h-screen">
+      <Head>
+        <title>Olive | Schedule </title>
+        <link rel="icon" href="favicon.ico" />
+      </Head>
+      <Header />
+      <section className="text-center mt-12">
+        <h1 className="mt-5 mb-6 text-3xl font-extrabold text-[#7BC6B7]">
+          ตารางนัด
+        </h1>
+        <button className="buttonPrimary text-xl" onClick={signIn}>
+          เข้าสู่ระบบ
+        </button>
+      </section>
+      <Footer />
+    </div>
+  );
+}
 }
 
 export default ScheduleDetail;
