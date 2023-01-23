@@ -127,7 +127,7 @@ export async function getStaticPaths() {
   }
 
   // Call an external API endpoint to get courses
-  const res = await fetch("https://olive-service-api.vercel.app/course");
+  const res = await fetch(`${process.env.local}/course`);
   const courses = await res.json();
 
   const paths = courses.map((course) => ({
@@ -140,7 +140,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const courseId = params.id;
   const res = await fetch(
-    `https://olive-service-api.vercel.app/course/${courseId}`
+    `${process.env.local}/course/${courseId}`
   );
   const course = await res.json();
 

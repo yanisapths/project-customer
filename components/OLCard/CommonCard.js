@@ -22,7 +22,7 @@ function CommonCard({
   const fetchData = async () => {
     let isSubscribed = true;
     const res = await fetch(
-      `https://olive-service-api.vercel.app/course/${course_id}`
+      `${process.env.local}/course/${course_id}`
     );
     const courses = await res.json();
 

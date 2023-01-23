@@ -16,7 +16,7 @@ function Schedule() {
   const fetchData = async () => {
     let isSubscribed = true;
     const res = await fetch(
-      `https://olive-service-api.vercel.app/appointment/match/customer/${session.user.id}`
+      `${process.env.local}/appointment/match/customer/${session.user.id}`
     );
     const appointments = await res.json();
 

@@ -60,7 +60,7 @@ export default function Home({ session, data }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const data = await fetch("https://olive-service-api.vercel.app/clinic").then(
+  const data = await fetch(`${process.env.local}/clinic`).then(
     (res) => res.json()
   );
   return {

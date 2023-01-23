@@ -66,8 +66,8 @@ function Request(props) {
 
   async function fetchData() {
     await delay(1000);
-    const url = `https://olive-service-api.vercel.app/course/match/owner/${query.owner_id}`;
-    const availurl = `https://olive-service-api.vercel.app/available/match/owner/${query.owner_id}`;
+    const url = `${process.env.local}/course/match/owner/${query.owner_id}`;
+    const availurl = `${process.env.local}/available/match/owner/${query.owner_id}`;
     //course
 
     const res = await fetch(url);
@@ -125,7 +125,7 @@ function Request(props) {
     };
     const response = await axios
       .post(
-        `https://olive-service-api.vercel.app/appointment/create/${query.cid}`,
+        `${process.env.local}/appointment/create/${query.cid}`,
         data,
         axiosConfig
       )

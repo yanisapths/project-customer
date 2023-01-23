@@ -21,7 +21,10 @@ module.exports = withTM(
       "ontariocaregiver.ca",
       "southamptonprimarycare.org.uk","bodyperformance.co.uk","www.figma.com","static.wixstatic.com"
     ],
-  
+    },
+    env: {
+      url: 'https://olive-service-api.vercel.app',
+      local: 'http://localhost:5000'
     },
   }
 )
