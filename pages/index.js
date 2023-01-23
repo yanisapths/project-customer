@@ -9,15 +9,13 @@ export default function Home({ session, data }) {
   return (
     <div className="">
       <Head>
-        <title>Olive | Happybody</title>
+        <title>Olive</title>
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
 
-      <main className="main h-screen overflow-scroll scrollbar-hide">
-        <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 lg:pt-12"></div>
-        <section className=" py-4 flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 "></section>
-        <div className="flex flex-col  lg:grid lg:grid-cols-2 lg:space-x-4 xl:grid xl:grid-cols-3 xl:space-x-8">
+      <main className="main max-w-screen-xxl h-screen overflow-scroll scrollbar-hide pt-4 xl:pt-14">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-4 xl:grid xl:grid-cols-3 xl:gap-8 xl:px-28">
           {data?.map(
             ({
               _id,

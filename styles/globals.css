@@ -12,8 +12,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  margin-bottom: 100px;
-  padding-bottom: 40px;
+  margin-bottom: 140px;
   font-family: "IBM Plex Sans Thai", sans-serif;
   background-color: #F8F8F8;
 }
@@ -71,16 +70,15 @@ a {
       hover:shadow-lg active:scale-95 active:bg-teal-500 active:text-white transition 
       transform duration-100 ease-out;
   }
-  b {
-    @apply w-full block p-6 text-center hover:bg-teal-100 text-teal-900 transition 
-    transform duration-100 ease-out cursor-pointer;
-  }
   .bottomNav {
     @apply w-full block py-5 px-3 text-center transition
     transform duration-100 ease-out cursor-pointer;
   }
+  footer-container {
+    @apply w-full block py-2 lg:py-6 xl:py-4 text-center rounded-full text-[#005844] ease-in-out cursor-pointer hover:bg-[#005844] hover:text-[#FDFFF5]
+  }
   .footer-icon {
-    @apply md:w-8 md:h-8 mb-2 mx-auto text-teal-600  w-6 h-6;
+    @apply mx-auto w-6 h-6 
   }
   .main {
     @apply mx-auto px-8 sm:px-16 bg-[#F8F8F8];
