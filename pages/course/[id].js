@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 function CourseDetail({ data, course }) {
   const router = useRouter();
   const theme = useTheme();
-  const procedureLists = { procedures: course.procedures };
+  const procedureLists = { procedures: course?.procedures };
   const { cid, clinic_name, owner_id } = router.query;
 
   const navigateBack = (e) => {
@@ -129,12 +129,16 @@ export async function getStaticPaths() {
   // Call an external API endpoint to get courses
   const res = await fetch(`${process.env.local}/course`);
   const courses = await res.json();
+  if(courses) {
+    const paths = courses.map((course) => ({
+      params: { id: course._id },
+    }));
+  }
+  else {
 
-  const paths = courses.map((course) => ({
-    params: { id: course._id },
-  }));
+  }
   // { fallback: false } means other routes should 404
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
