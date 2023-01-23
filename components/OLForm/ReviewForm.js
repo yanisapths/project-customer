@@ -46,7 +46,7 @@ function ReviewForm({ clinic_id }) {
     };
     const response = await axios
       .post(
-        `https://olive-service-api.vercel.app/review/create/${clinic_id}`,
+        `${process.env.local}/review/create/${clinic_id}`,
         json,
         axiosConfig
       )

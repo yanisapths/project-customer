@@ -87,7 +87,7 @@ function Search({ data }) {
 export default Search;
 
 export async function getServerSideProps() {
-  const data = await fetch("https://olive-service-api.vercel.app/clinic").then(
+  const data = await fetch(`${process.env.local}/clinic`).then(
     (res) => res.json()
   );
 

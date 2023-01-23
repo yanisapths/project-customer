@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 function CourseDetail({ data, course }) {
   const router = useRouter();
   const theme = useTheme();
-  const procedureLists = { procedures: course.procedures };
+  const procedureLists = { procedures: course?.procedures };
   const { cid, clinic_name, owner_id } = router.query;
 
   const navigateBack = (e) => {
@@ -127,24 +127,32 @@ export async function getStaticPaths() {
   }
 
   // Call an external API endpoint to get courses
-  const res = await fetch("https://olive-service-api.vercel.app/course");
+  const res = await fetch(`${process.env.local}/course`);
   const courses = await res.json();
-
-  const paths = courses.map((course) => ({
-    params: { id: course._id },
-  }));
-  // { fallback: false } means other routes should 404
-  return { paths, fallback: false };
+  if(courses) {
+    const paths = courses.map((course) => ({
+      params: { id: course._id },
+    }));
+    // { fallback: false } means other routes should 404
+    return { paths, fallback: false };
+  }
+  else {
+    return <>404</>
+  }
 }
 
 export async function getStaticProps({ params }) {
   const courseId = params.id;
   const res = await fetch(
-    `https://olive-service-api.vercel.app/course/${courseId}`
+    `${process.env.local}/course/${courseId}`
   );
   const course = await res.json();
-
-  return {
-    props: { course },
-  };
+  if(course){
+      return {
+        props: { course },
+      };
+  }
+  else {
+    return 
+  }
 }

@@ -16,10 +16,10 @@ function ScheduleDetail({ data }) {
   const fetchData = async () => {
     let isSubscribed = true;
     const courseData = await fetch(
-      `https://olive-service-api.vercel.app/course/${data.course_id}`
+      `${process.env.local}/course/${data.course_id}`
     );
     const clinicData = await fetch(
-      `https://olive-service-api.vercel.app/clinic/${data.clinic_id}`
+      `${process.env.local}/clinic/${data.clinic_id}`
     );
     const course = await courseData.json();
     const clinic = await clinicData.json();
@@ -146,7 +146,7 @@ export async function getStaticPaths() {
       fallback: "blocking",
     };
   }
-  const res = await fetch("https://olive-service-api.vercel.app/appointment");
+  const res = await fetch(`${process.env.local}/appointment`);
   const appointments = await res.json();
 
   const paths = appointments.map((appointment) => ({
@@ -158,7 +158,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const appointmentId = params.sid;
   const res = await fetch(
-    `https://olive-service-api.vercel.app/appointment/${appointmentId}`
+    `${process.env.local}/appointment/${appointmentId}`
   );
   const data = await res.json();
   return {
