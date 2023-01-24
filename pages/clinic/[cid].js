@@ -12,6 +12,25 @@ function Clinic({ data, courses }) {
   const router = useRouter();
   const theme = useTheme();
   const { cid, clinic_name, owner_id } = router.query;
+  const [reviews, setReviews] = useState([]);
+
+  const fetchData = async () => {
+    let isSubscribed = true;
+    const res = await fetch(
+      `${process.env.local}/review/match/${cid}`
+    );
+    const reviews = await res.json();
+
+    if (isSubscribed) {
+      setReviews(reviews);
+    }
+    return () => (isSubscribed = false);
+  };
+
+  useEffect(() => {
+    fetchData().catch(console.error);
+  });
+
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -80,6 +99,7 @@ function Clinic({ data, courses }) {
           className="pt-6 max-w-screen h-screen content-center overflow-scroll scrollbar-hide"
           data={data}
           courses={courses}
+          reviews={reviews}
         />
       </main>
 
