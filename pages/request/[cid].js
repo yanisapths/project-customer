@@ -84,8 +84,12 @@ function Request(props) {
         setAvailData(availData);
       })
       .catch((err) => console.log(err));
-    getSelectedDate(appointmentDate, appointmentTime, endTime);
+    getSelectedDate();
   });
+
+  if (!courseData || !availurl) {
+    return null;
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();

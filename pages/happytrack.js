@@ -116,6 +116,7 @@ function HappyTrack({ data }) {
               phoneNumber,
             }) => (
               <AppointmentCard
+                key={_id}
                 _id={_id}
                 firstName={firstName}
                 lastName={lastName}
