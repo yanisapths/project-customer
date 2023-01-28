@@ -16,10 +16,7 @@ import Grid from "@mui/material/Grid";
 import ReactDatePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
 import { useTheme } from "@mui/material/styles";
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 import "react-datepicker/dist/react-datepicker.css";
-
 import axios from "axios";
 
 const place = [
@@ -39,10 +36,10 @@ function Request(props) {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
-  if(router.isFallback){
-    return <p className="h1">Loading...</p>
+  if (router.isFallback) {
+    return <p className="h1">Loading...</p>;
   }
-  
+
   const handleClickOpen = (event) => {
     event.preventDefault();
     setOpen(true);
@@ -68,30 +65,25 @@ function Request(props) {
     setEndTime(endTime);
   }
 
-  async function fetchData() {
-    await delay(1000);
+  useEffect(() => {
     const url = `${process.env.local}/course/match/owner/${query.owner_id}`;
     const availurl = `${process.env.local}/available/match/owner/${query.owner_id}`;
-    //course
-
-    const res = await fetch(url);
-    const avail = await fetch(availurl);
-    try {
-      const courseData = await res.json();
-      const availData = await avail.json();
-      if (courseData) {
+    fetch(url, {
+      method: "GET",
+    })
+      .then(async (res) => {
+        const courseData = await res.json();
         setCourseData(courseData);
-      }
-      if (availData) {
+      })
+      .catch((err) => console.log(err));
+    fetch(availurl, {
+      method: "GET",
+    })
+      .then(async (res) => {
+        const availData = await res.json();
         setAvailData(availData);
-      } else return;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
+      })
+      .catch((err) => console.log(err));
     getSelectedDate(appointmentDate, appointmentTime, endTime);
   });
 
