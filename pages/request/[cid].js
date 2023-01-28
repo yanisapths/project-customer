@@ -24,6 +24,18 @@ const place = [
   { id: 2, label: "คลินิก" },
 ];
 
+const {
+  register,
+  watch,
+  control,
+  setValue,
+  formState: { errors, isValid },
+} = useForm({
+  mode: "onSubmit",
+  reValidateMode: "onChange",
+  defaultValues: {},
+});
+
 function Request(props) {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState();
@@ -85,7 +97,7 @@ function Request(props) {
       })
       .catch((err) => console.log(err));
     getSelectedDate();
-  });
+  },[courseData,availurl]);
 
   if (!courseData || !availurl) {
     return null;
@@ -142,48 +154,6 @@ function Request(props) {
         console.log("AXIOS ERROR: ", err);
       });
   };
-
-  const {
-    register,
-    watch,
-    control,
-    setValue,
-    formState: { errors, isValid },
-  } = useForm({
-    mode: "onSubmit",
-    reValidateMode: "onChange",
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      nickname: "",
-      phoneNumber: "",
-      place: "",
-      course_id: "",
-      price: "",
-      description: "",
-      appointmentDate: "",
-      appointmentTime: "",
-      endTime: "",
-      owner_id: query.owner_id,
-    },
-  });
-
-  console.log(
-    watch([
-      "firstName",
-      "lastName",
-      "nickname",
-      "phoneNumber",
-      "place",
-      "course_id",
-      "appointmentDate",
-      "appointmentTime",
-      "description",
-      "address",
-      "subDistrict",
-      "endTime",
-    ])
-  );
 
   if (status === "loading") {
     return <p>Loading...</p>;
