@@ -81,7 +81,7 @@ function Request(props) {
       })
       .catch((err) => console.log(err));
     getSelectedDate();
-  }, [courseData, availurl]);
+  }, [courseData, availData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -155,7 +155,7 @@ function Request(props) {
     return <p className="h1">Loading...</p>;
   }
 
-  if (!courseData || !availurl) {
+  if (!courseData || !availData) {
     return null;
   }
 

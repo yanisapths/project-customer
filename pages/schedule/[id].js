@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import useSWR from 'swr'
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -8,12 +7,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import NavigateBack from "../../components/OLNavigateBack/NavigateBack";
 
-const url = `${process.env.local}`;
-//important to return only result, not Promise
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
-function ScheduleDetail() {
-  const { data,error } = useSWR('/appointment', fetcher)
+function ScheduleDetail({data}) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [course, setCourse] = useState({});
