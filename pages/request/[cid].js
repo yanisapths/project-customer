@@ -23,8 +23,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
 const place = [
-  { id: 1, label: "บ้าน" },
-  { id: 2, label: "คลินิก" },
+  { id: 1, label: "คลินิก" },
+  { id: 2, label: "บ้าน" },
 ];
 
 function Request(props) {
@@ -102,7 +102,7 @@ function Request(props) {
     const data = {
       firstName: event.target.firstName.value,
       lastName: event.target.lastName.value,
-      nickname: event.target.nickname.value,
+      nickName: event.target.nickName.value,
       phoneNumber: event.target.phoneNumber.value,
       customer_id: session.user.id,
       clinicName: query.clinic_name,
@@ -155,7 +155,7 @@ function Request(props) {
     defaultValues: {
       firstName: "",
       lastName: "",
-      nickname: "",
+      nickName: "",
       phoneNumber: "",
       place: "",
       course_id: "",
@@ -172,7 +172,7 @@ function Request(props) {
     watch([
       "firstName",
       "lastName",
-      "nickname",
+      "nickName",
       "phoneNumber",
       "place",
       "course_id",
@@ -282,13 +282,13 @@ function Request(props) {
                             <TextField
                               id="outlined-textarea"
                               placeholder="ใส่ชื่อเล่น"
-                              {...register("nickname", { required: true })}
+                              {...register("nickName", { required: true })}
                               onChange={onChange}
                               multiline
                             />
                           </>
                         )}
-                        name="nickname"
+                        name="nickName"
                         control={control}
                       />
                     </FormControl>
@@ -307,7 +307,7 @@ function Request(props) {
                           <>
                             <TextField
                               id="outlined-textarea"
-                              placeholder="089564546"
+                              placeholder=""
                               {...register("phoneNumber", { required: true })}
                               onChange={onChange}
                               multiline
