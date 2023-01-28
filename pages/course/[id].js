@@ -33,7 +33,7 @@ function CourseDetail({ data, course }) {
   };
 
   if(router.isFallback){
-    return <p className="h1">Loading...</p>
+    return <h1 className="h1">Loading...</h1>
   }
 
   return (
@@ -151,12 +151,7 @@ export async function getStaticProps({ params }) {
     `${process.env.local}/course/${courseId}`
   );
   const course = await res.json();
-  if(course){
-      return {
-        props: { course },
-      };
-  }
-  else {
-    return 
-  }
+  return {
+    props: { course },
+  };
 }
