@@ -32,6 +32,10 @@ function CourseDetail({ data, course }) {
     });
   };
 
+  if(router.isFallback){
+    return <p className="h1">Loading...</p>
+  }
+
   return (
     <div>
       <Head>

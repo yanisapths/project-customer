@@ -39,6 +39,10 @@ function Request(props) {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
+  if(router.isFallback){
+    return <p className="h1">Loading...</p>
+  }
+  
   const handleClickOpen = (event) => {
     event.preventDefault();
     setOpen(true);
