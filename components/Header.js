@@ -32,18 +32,15 @@ function Header({ placeholder }) {
     backdrop-blur-xl transition-colors duration-500 supports-backdrop-blur:bg-white dark:bg-[#f8f8f8]/60"
     >
       {/* Left */}
-      <div className=" flex items-center my-auto cursor-pointer">
+      <div className="flex items-center my-auto cursor-pointer">
         <Image
           onClick={() => router.push("/")}
-          src="/olivelogo.png"
+          src="/asset/logo.png"
           alt="/Avatar.png"
-          width={80}
-          height={80}
-          //    layout="fill"
-          objectFit="contain"
-          objectPosition="left"
+          width="60"
+          height="80"
         />
-        <div className=" m-auto cursor-pointer md:visible invisible flex gap-4">
+        <div className="m-auto cursor-pointer md:visible invisible flex gap-4">
           <Link href="/about">
             <div className="rounded-full md:w-fit md:px-6 md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
               <p className=" md:body2 font-bold">About</p>
