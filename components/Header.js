@@ -54,6 +54,11 @@ function Header({ placeholder }) {
               <p className=" md:body2 font-bold">Demo</p>
             </div>
           </Link>
+          <Link href="/happytrack">
+            <div className="rounded-full  md:w-fit  md:px-6  md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
+              <p className=" md:body2 font-bold">Happy Track</p>
+            </div>
+          </Link>
         </div>
       </div>
 
@@ -131,6 +136,18 @@ function Header({ placeholder }) {
                     <Menu.Item>
                       {({ active }) => (
                         <button
+                          onClick={() => router.push("/happytrack")}
+                          className={`${
+                            active ? "bg-[#7bc6b7] text-white" : "text-gray-900"
+                          } group flex rounded-md items-center w-full px-4 py-2 text-sm md:text-lg`}
+                        >
+                          Happy Track
+                        </button>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
                           onClick={signIn}
                           className={`${
                             active ? "bg-[#7bc6b7] text-white" : "text-gray-900"
@@ -144,6 +161,18 @@ function Header({ placeholder }) {
                 )}
                 {session && (
                   <>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={() => router.push("/happytrack")}
+                          className={`${
+                            active ? "bg-[#7bc6b7] text-white" : "text-gray-900"
+                          } group flex rounded-md items-center w-full px-4 py-2 text-sm md:text-lg`}
+                        >
+                          Happy Track
+                        </button>
+                      )}
+                    </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
                         <button

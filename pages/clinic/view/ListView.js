@@ -54,7 +54,7 @@ function ListView({ data, courses, reviews }) {
       <div className="pt-6 w-full overflow-x-auto grid grid-cols-1 xl:grid xl:grid-cols-2 pb-32 md:pb-48 gap-10 xs:px-2 px-4 md:px-10 lg:px-18 xl:px-20">
         {selected == "reviews"
           ? view?.map(({ _id, customerName, comments, score, createdAt }) => (
-              <div className="py-4">
+              <div className="py-4" key={_id}>
                 {reviews ? (
                   <div className="mx-4 space-y-4" key={_id}>
                     <PeopleReview

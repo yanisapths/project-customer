@@ -16,9 +16,7 @@ function Clinic({ data, courses }) {
 
   const fetchData = async () => {
     let isSubscribed = true;
-    const res = await fetch(
-      `${process.env.local}/review/match/${cid}`
-    );
+    const res = await fetch(`${process.env.local}/review/match/${cid}`);
     const reviews = await res.json();
 
     if (isSubscribed) {
@@ -31,7 +29,6 @@ function Clinic({ data, courses }) {
     fetchData().catch(console.error);
   });
 
-
   const handleClick = (e) => {
     e.preventDefault();
     router.push({
@@ -43,6 +40,10 @@ function Clinic({ data, courses }) {
       },
     });
   };
+
+  if (router.isFallback) {
+    return <p className="h1">Loading...</p>;
+  }
 
   return (
     <div>
@@ -144,9 +145,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const clinicId = params.cid;
-  const res = await fetch(
-    `${process.env.local}/clinic/${clinicId}`
-  );
+  const res = await fetch(`${process.env.local}/clinic/${clinicId}`);
   const data = await res.json();
 
   const courseRes = await fetch(

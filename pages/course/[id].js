@@ -6,7 +6,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
-function CourseDetail({ data, course }) {
+function CourseDetail({data,course}) {
   const router = useRouter();
   const theme = useTheme();
   const procedureLists = { procedures: course?.procedures };
@@ -147,12 +147,7 @@ export async function getStaticProps({ params }) {
     `${process.env.local}/course/${courseId}`
   );
   const course = await res.json();
-  if(course){
-      return {
-        props: { course },
-      };
-  }
-  else {
-    return 
-  }
+  return {
+    props: { course },
+  };
 }

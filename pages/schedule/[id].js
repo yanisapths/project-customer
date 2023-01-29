@@ -7,35 +7,56 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import NavigateBack from "../../components/OLNavigateBack/NavigateBack";
 
-function ScheduleDetail({ data }) {
+function ScheduleDetail({data}) {
+  const router = useRouter();
   const { data: session, status } = useSession();
   const [course, setCourse] = useState({});
   const [clinic, setClinic] = useState({});
-  const router = useRouter();
-
-  const fetchData = async () => {
-    let isSubscribed = true;
-    const courseData = await fetch(
-      `${process.env.local}/course/${data.course_id}`
-    );
-    const clinicData = await fetch(
-      `${process.env.local}/clinic/${data.clinic_id}`
-    );
-    const course = await courseData.json();
-    const clinic = await clinicData.json();
-
-    if (isSubscribed) {
-      setCourse(course);
-      setClinic(clinic);
-    }
-    return () => (isSubscribed = false);
-  };
+  const { id } = router.query;
 
   useEffect(() => {
-    fetchData().catch(console.error);
-  },);
+    const courseurl = `${process.env.local}/course/${data.course_id}`;
+    const clinicurl = `${process.env.local}/clinic/${data.clinic_id}`;
+    fetch(courseurl, {
+      method: "GET",
+    })
+      .then(async (res) => {
+        const course = await res.json();
+        setCourse(course);
+      })
+      .catch((err) => console.log(err));
+    fetch(clinicurl, {
+      method: "GET",
+    })
+      .then(async (res) => {
+        const clinic = await res.json();
+        setClinic(clinic);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-  if (status === "authenticated") {
+  if (router.isFallback) return null;
+
+  if (status === "unauthenticated") {
+    return (
+      <div className="h-screen">
+        <Head>
+          <title>Olive | Schedule </title>
+          <link rel="icon" href="favicon.ico" />
+        </Head>
+        <Header />
+        <section className="text-center mt-12">
+          <h1 className="mt-5 mb-6 text-3xl font-extrabold text-[#7BC6B7]">
+            ตารางนัด
+          </h1>
+          <button className="buttonPrimary text-xl" onClick={signIn}>
+            เข้าสู่ระบบ
+          </button>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
   return (
     <div>
       <Head>
@@ -94,16 +115,18 @@ function ScheduleDetail({ data }) {
                   minute: "2-digit",
                   hour12: true,
                 })}
-                {data.endTime ? 
-                <>
-                 {"-"}{new Date(data.endTime).toLocaleTimeString("en-EN", {
-                  hour: "numeric",
-                  minute: "2-digit",
-                  hour12: true,
-                })}
-                </>
-                :
-                <></>}
+                {data.endTime ? (
+                  <>
+                    {"-"}
+                    {new Date(data.endTime).toLocaleTimeString("en-EN", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                  </>
+                ) : (
+                  <></>
+                )}
               </p>
             </div>
             <div className="md:w-1/6">
@@ -115,53 +138,29 @@ function ScheduleDetail({ data }) {
       <Footer />
     </div>
   );
-} else {
-  return (
-    <div className="h-screen">
-      <Head>
-        <title>Olive | Schedule </title>
-        <link rel="icon" href="favicon.ico" />
-      </Head>
-      <Header />
-      <section className="text-center mt-12">
-        <h1 className="mt-5 mb-6 text-3xl font-extrabold text-[#7BC6B7]">
-          ตารางนัด
-        </h1>
-        <button className="buttonPrimary text-xl" onClick={signIn}>
-          เข้าสู่ระบบ
-        </button>
-      </section>
-      <Footer />
-    </div>
-  );
 }
-}
-
-export default ScheduleDetail;
 
 export async function getStaticPaths() {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: "blocking",
-    };
-  }
   const res = await fetch(`${process.env.local}/appointment`);
   const appointments = await res.json();
 
-  const paths = appointments.map((appointment) => ({
-    params: { sid: appointment._id },
-  }));
-  return { paths, fallback: false };
+  const paths = appointments.map((appointment) => {
+    return { params: { id: appointment._id }}
+  });
+
+  return {
+    paths, fallback: false
+  };
 }
 
-export async function getStaticProps({ params }) {
-  const appointmentId = params.sid;
-  const res = await fetch(
-    `${process.env.local}/appointment/${appointmentId}`
-  );
+export async function getStaticProps(context) {
+  const {params} = context;
+  const res = await fetch(`${process.env.local}/appointment/${params.id}`);
   const data = await res.json();
   return {
     props: { data },
   };
 }
+
+export default ScheduleDetail;
+
