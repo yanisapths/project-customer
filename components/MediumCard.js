@@ -1,6 +1,22 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import VerifiedIcon from '@mui/icons-material/Verified';
+import { styled } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+
+const CustomTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: "rgba(0, 0, 0, 0.87)",
+    boxShadow: theme.shadows[10],
+    fontSize: 14,
+    borderRadius: 12,
+    p:8
+  },
+}));
 
 function MediumCard({
   imageUrl,
@@ -9,6 +25,7 @@ function MediumCard({
   description,
   price,
   _id,
+  approvalStatus
 }) {
   return (
     <div
@@ -23,7 +40,8 @@ function MediumCard({
         </Link>
       </div>
       <div className="px-4 pt-4">
-        <p className="text-xl mt-2 font-bold text-[#005844]">{clinic_name}</p>
+        <p className="text-xl mt-2 font-bold text-[#005844]">{clinic_name}
+        {approvalStatus == "Authorized" ? <span className="px-2"><CustomTooltip title="Verified Clinic" placement="top"><VerifiedIcon className="text-[#7bc6b7]" /></CustomTooltip></span>:"" }</p>
         <p className="body1 mt-2 pr-20 text-black/50 text-overflow text-ellipsis">
           {address}
         </p>
