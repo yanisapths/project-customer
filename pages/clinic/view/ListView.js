@@ -2,16 +2,9 @@ import React, { useState, useEffect } from "react";
 import Tabs from "../../../components/Tabs";
 import { useTheme } from "@mui/material/styles";
 import CourseListView from "./CourseListView";
+import PeopleReview from "../../../components/OLCard/PeopleReview";
 
-const reviews = [
-  {
-    id: 1,
-    customerName: "ปานฤทัย",
-    comments: "ยอดเยี่ยม ดีมาก ดีเลิศ",
-  },
-];
-
-function ListView({ data, courses }) {
+function ListView({ data, courses, reviews }) {
   const theme = useTheme();
   const [selected, setSelected] = useState("");
   const [view, setView] = useState([]);
@@ -58,11 +51,28 @@ function ListView({ data, courses }) {
           </div>
         ))}
       </section>
-      <div className="pt-6 w-full overflow-x-auto grid grid-cols-1 xl:grid xl:grid-cols-2 pb-8 gap-10 xs:px-2 px-4 md:px-10 lg:px-18 xl:px-20">
+      <div className="pt-6 w-full overflow-x-auto grid grid-cols-1 xl:grid xl:grid-cols-2 pb-32 md:pb-48 gap-10 xs:px-2 px-4 md:px-10 lg:px-18 xl:px-20">
         {selected == "reviews"
-          ? view?.map(({ id, customerName, comments }) => (
-              <div className="mx-4 space-y-4" key={id}>
-                <p>Review</p>
+          ? view?.map(({ _id, customerName, comments, score, createdAt }) => (
+              <div className="py-4" key={_id}>
+                {reviews ? (
+                  <div className="mx-4 space-y-4" key={_id}>
+                    <PeopleReview
+                      customerName={customerName}
+                      comments={comments}
+                      score={score}
+                      createdAt={createdAt}
+                    />
+                  </div>
+                ) : (
+                  <div className="mx-4 space-y-4">
+                    <div className="py-12">
+                      <p className="h4 text-black/50 pt-8">
+                        This clinic has no review yet.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             ))
           : view?.map(
