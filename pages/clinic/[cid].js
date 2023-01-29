@@ -7,6 +7,23 @@ import { useRouter } from "next/router";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ListView from "./view/ListView";
 import { useTheme } from "@mui/material/styles";
+import VerifiedIcon from '@mui/icons-material/Verified';
+import { styled } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+
+const CustomTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: "rgba(0, 0, 0, 0.87)",
+    boxShadow: theme.shadows[10],
+    fontSize: 14,
+    borderRadius: 12,
+    p:8
+  },
+}));
+
 
 function Clinic({ data, courses }) {
   const router = useRouter();
@@ -61,6 +78,7 @@ function Clinic({ data, courses }) {
         <div className="space-x-3 px-8 lg:px-24 lg:pt-12">
           <h2 className="md:mt-0 mt-4 text-3xl md:text-6xl font-bold text-[#005844]">
             {data.clinic_name}
+            {data.approvalStatus == "Authorized" ? <span className="px-2"><CustomTooltip title="Verified Clinic" placement="top" ><VerifiedIcon className="text-[#7bc6b7]" fontSize="large" /></CustomTooltip></span>:"" }
           </h2>
         </div>
         <div className="px-8 lg:px-24">
