@@ -20,8 +20,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
 const place = [
-  { id: 1, label: "บ้าน" },
-  { id: 2, label: "คลินิก" },
+  { id: 1, label: "คลินิก" },
+  { id: 2, label: "บ้าน" },
 ];
 
 function Request(props) {
@@ -94,7 +94,7 @@ function Request(props) {
     const data = {
       firstName: event.target.firstName.value,
       lastName: event.target.lastName.value,
-      nickname: event.target.nickname.value,
+      nickName: event.target.nickName.value,
       phoneNumber: event.target.phoneNumber.value,
       customer_id: session.user.id,
       clinicName: query.clinic_name,

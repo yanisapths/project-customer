@@ -39,6 +39,7 @@ export default function Home({ session, data }) {
               address,
               description,
               price,
+              approvalStatus
             }) => (
               <MediumCard
                 key={clinic_id}
@@ -48,6 +49,7 @@ export default function Home({ session, data }) {
                 address={address}
                 description={description}
                 price={price}
+                approvalStatus={approvalStatus}
               />
             )
           )}

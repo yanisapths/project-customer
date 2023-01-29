@@ -9,8 +9,27 @@ import { Box } from "@mui/material";
 function CourseDetail({data,course}) {
   const router = useRouter();
   const theme = useTheme();
+  const { cid, clinic_name, owner_id, id} = router.query;
+  const [course, setCourse] = useState({});
   const procedureLists = { procedures: course?.procedures };
-  const { cid, clinic_name, owner_id } = router.query;
+
+  const fetchData = async () => {
+    let isSubscribed = true;
+    const courseData = await fetch(
+      `${process.env.local}/course/${id}`
+    );
+    const course = await courseData.json();
+
+    if (isSubscribed) {
+      setCourse(course);
+    }
+    return () => (isSubscribed = false);
+  };
+
+  useEffect(() => {
+    fetchData().catch(console.error);
+  },);
+
 
   const navigateBack = (e) => {
     e.preventDefault();
@@ -129,16 +148,12 @@ export async function getStaticPaths() {
   // Call an external API endpoint to get courses
   const res = await fetch(`${process.env.local}/course`);
   const courses = await res.json();
-  if(courses) {
-    const paths = courses.map((course) => ({
-      params: { id: course._id },
-    }));
-    // { fallback: false } means other routes should 404
-    return { paths, fallback: false };
-  }
-  else {
-    return <>404</>
-  }
+
+  const paths = courses.map((course) => ({
+    params: { id: course._id },
+  }));
+  // { fallback: false } means other routes should 404
+  return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
@@ -147,6 +162,7 @@ export async function getStaticProps({ params }) {
     `${process.env.local}/course/${courseId}`
   );
   const course = await res.json();
+
   return {
     props: { course },
   };
