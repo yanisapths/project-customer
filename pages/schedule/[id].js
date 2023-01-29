@@ -140,27 +140,27 @@ function ScheduleDetail({data}) {
   );
 }
 
-// export async function getStaticPaths() {
-//   const res = await fetch(`${process.env.local}/appointment`);
-//   const appointments = await res.json();
+export async function getStaticPaths() {
+  const res = await fetch(`${process.env.local}/appointment`);
+  const appointments = await res.json();
 
-//   const paths = appointments.map((appointment) => {
-//     return { params: { id: appointment._id }}
-//   });
+  const paths = appointments.map((appointment) => {
+    return { params: { id: appointment._id }}
+  });
 
-//   return {
-//     paths, fallback: false
-//   };
-// }
+  return {
+    paths, fallback: false
+  };
+}
 
-// export async function getStaticProps(context) {
-//   const {params} = context;
-//   const res = await fetch(`${process.env.local}/appointment/${params.id}`);
-//   const data = await res.json();
-//   return {
-//     props: { data },
-//   };
-// }
+export async function getStaticProps(context) {
+  const {params} = context;
+  const res = await fetch(`${process.env.local}/appointment/${params.id}`);
+  const data = await res.json();
+  return {
+    props: { data },
+  };
+}
 
 export default ScheduleDetail;
 
