@@ -22,7 +22,7 @@ function CommonCard({
   const fetchData = async () => {
     let isSubscribed = true;
     const res = await fetch(
-      `${process.env.local}/course/${course_id}`
+      `${process.env.url}/course/${course_id}`
     );
     const courses = await res.json();
 

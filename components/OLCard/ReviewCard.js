@@ -33,7 +33,7 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
   const fetchReview = async () => {
     let isSubscribed = true;
     const res = await fetch(
-      `${process.env.local}/review/match/${clinic_id}`
+      `${process.env.url}/review/match/${clinic_id}`
     );
     const review = await res.json();
 
@@ -46,7 +46,7 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
   const fetchData = async () => {
     let isSubscribed = true;
     const res = await fetch(
-      `${process.env.local}/course/${course_id}`
+      `${process.env.url}/course/${course_id}`
     );
     const courses = await res.json();
 
@@ -65,7 +65,7 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
 
   async function deleteRequest(appointmentId) {
     const res = await fetch(
-      `${process.env.local}/appointment/delete/${appointmentId}`,
+      `${process.env.url}/appointment/delete/${appointmentId}`,
       { method: "DELETE" }
     )
       .then(async (res) => {})

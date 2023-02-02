@@ -46,7 +46,7 @@ function ReviewForm({ clinic_id }) {
     };
     const response = await axios
       .post(
-        `${process.env.local}/review/create/${clinic_id}`,
+        `${process.env.url}/review/create/${clinic_id}`,
         json,
         axiosConfig
       )

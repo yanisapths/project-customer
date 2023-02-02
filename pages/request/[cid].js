@@ -62,8 +62,8 @@ function Request(props) {
   }
 
   useEffect(() => {
-    const url = `${process.env.local}/course/match/owner/${query.owner_id}`;
-    const availurl = `${process.env.local}/available/match/owner/${query.owner_id}`;
+    const url = `${process.env.url}/course/match/owner/${query.owner_id}`;
+    const availurl = `${process.env.url}/available/match/owner/${query.owner_id}`;
     fetch(url, {
       method: "GET",
     })
@@ -117,7 +117,7 @@ function Request(props) {
     };
     const response = await axios
       .post(
-        `${process.env.local}/appointment/create/${query.cid}`,
+        `${process.env.url}/appointment/create/${query.cid}`,
         data,
         axiosConfig
       )

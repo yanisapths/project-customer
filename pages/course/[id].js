@@ -16,7 +16,7 @@ function CourseDetail({data,course}) {
   const fetchData = async () => {
     let isSubscribed = true;
     const courseData = await fetch(
-      `${process.env.local}/course/${id}`
+      `${process.env.url}/course/${id}`
     );
     const course = await courseData.json();
 
@@ -146,7 +146,7 @@ export async function getStaticPaths() {
   }
 
   // Call an external API endpoint to get courses
-  const res = await fetch(`${process.env.local}/course`);
+  const res = await fetch(`${process.env.url}/course`);
   const courses = await res.json();
 
   const paths = courses.map((course) => ({
@@ -159,7 +159,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const courseId = params.id;
   const res = await fetch(
-    `${process.env.local}/course/${courseId}`
+    `${process.env.url}/course/${courseId}`
   );
   const course = await res.json();
 
