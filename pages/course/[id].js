@@ -6,30 +6,11 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
-function CourseDetail({data,course}) {
+function CourseDetail({ data, course }) {
   const router = useRouter();
   const theme = useTheme();
-  const { cid, clinic_name, owner_id, id} = router.query;
-  const [course, setCourse] = useState({});
+  const { cid, clinic_name, owner_id, id } = router.query;
   const procedureLists = { procedures: course?.procedures };
-
-  const fetchData = async () => {
-    let isSubscribed = true;
-    const courseData = await fetch(
-      `${process.env.local}/course/${id}`
-    );
-    const course = await courseData.json();
-
-    if (isSubscribed) {
-      setCourse(course);
-    }
-    return () => (isSubscribed = false);
-  };
-
-  useEffect(() => {
-    fetchData().catch(console.error);
-  },);
-
 
   const navigateBack = (e) => {
     e.preventDefault();
@@ -146,7 +127,7 @@ export async function getStaticPaths() {
   }
 
   // Call an external API endpoint to get courses
-  const res = await fetch(`${process.env.local}/course`);
+  const res = await fetch(`${process.env.url}/course`);
   const courses = await res.json();
 
   const paths = courses.map((course) => ({
@@ -158,9 +139,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const courseId = params.id;
-  const res = await fetch(
-    `${process.env.local}/course/${courseId}`
-  );
+  const res = await fetch(`${process.env.url}/course/${courseId}`);
   const course = await res.json();
 
   return {

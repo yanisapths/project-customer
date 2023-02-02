@@ -15,8 +15,8 @@ function ScheduleDetail({data}) {
   const { id } = router.query;
 
   useEffect(() => {
-    const courseurl = `${process.env.local}/course/${data.course_id}`;
-    const clinicurl = `${process.env.local}/clinic/${data.clinic_id}`;
+    const courseurl = `${process.env.url}/course/${data.course_id}`;
+    const clinicurl = `${process.env.url}/clinic/${data.clinic_id}`;
     fetch(courseurl, {
       method: "GET",
     })
@@ -140,27 +140,32 @@ function ScheduleDetail({data}) {
   );
 }
 
+export default ScheduleDetail;
+
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.local}/appointment`);
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
+  const res = await fetch(`${process.env.url}/appointment`);
   const appointments = await res.json();
 
-  const paths = appointments.map((appointment) => {
-    return { params: { id: appointment._id }}
-  });
-
-  return {
-    paths, fallback: false
-  };
+  const paths = appointments.map((appointment) => ({
+    params: { sid: appointment._id },
+  }));
+  return { paths, fallback: false };
 }
 
-export async function getStaticProps(context) {
-  const {params} = context;
-  const res = await fetch(`${process.env.local}/appointment/${params.id}`);
+export async function getStaticProps({ params }) {
+  const appointmentId = params.sid;
+  const res = await fetch(
+    `${process.env.url}/appointment/${appointmentId}`
+  );
   const data = await res.json();
   return {
     props: { data },
   };
 }
-
-export default ScheduleDetail;
 

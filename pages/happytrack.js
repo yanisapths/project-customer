@@ -144,7 +144,7 @@ function HappyTrack({ data }) {
 export default HappyTrack;
 
 export async function getServerSideProps() {
-  const data = await fetch(`${process.env.local}/appointment`).then((res) =>
+  const data = await fetch(`${process.env.url}/appointment`).then((res) =>
     res.json()
   );
 
