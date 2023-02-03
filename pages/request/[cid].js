@@ -275,13 +275,13 @@ function Request(props) {
                           <TextField
                             id="outlined-textarea"
                             placeholder="ใส่ชื่อเล่น"
-                            {...register("nickname", { required: true })}
+                            {...register("nickName", { required: true })}
                             onChange={onChange}
                             multiline
                           />
                         </>
                       )}
-                      name="nickname"
+                      name="nickName"
                       control={control}
                     />
                   </FormControl>
