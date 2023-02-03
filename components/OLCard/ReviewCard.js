@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Box } from "@mui/material";
 import { alpha } from "@mui/material";
 import Swal from "sweetalert2";
@@ -28,26 +28,9 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
   const theme = useTheme();
   const [courses, setCourseList] = useState({});
   const router = useRouter();
-  const [review, setReview] = useState([]);
-
-  const fetchReview = async () => {
-    let isSubscribed = true;
-    const res = await fetch(
-      `${process.env.url}/review/match/${clinic_id}`
-    );
-    const review = await res.json();
-
-    if (isSubscribed) {
-      setReview(review);
-    }
-    return () => (isSubscribed = false);
-  };
-
   const fetchData = async () => {
     let isSubscribed = true;
-    const res = await fetch(
-      `${process.env.url}/course/${course_id}`
-    );
+    const res = await fetch(`${process.env.dev}/course/${course_id}`);
     const courses = await res.json();
 
     if (isSubscribed) {
@@ -60,12 +43,12 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
     if (course_id) {
       fetchData().catch(console.error);
     }
-    fetchReview().catch(console.error);
+    // fetchReview().catch(console.error);
   });
 
   async function deleteRequest(appointmentId) {
     const res = await fetch(
-      `${process.env.url}/appointment/delete/${appointmentId}`,
+      `${process.env.dev}/appointment/delete/${appointmentId}`,
       { method: "DELETE" }
     )
       .then(async (res) => {})
@@ -95,18 +78,17 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
             </strong>
           </div>
         </div>
-         
       </div>
       <div className="pt-2">
-        {review.status == "reviewed" ? (
-          <ReviewForm clinic_id={clinic_id} />
+        {status != "reviewed" ? (
+          <ReviewForm clinic_id={clinic_id} schedule_id={schedule_id} />
         ) : (
           <div className="py-10 px-8 flex">
             <p className="h4">Thanks for the review! 🥳</p>
             <div className="">
               <CustomTooltip title="remove this" placement="top">
                 <IconButton
-                className="text-black/40 hover:text-black/80"
+                  className="text-black/40 hover:text-black/80"
                   aria-label="delete"
                   size="medium"
                   onClick={() =>
@@ -145,7 +127,7 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
           </div>
         )}
       </div>
-      
+
       <div className="px-8 -mt-[12px]">
         <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
       </div>

@@ -16,7 +16,7 @@ function Schedule() {
   const fetchData = async () => {
     let isSubscribed = true;
     const res = await fetch(
-      `${process.env.url}/appointment/match/customer/${session.user.id}`
+      `${process.env.dev}/appointment/match/customer/${session.user.id}`
     );
     const appointments = await res.json();
 
@@ -46,7 +46,7 @@ function Schedule() {
                 appointments.map((data) => {
                   return (
                     <>
-                      {data.status != "Done" ? (
+                      {data.status != "Done" && data.status != "reviewed" ? (
                         <CommonCard
                           key={data.id}
                           course={data.course}

@@ -32,8 +32,8 @@ function AppointmentCard({
   const [clinic, setClinic] = useState({});
 
   useEffect(() => {
-    const courseurl = `${process.env.url}/course/${course_id}`;
-    const clinicurl = `${process.env.url}/clinic/${clinic_id}`;
+    const courseurl = `${process.env.dev}/course/${course_id}`;
+    const clinicurl = `${process.env.dev}/clinic/${clinic_id}`;
     fetch(courseurl, {
       method: "GET",
     })

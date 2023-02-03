@@ -15,8 +15,8 @@ function ScheduleDetail({data}) {
   const { id } = router.query;
 
   useEffect(() => {
-    const courseurl = `${process.env.url}/course/${data.course_id}`;
-    const clinicurl = `${process.env.url}/clinic/${data.clinic_id}`;
+    const courseurl = `${process.env.dev}/course/${data.course_id}`;
+    const clinicurl = `${process.env.dev}/clinic/${data.clinic_id}`;
     fetch(courseurl, {
       method: "GET",
     })
@@ -149,7 +149,7 @@ export async function getStaticPaths() {
       fallback: "blocking",
     };
   }
-  const res = await fetch(`${process.env.url}/appointment`);
+  const res = await fetch(`${process.env.dev}/appointment`);
   const appointments = await res.json();
 
   const paths = appointments.map((appointment) => ({
@@ -161,7 +161,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const appointmentId = params.sid;
   const res = await fetch(
-    `${process.env.url}/appointment/${appointmentId}`
+    `${process.env.dev}/appointment/${appointmentId}`
   );
   const data = await res.json();
   return {

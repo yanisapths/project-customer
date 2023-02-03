@@ -24,7 +24,7 @@ module.exports = withTM(
     },
     env: {
       url: 'https://olive-service-api.vercel.app',
-      local: 'http://localhost:5000'
+      dev: 'http://localhost:5000'
     },
   }
 )

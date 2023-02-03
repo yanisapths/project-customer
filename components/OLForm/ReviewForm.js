@@ -12,9 +12,9 @@ const ratingChanged = (newRating) => {
   console.log(newRating);
 };
 
-function ReviewForm({ clinic_id }) {
-    const { data: session, status } = useSession();
-    const theme = useTheme();
+function ReviewForm({ clinic_id, schedule_id }) {
+  const { data: session, status } = useSession();
+  const theme = useTheme();
 
   const {
     register,
@@ -32,10 +32,8 @@ function ReviewForm({ clinic_id }) {
     },
   });
 
-
   const onSubmit = async (data) => {
     console.log(data);
-    data.status = "reviewed";
     data.customerName = session.user.name;
     const json = JSON.stringify(data);
     let axiosConfig = {
@@ -45,11 +43,7 @@ function ReviewForm({ clinic_id }) {
       },
     };
     const response = await axios
-      .post(
-        `${process.env.url}/review/create/${clinic_id}`,
-        json,
-        axiosConfig
-      )
+      .post(`${process.env.dev}/review/create/${clinic_id}`, json, axiosConfig)
       .then(async (res) => {
         console.log("RESPONSE RECEIVED: ", res.data);
         Router.reload();
@@ -57,13 +51,21 @@ function ReviewForm({ clinic_id }) {
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
       });
-     console.log(
-    watch([
-      "score",
-      "status",
-      "customerName",
-    ])
-  );
+
+    const status = { status: "reviewed" };
+    const res = await axios
+      .put(
+        `${process.env.dev}/appointment/accept/${schedule_id}`,
+        status,
+        axiosConfig
+      )
+      .then(async (res) => {
+        console.log("RESPONSE RECEIVED: ", res.data);
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+      });
+    console.log(watch(["score", "status", "customerName"]));
   };
 
   return (
@@ -75,7 +77,7 @@ function ReviewForm({ clinic_id }) {
               <Controller
                 render={({ field: { onChange, value } }) => (
                   <div className="flex gap-4">
-                  <p className="pt-4 caption">การให้บริการ</p>
+                    <p className="pt-4 caption">การให้บริการ</p>
                     <ReactStars
                       count={5}
                       onChange={onChange}

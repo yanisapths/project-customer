@@ -21,9 +21,7 @@ function CommonCard({
 
   const fetchData = async () => {
     let isSubscribed = true;
-    const res = await fetch(
-      `${process.env.url}/course/${course_id}`
-    );
+    const res = await fetch(`${process.env.dev}/course/${course_id}`);
     const courses = await res.json();
 
     if (isSubscribed) {
@@ -100,20 +98,20 @@ function CommonCard({
         )}{" "}
       </div>
       <div className="p-8">
-      {rejectReason ? (
-        <div className="relative lg:top-4 xl:-mt-4">
-          <div className="bottom-0 left-0">
-            {" "}
-            <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
+        {rejectReason ? (
+          <div className="relative lg:top-4 xl:-mt-4">
+            <div className="bottom-0 left-0">
+              {" "}
+              <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
+            </div>
           </div>
-        </div>
-         ) : (
+        ) : (
           <div className="relative top-16">
-          <div className="bottom-0 left-0">
-            {" "}
-            <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
+            <div className="bottom-0 left-0">
+              {" "}
+              <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
+            </div>
           </div>
-        </div>
         )}
         <div className="relative xl:top-4">
           <div className="absolute bottom-0 right-0">
