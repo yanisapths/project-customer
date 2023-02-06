@@ -77,7 +77,7 @@ function Clinic({ data, courses }) {
           <Banner imageUrl="/tree.jpg" />
         )}
         <div className="space-x-3 px-8 lg:px-24 lg:pt-12">
-          <h2 className="md:mt-0 mt-4 text-3xl md:text-6xl font-bold text-[#005844]">
+          <h2 className="mt-4 md:mt-8 xl:mt-4 text-3xl md:text-6xl font-bold text-[#005844]">
             {data.clinic_name}
             {data.approvalStatus == "Authorized" ? <span className="px-2"><CustomTooltip title="Verified Clinic" placement="top" ><VerifiedIcon className="text-[#7bc6b7]" fontSize="large" /></CustomTooltip></span>:"" }
           </h2>
