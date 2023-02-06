@@ -10,6 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import RequestFooterButton from "../../components/OLButton/RequestFooterButton";
 
 const CustomTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -122,20 +123,7 @@ function Clinic({ data, courses }) {
         />
       </main>
 
-      <footer className="fixed font-noto bottom-0 inset-x-0 flex justify-between shadow-black/10 shadow-3xl bg-white">
-        <div className="bottomNav">
-          <div
-            onClick={handleClick}
-            className="cursor-pointer inline-flex items-center buttonPrimary"
-          >
-            <AddCircleIcon className="h-8 w-8 xl:h-10 xl:w-10" />
-            <span className="text-xl pl-3 font-medium xl:text-2xl text-center">
-              {" "}
-              จองนัด{" "}
-            </span>
-          </div>
-        </div>
-      </footer>
+      <RequestFooterButton handleClick={handleClick}/>
     </div>
   );
 }

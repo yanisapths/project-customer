@@ -2,9 +2,9 @@ import React from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../components/Header";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
+import RequestFooterButton from "../../components/OLButton/RequestFooterButton";
 
 function CourseDetail({ data, course }) {
   const router = useRouter();
@@ -98,20 +98,7 @@ function CourseDetail({ data, course }) {
           </Box>
         </div>
       </main>
-      <footer className="fixed font-noto bottom-0 inset-x-0 flex justify-between shadow-black/10 shadow-3xl bg-white">
-        <div className="bottomNav">
-          <div
-            onClick={handleClick}
-            className="cursor-pointer inline-flex items-center buttonPrimary"
-          >
-            <AddCircleIcon className="h-8 w-8 lg:h-10 lg:w-10" />
-            <span className="text-xl pl-3 font-medium lg:text-2xl">
-              {" "}
-              จองนัด{" "}
-            </span>
-          </div>
-        </div>
-      </footer>
+      <RequestFooterButton handleClick={handleClick}/>
     </div>
   );
 }
