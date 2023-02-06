@@ -14,21 +14,21 @@ function signIn({ providers }) {
         <link rel="icon" href="favicon.ico" />
       </Head>
       {/* main */}
-      <div className="mx-auto py-32 h-screen bg-cover overflow-hidden justify-center items-center align-middle bg-[#005844]">
-        <div className="text-center mx-4 xl:mx-auto max-w-xl py-20 bg-white backdrop-blur-sm drop-shadow-lg rounded-xl">
+      <div className="mx-auto py-12 h-screen bg-cover overflow-hidden justify-center items-center align-middle bg-[#005844]">
+        <div className="text-center mx-4 xl:mx-auto max-w-md py-20 xl:h-fit xl:py-12 bg-white backdrop-blur-sm drop-shadow-lg rounded-xl">
           <div className="">
             <Link href="/">
               <Image
                 src="/asset/logo.png"
-                width="100"
-                height="120"
+                width="60"
+                height="80"
                 alt="/Avatar.png"
                 className="cursor-pointer"
               />
             </Link>
-            <p className="md:text-4xl font-bold text-3xl font-mono ">Welcome</p>
+            <p className="xl:text-3xl font-bold text-2xl font-mono ">Welcome</p>
 
-            <p className="mt-4 text-gray-800 fonts-mono text-lg md:text-2xl md:mt-5">
+            <p className="mt-4 text-gray-800 fonts-mono text-md md:text-xl md:mt-5">
               Login to continue to Olive
             </p>
           </div>
@@ -39,7 +39,7 @@ function signIn({ providers }) {
                 <Image
                   src="/google.png"
                   alt="/Avatar.png"
-                  width={60}
+                  width={40}
                   height={10}
                 />
               </div>
@@ -50,7 +50,7 @@ function signIn({ providers }) {
                 <Image
                   src="/facebook.png"
                   alt="/Avatar.png"
-                  width={60}
+                  width={40}
                   height={5}
                 />
               </div>
@@ -61,7 +61,7 @@ function signIn({ providers }) {
                 <Image
                   src="/line.png"
                   alt="/Avatar.png"
-                  width={60}
+                  width={40}
                   height={10}
                 />
               </div>
