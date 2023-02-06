@@ -14,8 +14,8 @@ function signIn({ providers }) {
         <link rel="icon" href="favicon.ico" />
       </Head>
       {/* main */}
-      <div className="mx-auto py-12 h-screen bg-cover overflow-hidden justify-center items-center align-middle bg-[#005844]">
-        <div className="text-center mx-4 xl:mx-auto max-w-md py-20 xl:h-fit xl:py-12 bg-white backdrop-blur-sm drop-shadow-lg rounded-xl">
+      <div className="mx-auto py-24 h-screen bg-cover overflow-hidden flex justify-center items-center align-middle bg-[#005844] max-w-screen-xxl">
+        <div className="text-center mx-6 xl:mx-auto w-full xl:w-2/6 py-24 bg-white backdrop-blur-sm drop-shadow-lg rounded-xl align-middle">
           <div className="">
             <Link href="/">
               <Image
