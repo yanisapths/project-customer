@@ -49,7 +49,7 @@ function HappyTrack({ data }) {
   }
 
   return (
-    <div className="h-screen">
+    <div className="">
       <Head>
         <title>Olive | Happy Track</title>
         <link rel="icon" href="favicon.ico" />
@@ -57,7 +57,7 @@ function HappyTrack({ data }) {
       <Header />
       <main className="flex max-w-screen-xl px-24 mx-auto items-center justify-center">
         <section className="pt-14">
-          <h1 className="text-center px-6 md:px-0 text-3xl font-semibold mt-2 mb-6 text-teal-900">
+          <h1 className="text-center px-6 md:px-0 text-2xl md:text-3xl xl:text-3xl font-semibold mt-2 mb-6 text-teal-900">
             Track Your Appointment 😊
           </h1>
           <Paper
@@ -66,7 +66,10 @@ function HappyTrack({ data }) {
               p: "10px 20px",
               display: "flex",
               alignItems: "center",
-              width: 750,
+              width: '300px',
+              '@media (min-width: 780px)' : {
+                width: '750px'
+              },
               borderRadius: "32px",
               boxShadow: 4,
               mt: 6,
@@ -86,7 +89,7 @@ function HappyTrack({ data }) {
           </Paper>
         </section>
       </main>
-      <div className="max-w-screen-xl mx-auto items-center justify-center pt-2">
+      <div className="max-w-screen-lg mx-auto items-center justify-center pt-2 pb-24 px-4">
         {data
           .filter(({ _id }) => {
             if (_id == "") {

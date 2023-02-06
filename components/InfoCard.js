@@ -31,11 +31,9 @@ function InfoCard({ imageUrl, address, clinic_name, description, price, _id }) {
         </p>
         <div className="flex justify-end px-4 pt-4">
           <Link href={`/clinic/${_id}`}>
-            <a>
               <div className="py-2 w-24 ml-10 text-white text-center rounded-3xl bg-[#7bc6b7] hover:bg-[#7bc6b7]/80">
                 <p className="body2">ดูเพิ่มเติม</p>
               </div>
-            </a>
           </Link>
         </div>
       </div>
