@@ -28,7 +28,7 @@ function Header({ placeholder }) {
 
   return (
     <header
-      className="mx-auto bg-[#f8f8f8] max-h-fit py-1 rounded-b-2xl px-6 md:px-12 xl:px-40 font-noto sticky top-0 z-50 grid grid-cols-3
+      className="mx-auto bg-[#f8f8f8] max-h-fit py-2 rounded-b-2xl px-4 md:px-32 lg:px-10 font-noto sticky top-0 z-50 grid grid-cols-3
     backdrop-blur-xl transition-colors duration-500 supports-backdrop-blur:bg-white dark:bg-[#f8f8f8]/60"
     >
       {/* Left */}
@@ -37,23 +37,23 @@ function Header({ placeholder }) {
           onClick={() => router.push("/")}
           src="/asset/logo.png"
           alt="/Avatar.png"
-          width="60"
-          height="80"
+          width="50"
+          height="70"
         />
-        <div className="m-auto cursor-pointer md:visible invisible flex gap-4">
+        <div className="md:m-auto cursor-pointer md:visible invisible md:flex md:gap-4">
           <Link href="/about">
-            <div className="rounded-full md:w-fit md:px-6 md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
-              <p className=" md:body2 font-bold">About</p>
+            <div className="rounded-full md:w-fit md:px-6 md:py-2 md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
+              <p className="caption font-bold">About</p>
             </div>
           </Link>
           <Link href="/demo">
-            <div className="rounded-full  md:w-fit  md:px-6  md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
-              <p className=" md:body2 font-bold">Demo</p>
+            <div className="rounded-full md:w-fit md:px-6 md:py-2 md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
+              <p className="caption font-bold">Demo</p>
             </div>
           </Link>
           <Link href="/happytrack">
-            <div className="rounded-full  md:w-fit  md:px-6  md:py-2  md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
-              <p className=" md:body2 font-bold">Happy Track</p>
+            <div className="rounded-full md:w-fit md:px-6 md:py-2 md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
+              <p className="caption font-bold">Happy Track</p>
             </div>
           </Link>
         </div>
