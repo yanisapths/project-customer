@@ -53,17 +53,19 @@ function AppointmentCard({
   }, []);
 
   return (
-    <div className="shadow-xl px-24 py-16 rounded-3xl">
-      <h2 className="py-4 h3 lg:h1  text-center">{course.courseName}</h2>
-      <div className="cursor-pointer bg-[#7BC6B7] transition hover:shadow-xl hover:shadow-[#7BC6B7]/40 w-fit px-6 py-2 lg:py-3 rounded-full mx-auto">
+    <div className="shadow-xl px-2 py-12 xl:px-24 xl:py-16 rounded-3xl">
+      <h2 className="py-4 h3 lg:h1 text-center">{course.courseName}</h2>
+      <div className="cursor-pointer bg-[#7BC6B7] transition hover:shadow-xl hover:shadow-[#7BC6B7]/40 w-fit px-2 py-1 xl:px-6 xl:py-2 lg:py-3 rounded-full mx-auto">
         <CustomTooltip title="เกี่ยวกับคลินิก" placement="top">
-          <p className="h6 text-white">{clinic.clinic_name}</p>
+          <Link href={`/clinic/${clinic._id}`}>
+            <p className="xl:h6 body2 text-white">{clinic.clinic_name}</p>
+          </Link>
         </CustomTooltip>
       </div>
-      <div className="text-center pt-6 text-black/60">
-        <span>Appointment Id: </span> <span className="body1">{_id}</span>
+      <div className="text-center pt-6 text-black/60 caption xl:body1">
+        <span>Appointment Id: </span> <span className="">{_id}</span>
       </div>
-      <div className="flex justify-center gap-60 ody1 lg:h6 tracking-wide mt-6 lg:mt-12">
+      <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide mt-6 lg:mt-12 md:h6 body2">
         <div>
           <p className="text-black/50">ติดต่อคลินิก</p>
           <p className="hover:text-[#0921FF]">{clinic.phoneNumber}</p>
@@ -81,8 +83,8 @@ function AppointmentCard({
           </p>
         </div>
       </div>
-      <section className="lg:w-full mb-2 pt-12 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 border-black/20 border-b-[1px] border-dashed">
-        <div className="flex justify-cneter text-center lg:body1 tracking-wide gap-28">
+      <section className="lg:w-full mb-2 pt-12 md:pt-20 overflow-scroll scroll-auto scrollbar-hide md:mx-2 md:ml-8 border-black/20 border-b-[1px] border-dashed">
+        <div className="flex justify-cneter text-center caption lg:body1 tracking-wide gap-14 md:gap-28 text-black/50">
           <div className="relative block md:w-1/6">
             <p className="">ครั้งที่</p>
           </div>
@@ -98,7 +100,7 @@ function AppointmentCard({
         </div>
       </section>
 
-      <div className="flex text-center p-2 bg-[#acded5]/20 text-black mb-1 mx-8 w-full body1 md:h6 lg:h5">
+      <div className="flex text-center md:p-2 bg-[#acded5]/20 text-black mb-1 md:mx-8 w-full caption md:h6 lg:h5">
         <div className="w-1/6">
           <p>1</p>
         </div>
@@ -107,18 +109,16 @@ function AppointmentCard({
         </div>
         <div className="w-2/6">
           <p>
-            {new Date(appointmentTime).toLocaleTimeString("en-EN", {
+            {new Date(appointmentTime).toLocaleTimeString("th-TH", {
               hour: "numeric",
               minute: "2-digit",
-              hour12: true,
             })}
             {endTime ? (
               <>
                 {"-"}
-                {new Date(endTime).toLocaleTimeString("en-EN", {
+                {new Date(endTime).toLocaleTimeString("th-TH", {
                   hour: "numeric",
                   minute: "2-digit",
-                  hour12: true,
                 })}
               </>
             ) : (
