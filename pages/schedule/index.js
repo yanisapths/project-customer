@@ -41,7 +41,9 @@ function Schedule() {
         <main className="max-w-screen lg:pb-32 h-screen overflow-scroll scrollbar-hide content-center lg:px-24 xl:px-0 xxl:px-48">
           <div className="px-6 pt-12">
             <p className="h6 text-black text-center">นัดทั้งหมด</p>
-            <div className="grid grid-cols-1 py-6 lg:grid lg:grid-cols-3 lg:gap-4">
+          </div>
+          <div className="lg:flex lg:justify-center">
+            <div className="grid grid-cols-1 py-6">
               {appointments &&
                 appointments.map((data) => {
                   return (
