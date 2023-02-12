@@ -72,8 +72,10 @@ function ScheduleDetail({ data }) {
       </Head>
       <Header />
       <main className="lg:pb-32 h-screen overflow-scroll scrollbar-hide">
-        <NavigateBack path="/schedule" />
         <div className="px-6 pt-12 lg:px-96 text-center">
+          <div className="flex justify-between">
+            <NavigateBack path="/schedule" />
+          </div>
           <p className="body1 tracking-wide text-black/50">ตารางนัด</p>
           <h2 className="py-6 h3 lg:h1">{course.courseName}</h2>
           <div className="cursor-pointer bg-[#7BC6B7] transition hover:shadow-xl hover:shadow-[#7BC6B7]/40 w-fit px-6 py-2 lg:py-3 rounded-full mx-auto">
@@ -108,7 +110,13 @@ function ScheduleDetail({ data }) {
             </div>
           </section>
 
-          <div className="flex justify-between p-2 bg-[#acded5]/20 text-black mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5">
+          <div
+            className={
+              data.progressStatus == "Done"
+                ? "bg-[#f0f1f2]/40 text-[#121212]/40 flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                : "bg-[#acded5]/20 text-black flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+            }
+          >
             <div className="md:w-1/6">
               <p>1</p>
             </div>
@@ -137,13 +145,21 @@ function ScheduleDetail({ data }) {
               </p>
             </div>
             <div className="md:w-1/6">
-              <p>{data.status}</p>
+              {data.progressStatus ? (
+                <p>{data.progressStatus}</p>
+              ) : (
+                <p>{data.status}</p>
+              )}
             </div>
           </div>
           {event.map((result, index) => {
             return (
               <div
-                className="flex justify-between p-2 bg-[#acded5]/20 text-black mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                className={
+                  result.status == "Done"
+                    ? "bg-[#f0f1f2]/40 text-[#121212]/40 flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                    : "bg-[#acded5]/20 text-black flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                }
                 key={index}
               >
                 <div className="md:w-1/6">
