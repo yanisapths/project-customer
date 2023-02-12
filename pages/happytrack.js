@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useTheme } from "@mui/material/styles";
 import AppointmentCard from "../components/OLCard/AppointmentCard";
+import Footer from "../components/Footer";
 
 function HappyTrack({ data }) {
   const theme = useTheme();
@@ -89,7 +90,7 @@ function HappyTrack({ data }) {
           </Paper>
         </section>
       </main>
-      <div className="max-w-screen-lg mx-auto items-center justify-center pt-2 pb-24 px-4">
+      <div className="max-w-screen-lg mx-auto items-center justify-center pt-2 pb-32 px-4">
         {data
           .filter(({ _id }) => {
             if (_id == "") {
@@ -108,6 +109,7 @@ function HappyTrack({ data }) {
             )
           )}
       </div>
+      <Footer />
     </div>
   );
 }
