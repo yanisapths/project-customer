@@ -83,8 +83,8 @@ function HappyTrack({ data }) {
               onChange={(e) => setSearchInput(e.target.value)}
               onKeyDown={handleKeyDown}
             />
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="track">
-              <SearchIcon onClick={track} />
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="track" onClick={track}>
+              <SearchIcon />
             </IconButton>
           </Paper>
         </section>
@@ -100,42 +100,10 @@ function HappyTrack({ data }) {
             return re.test(router.query._id);
           })
           .map(
-            ({
-              _id,
-              clinic_id,
-              course_id,
-              firstName,
-              lastName,
-              nickName,
-              appointmentDate,
-              appointmentTime,
-              endTime,
-              appointmentPlace,
-              location,
-              address,
-              sex,
-              lineId,
-              status,
-              phoneNumber,
-            }) => (
+            (result) => (
               <AppointmentCard
-                key={_id}
-                _id={_id}
-                firstName={firstName}
-                lastName={lastName}
-                nickName={nickName}
-                phoneNumber={phoneNumber}
-                status={status}
-                lineId={lineId}
-                sex={sex}
-                appointmentDate={appointmentDate}
-                appointmentTime={appointmentTime}
-                address={address}
-                endTime={endTime}
-                appointmentPlace={appointmentPlace}
-                location={location}
-                course_id={course_id}
-                clinic_id={clinic_id}
+                key={result._id}
+               result={result}
               />
             )
           )}
