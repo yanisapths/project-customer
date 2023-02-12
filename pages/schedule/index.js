@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommonCard from "../../components/OLCard/CommonCard";
@@ -61,14 +62,14 @@ function Schedule() {
                           schedule_id={data._id}
                         />
                       ) : (
-                        <ReviewCard 
-                        key={data.id}
-                        course={data.course}
-                        course_id={data.course_id}
-                        clinicName={data.clinicName}
-                        status={data.status}
-                        schedule_id={data._id}
-                        clinic_id={data.clinic_id}
+                        <ReviewCard
+                          key={data.id}
+                          course={data.course}
+                          course_id={data.course_id}
+                          clinicName={data.clinicName}
+                          status={data.status}
+                          schedule_id={data._id}
+                          clinic_id={data.clinic_id}
                         />
                       )}
                     </>
@@ -101,9 +102,18 @@ function Schedule() {
           <p className="mt-5 mb-6 text-xl text-[#7BC6B7]">
             เข้าสู่ระบบเพื่อดูตารางนัด
           </p>
-          <button className="buttonPrimary text-xl" onClick={signIn}>
-            เข้าสู่ระบบ
+          <button className="buttonPrimary text-xl hover:shadow-[#ACDED5] hover:shadow-2xl" onClick={signIn}>
+            เข้าสู่ระบบ 🚪
           </button>
+          <div className="pt-12">
+            <p className="mt-5 mb-6 text-xl text-[#7BC6B7]">
+              หรือ ค้นหานัดของคุณด้วย HappyTrack
+            </p>
+            <Link href="/happytrack">
+              <button className="rounded-full border-2 border-[#ACDED5]/20 hover:bg-[#ACDED5]/20 text-[#005844] px-28 py-4 shadow-lg hover:shadow-[#ACDED5] hover:shadow-2xl focus:outline-none focus:ring 
+     xl:px-96 xl:py-6 lg:px-60 text-xl">ค้นหานัด 🔍</button>
+            </Link>
+          </div>
         </section>
         <Footer />
       </div>
