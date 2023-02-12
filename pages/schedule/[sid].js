@@ -7,33 +7,40 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import NavigateBack from "../../components/OLNavigateBack/NavigateBack";
 
-function ScheduleDetail({data}) {
+function ScheduleDetail({ data }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [course, setCourse] = useState({});
   const [clinic, setClinic] = useState({});
+  const [event, setEvent] = useState([]);
   const { id } = router.query;
 
-  useEffect(() => {
+  const fetchData = async () => {
+    let isSubscribed = true;
     const courseurl = `${process.env.dev}/course/${data.course_id}`;
     const clinicurl = `${process.env.dev}/clinic/${data.clinic_id}`;
-    fetch(courseurl, {
-      method: "GET",
-    })
-      .then(async (res) => {
-        const course = await res.json();
-        setCourse(course);
-      })
-      .catch((err) => console.log(err));
-    fetch(clinicurl, {
-      method: "GET",
-    })
-      .then(async (res) => {
-        const clinic = await res.json();
-        setClinic(clinic);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    const eventurl = `${process.env.dev}/event/match/${data._id}`;
+    const courses = await fetch(courseurl);
+    const clinics = await fetch(clinicurl);
+    const events = await fetch(eventurl);
+    const course = await courses.json();
+    const clinic = await clinics.json();
+    const event = await events.json();
+    if (isSubscribed) {
+      setCourse(course);
+      setClinic(clinic);
+      setEvent(event);
+    }
+    return () => (isSubscribed = false);
+  };
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/signin/");
+    } else {
+      fetchData().catch(console.error);
+    }
+  }, [status]);
 
   if (router.isFallback) return null;
 
@@ -133,6 +140,45 @@ function ScheduleDetail({data}) {
               <p>{data.status}</p>
             </div>
           </div>
+          {event.map((result, index) => {
+            return (
+              <div
+                className="flex justify-between p-2 bg-[#acded5]/20 text-black mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                key={index}
+              >
+                <div className="md:w-1/6">
+                  <p>{index + 2}</p>
+                </div>
+                <div className="md:w-1/6">
+                  <p>{new Date(result.date).toDateString()}</p>
+                </div>
+                <div className="md:w-1/6">
+                  <p>
+                    {new Date(result.startTime).toLocaleTimeString("en-EN", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                    {result.endTime ? (
+                      <>
+                        {"-"}
+                        {new Date(result.endTime).toLocaleTimeString("en-EN", {
+                          hour: "numeric",
+                          minute: "2-digit",
+                          hour12: true,
+                        })}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </p>
+                </div>
+                <div className="md:w-1/6">
+                  <p>{result.status}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </main>
       <Footer />
@@ -160,12 +206,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const appointmentId = params.sid;
-  const res = await fetch(
-    `${process.env.dev}/appointment/${appointmentId}`
-  );
+  const res = await fetch(`${process.env.dev}/appointment/${appointmentId}`);
   const data = await res.json();
   return {
     props: { data },
   };
 }
-
