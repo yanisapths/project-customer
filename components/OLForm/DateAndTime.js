@@ -31,7 +31,6 @@ export class DateAndTime extends Component {
   render() {
     const {
       values,
-      handleChange,
       currentDate,
       selectedDate,
       today,
@@ -40,6 +39,7 @@ export class DateAndTime extends Component {
       control,
       availables,
       getSelectedDate,
+      handleChange
     } = this.props;
     return (
       <div>
