@@ -3,6 +3,7 @@ import { generateDate, months } from "../../utils/calendar";
 import cn from "../../utils/cn";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 function SmallCalendar({
   getSelectedDate,
@@ -12,10 +13,13 @@ function SmallCalendar({
   setToday,
   selectedDate,
   setSelectedDate,
+  values,
+  removeDate,
 }) {
   const days = ["S", "M", "T", "W", "T", "F", "S"];
+
   return (
-    <div className="md:w-96 md:h-96 xl:w-96 xl:h-96 text-[#121212]">
+    <div className="text-[#121212] h-fit">
       <div className="flex justify-between">
         <p className="font-semibold">
           {months[today.month()]}, {today.year()}
@@ -83,36 +87,44 @@ function SmallCalendar({
               new Date(data.availableDate).toDateString()
             ) {
               return (
-                <div
-                  key={data._id}
-                  className="cursor-pointer flex rounded-lg text-[#005844] body1 bg-[#ACDED5]/30 
-                py-1 px-3 w-full whitespace-nowrap my-2
-                hover:text-black hover:bg-[#ACDED5] hover:shadow-xl hover:shadow-[#ACDED5]/40
-                active:text-black active:bg-[#ACDED5] active:shadow-xl active:shadow-[#ACDED5]/40
-                "
-                  onClick={() =>
-                    getSelectedDate(
-                      data.availableDate,
-                      data.startTime,
-                      data.endTime
-                    )
-                  }
-                >
-                  <p className="tracking-wide">
-                    {new Date(data.startTime).toLocaleTimeString("en-EN", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}
-                  </p>
-                  <p className="px-2">-</p>
-                  <p className="tracking-wide">
-                    {new Date(data.endTime).toLocaleTimeString("en-EN", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}
-                  </p>
+                <div className="flex justify-center align-middle">
+                  <div
+                    key={data._id}
+                    className={
+                      values.appointmentDate
+                        ? "text-center cursor-pointer flex gap-2 rounded-lg text-[#005844] body1 border-2 border-[#ACDED5] bg-[#ACDED5] px-3 w-fit whitespace-nowrap my-2 shadow-xl shadow-[#ACDED5]/40"
+                        : "text-center cursor-pointer flex gap-2 rounded-lg text-[#005844] body1 border-2 border-[#ACDED5] px-3 w-fit whitespace-nowrap my-2 hover:text-black hover:bg-[#ACDED5] hover:shadow-xl hover:shadow-[#ACDED5]/40 active:text-black active:bg-[#ACDED5] active:shadow-xl active:shadow-[#ACDED5]/40"
+                    }
+                    onClick={() =>
+                      getSelectedDate(
+                        data.availableDate,
+                        data.startTime,
+                        data.endTime
+                      )
+                    }
+                  >
+                    <p className="tracking-wide">
+                      {new Date(data.startTime).toLocaleTimeString("th-TH", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                    <p className="px-2">-</p>
+                    <p className="tracking-wide">
+                      {new Date(data.endTime).toLocaleTimeString("th-TH", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                    {values.appointmentDate ? (
+                      <HighlightOffIcon
+                        className="p-1 w-8 h-8"
+                        onClick={removeDate}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
               );
             } else {

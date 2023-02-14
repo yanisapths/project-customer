@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter, withRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import TimeModal from "./TimeModal";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter, withRouter } from "next/router";
+import RequestForm from "../../components/OLForm/RequestForm";
+
 import { toast } from "react-hot-toast";
-import { Controller, useForm } from "react-hook-form";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Grid from "@mui/material/Grid";
-import ReactDatePicker from "react-datepicker";
-import DatePicker from "react-datepicker";
-import { useTheme } from "@mui/material/styles";
+import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import dayjs from "dayjs";
-import RequestForm from "../../components/OLForm/RequestForm";
 
 const place = [
   { id: 1, label: "คลินิก" },
@@ -35,30 +26,12 @@ function Request(props) {
   const { query } = useRouter();
   const router = useRouter();
   const [courseData, setCourseData] = useState([]);
+  const [staffs, setStaffs] = useState([]);
   const [availData, setAvailData] = useState([]);
-  const [open, setOpen] = useState(false);
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [endTime, setEndTime] = useState("");
-
-  const handleClickOpen = (event) => {
-    event.preventDefault();
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    event.preventDefault();
-    if (reason !== "backdropClick") {
-      setOpen(false);
-    }
-  };
-
-  const handleDateSelect = (event, reason) => {
-    event.preventDefault();
-    if (reason !== "backdropClick") {
-      setOpen(false);
-    }
-  };
+  const [success, setSuccess] = useState("false");
 
   function getSelectedDate(appointmentDate, appointmentTime, endTime) {
     setAppointmentDate(appointmentDate);
@@ -69,6 +42,7 @@ function Request(props) {
   useEffect(() => {
     const url = `${process.env.dev}/course/match/owner/${query.owner_id}`;
     const availurl = `${process.env.dev}/available/match/owner/${query.owner_id}`;
+    const staffurl = `${process.env.dev}/staff/owner/${query.owner_id}`;
     fetch(url, {
       method: "GET",
     })
@@ -85,66 +59,51 @@ function Request(props) {
         setAvailData(availData);
       })
       .catch((err) => console.log(err));
+    fetch(staffurl, {
+      method: "GET",
+    })
+      .then(async (res) => {
+        const staffs = await res.json();
+        setStaffs(staffs);
+      })
+      .catch((err) => console.log(err));
     getSelectedDate();
-  }, [courseData, availData]);
+  }, [courseData, availData, staffs]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const location =
-      event.target.address.value +
-      event.target.province.value +
-      event.target.district.value +
-      event.target.subDistrict.value +
-      event.target.postalCode.value;
     const data = {
-      firstName: event.target.firstName.value,
-      lastName: event.target.lastName.value,
-      nickName: event.target.nickName.value,
-      phoneNumber: event.target.phoneNumber.value,
       customer_id: session.user.id,
       clinicName: query.clinic_name,
-      create_At: Date.now(),
-      appointmentDate: event.target.appointmentDate || appointmentDate,
-      appointmentTime: event.target.appointmentTime || appointmentTime,
-      endTime: endTime,
-      appointmentPlace: event.target.place.value,
-      course_id: event.target.course_id.value,
-      description: event.target.description.value,
       owner_id: query.owner_id,
-      location: location,
     };
 
-    // let axiosConfig = {
-    //   headers: {
-    //     "Content-Type": "application/json;charset=UTF-8",
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    // };
-    // const response = await axios
-    //   .post(
-    //     `${process.env.dev}/appointment/create/${query.cid}`,
-    //     data,
-    //     axiosConfig
-    //   )
-    //   .then(async (res) => {
-    //     console.log("RESPONSE RECEIVED: ", res.data);
-    //     toast.success(
-    //       `your appointment request has been sent to the clinic! 🎉`
-    //     );
-    //     router.push({
-    //       pathname: `/clinic/${query.cid}`,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log("AXIOS ERROR: ", err);
-    //   });
+    let axiosConfig = {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+    const response = await axios
+      .post(
+        `${process.env.dev}/appointment/create/${query.cid}`,
+        data,
+        axiosConfig
+      )
+      .then(async (res) => {
+        console.log("RESPONSE RECEIVED: ", res.data);
+        setSuccess("true");
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+        setSuccess("error");
+        toast.error("ไม่สามารถสร้างนัดได้");
+      });
   };
 
   const {
-    register,
-    watch,
     control,
-    setValue,
+    register,
     formState: { errors, isValid },
   } = useForm({
     mode: "onSubmit",
@@ -204,18 +163,21 @@ function Request(props) {
             </h1>
           </div>
           <div className="max-w-xl mx-auto mt-2 md:mt-6 shadow-md py-10 px-6 rounded-2xl bg-white">
-          <form onSubmit={handleSubmit}>
-            <RequestForm
-              courses={courseData}
-              currentDate={currentDate}
-              today={today}
-              setToday={setToday}
-              setSelectedDate={setSelectedDate}
-              selectedDate={selectedDate}
-              control={control}
-              availables={availData}
-              getSelectedDate={getSelectedDate}
-            />
+            <form onSubmit={handleSubmit}>
+              <RequestForm
+                courses={courseData}
+                currentDate={currentDate}
+                today={today}
+                setToday={setToday}
+                setSelectedDate={setSelectedDate}
+                selectedDate={selectedDate}
+                control={control}
+                availables={availData}
+                getSelectedDate={getSelectedDate}
+                staffs={staffs}
+                success={success}
+                handleSubmit={handleSubmit}
+              />
             </form>
           </div>
         </div>

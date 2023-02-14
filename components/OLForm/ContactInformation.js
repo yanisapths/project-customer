@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PreviousButton from "../OLButton/PreviousButton";
 import ContinueButton from "../OLButton/ContinueButton";
 
-import TextField from "@mui/material/TextField";
+import { toast } from "react-hot-toast";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -15,7 +15,12 @@ const sexs = [
 export class ContactInformation extends Component {
   continue = (e) => {
     e.preventDefault();
-    this.props.nextStep();
+
+    if (this.props.handlePhoneValidation() == true) {
+      this.props.nextStep();
+    } else {
+      toast.error("กรุณาใส่เบอร์โทร และเป็นตัวเลขเท่านั้น");
+    }
   };
   previous = (e) => {
     e.preventDefault();
@@ -88,28 +93,28 @@ export class ContactInformation extends Component {
             />
           </div>
           <div className="col-span-2">
-          <label htmlFor="sex" className="inputLabel pb-0 text-sm">
-            เพศ
-          </label>
-          <Select
-            sx={{
-              borderRadius: "40px",
-              height: "40px",
-              "@media (min-width: 780px)": {
-                width: "120px",
-              },
-              px: 2,
-              mt: 0.5,
-            }}
-            value={values.sex}
-            onChange={handleChange("sex")}
-          >
-            {sexs.map((input, key) => (
-              <MenuItem key={input.id} value={input.label}>
-                {input.label}
-              </MenuItem>
-            ))}
-          </Select>
+            <label htmlFor="sex" className="inputLabel pb-0 text-sm">
+              เพศ
+            </label>
+            <Select
+              sx={{
+                borderRadius: "40px",
+                height: "40px",
+                "@media (min-width: 780px)": {
+                  width: "120px",
+                },
+                px: 2,
+                mt: 0.5,
+              }}
+              value={values.sex}
+              onChange={handleChange("sex")}
+            >
+              {sexs.map((input, key) => (
+                <MenuItem key={input.id} value={input.label}>
+                  {input.label}
+                </MenuItem>
+              ))}
+            </Select>
           </div>
           <div className="col-span-3">
             <label htmlFor="phoneNumber" className="inputLabel pb-0 text-sm">
@@ -137,6 +142,20 @@ export class ContactInformation extends Component {
               className="inputOutline"
               placeholder="เช่น malila"
               onChange={handleChange("lineId")}
+            />
+          </div>
+          <div className="pt-6 col-span-6">
+            <label htmlFor="lineId" className="inputLabel pb-0 text-sm">
+              ข้อควรระวัง หรือ รายละเอียดเพิ่มเติม
+            </label>
+
+            <input
+              type="text"
+              id="description"
+              name="description"
+              className="inputOutline"
+              placeholder="บอกคลินิกเพิ่มเเช่น เรื่องที่ควรระวัง หรือส่วนที่ต้องดูแลเป็นพิเศษ"
+              onChange={handleChange("description")}
             />
           </div>
         </div>
