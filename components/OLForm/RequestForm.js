@@ -7,10 +7,15 @@ import DateAndTime from "./DateAndTime";
 import Location from "./Location";
 import Success from "./Success";
 
+import axios from "axios";
+import { toast } from "react-hot-toast";
+
 export class RequestForm extends Component {
   state = {
     step: 1,
+    success: "false",
     errors: {},
+    success: "false",
     firstName: "",
     lastName: "",
     nickName: "",
@@ -23,13 +28,17 @@ export class RequestForm extends Component {
     appointmentPlace: "",
     course_id: "",
     description: "",
-    owner_id: "",
     location: "",
     lineId: "",
     sex: "",
     age: "",
     staff: "",
+    owner_id: this.props.ownerId,
+    clinic_id: this.props.clinicId,
+    customer_id: this.props.customerId,
+    clinicName: this.props.clinicName,
   };
+
   nextStep = () => {
     const { step } = this.state;
     this.setState({
@@ -122,8 +131,79 @@ export class RequestForm extends Component {
     return formIsValid;
   };
 
+  handleSubmit = event => {
+    event.preventDefault();
+    const clinicId = this.props.clinicId;
+    const {
+      firstName,
+      lastName,
+      nickName,
+      lineId,
+      age,
+      sex,
+      phoneNumber,
+      customer_id,
+      clinicName,
+      appointmentDate,
+      appointmentPlace,
+      appointmentTime,
+      endTime,
+      course_id,
+      description,
+      owner_id,
+      location,
+      staff,
+      errors,
+    } = this.state;
+    const values = {
+      firstName,
+      lastName,
+      nickName,
+      lineId,
+      age,
+      sex,
+      phoneNumber,
+      customer_id,
+      clinicName,
+      appointmentDate,
+      appointmentPlace,
+      appointmentTime,
+      endTime,
+      course_id,
+      description,
+      owner_id,
+      location,
+      staff,
+      errors,
+    };
+    const url = `${process.env.dev}/appointment/create/${clinicId}`;
+    console.log(url)
+    console.log(values);
+    let axiosConfig = {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+     axios.post(
+        `${process.env.dev}/appointment/create/${clinicId}`,
+        values,
+        axiosConfig
+      )
+      .then(async (res) => {
+        console.log("RESPONSE RECEIVED: ", res.data);
+        toast.success("สร้างนัดสำเร็จ");
+        this.setState({ success: "true" });
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+        this.setState({ success: "error" });
+        toast.error("ไม่สามารถสร้างนัดได้");
+      });
+  }
+
   render() {
-    const { step } = this.state;
+    const { step,success } = this.state;
     const {
       firstName,
       lastName,
@@ -176,8 +256,6 @@ export class RequestForm extends Component {
       setSelectedDate,
       availables,
       staffs,
-      success,
-      handleSubmit,
     } = this.props;
     switch (step) {
       case 1:

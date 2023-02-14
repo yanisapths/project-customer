@@ -46,9 +46,9 @@ function Schedule() {
           <div className="lg:flex lg:justify-center">
             <div className="grid grid-cols-1 py-6">
               {appointments &&
-                appointments.map((data) => {
+                appointments.map((data,index) => {
                   return (
-                    <>
+                    <div key={index}>
                       {data.status != "Done" && data.status != "reviewed" ? (
                         <CommonCard
                           key={data.id}
@@ -72,7 +72,7 @@ function Schedule() {
                           clinic_id={data.clinic_id}
                         />
                       )}
-                    </>
+                    </div>
                   );
                 })}
             </div>

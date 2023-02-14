@@ -15,7 +15,7 @@ export class Clinician extends Component {
     this.props.nextStep();
   };
   render() {
-    const { values, handleChange, staffs,control } = this.props;
+    const { values, handleChange, staffs, control } = this.props;
     return (
       <div className="">
         <div className="flex justify-between align-middle items-center">
@@ -40,8 +40,9 @@ export class Clinician extends Component {
             onChange={handleChange("staff")}
           >
             <MenuItem value="none">ไม่เลือก</MenuItem>
-            {staffs?.map((input, key) => (
+            {staffs?.map((input, index) => (
               <MenuItem
+                key={index}
                 value={input._id}
                 placeholder={
                   values.staff ? (

@@ -87,7 +87,7 @@ function SmallCalendar({
               new Date(data.availableDate).toDateString()
             ) {
               return (
-                <div className="flex justify-center align-middle">
+                <div  key={data._id}  className="flex justify-center align-middle">
                   <div
                     key={data._id}
                     className={

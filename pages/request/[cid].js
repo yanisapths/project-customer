@@ -6,16 +6,9 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import RequestForm from "../../components/OLForm/RequestForm";
 
-import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
 import dayjs from "dayjs";
-
-const place = [
-  { id: 1, label: "คลินิก" },
-  { id: 2, label: "บ้าน" },
-];
 
 function Request(props) {
   const { data: session, status } = useSession();
@@ -31,7 +24,6 @@ function Request(props) {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [success, setSuccess] = useState("false");
 
   function getSelectedDate(appointmentDate, appointmentTime, endTime) {
     setAppointmentDate(appointmentDate);
@@ -39,72 +31,35 @@ function Request(props) {
     setEndTime(endTime);
   }
 
-  useEffect(() => {
+  const fetchData = async () => {
+    let isSubscribed = true;
     const url = `${process.env.dev}/course/match/owner/${query.owner_id}`;
     const availurl = `${process.env.dev}/available/match/owner/${query.owner_id}`;
     const staffurl = `${process.env.dev}/staff/owner/${query.owner_id}`;
-    fetch(url, {
-      method: "GET",
-    })
-      .then(async (res) => {
-        const courseData = await res.json();
-        setCourseData(courseData);
-      })
-      .catch((err) => console.log(err));
-    fetch(availurl, {
-      method: "GET",
-    })
-      .then(async (res) => {
-        const availData = await res.json();
-        setAvailData(availData);
-      })
-      .catch((err) => console.log(err));
-    fetch(staffurl, {
-      method: "GET",
-    })
-      .then(async (res) => {
-        const staffs = await res.json();
-        setStaffs(staffs);
-      })
-      .catch((err) => console.log(err));
-    getSelectedDate();
-  }, [courseData, availData, staffs]);
+    const courses = await fetch(url);
+    const avails = await fetch(availurl);
+    const staff = await fetch(staffurl);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = {
-      customer_id: session.user.id,
-      clinicName: query.clinic_name,
-      owner_id: query.owner_id,
-    };
+    const courseData = await courses.json();
+    const availData = await avails.json();
+    const staffs = await staff.json();
 
-    let axiosConfig = {
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
-    const response = await axios
-      .post(
-        `${process.env.dev}/appointment/create/${query.cid}`,
-        data,
-        axiosConfig
-      )
-      .then(async (res) => {
-        console.log("RESPONSE RECEIVED: ", res.data);
-        setSuccess("true");
-      })
-      .catch((err) => {
-        console.log("AXIOS ERROR: ", err);
-        setSuccess("error");
-        toast.error("ไม่สามารถสร้างนัดได้");
-      });
+    if (isSubscribed) {
+      setCourseData(courseData);
+      setAvailData(availData);
+      setStaffs(staffs);
+    }
+    return () => (isSubscribed = false);
   };
+
+  useEffect(() => {
+    fetchData().catch(console.error);
+  }, []);
 
   const {
     control,
     register,
-    formState: { errors, isValid },
+    formState: {},
   } = useForm({
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -117,10 +72,6 @@ function Request(props) {
 
   if (router.isFallback) {
     return <p className="h1">Loading...</p>;
-  }
-
-  if (!courseData || !availData) {
-    return null;
   }
 
   if (status === "unauthenticated") {
@@ -163,22 +114,22 @@ function Request(props) {
             </h1>
           </div>
           <div className="max-w-xl mx-auto mt-2 md:mt-6 shadow-md py-10 px-6 rounded-2xl bg-white">
-            <form onSubmit={handleSubmit}>
-              <RequestForm
-                courses={courseData}
-                currentDate={currentDate}
-                today={today}
-                setToday={setToday}
-                setSelectedDate={setSelectedDate}
-                selectedDate={selectedDate}
-                control={control}
-                availables={availData}
-                getSelectedDate={getSelectedDate}
-                staffs={staffs}
-                success={success}
-                handleSubmit={handleSubmit}
-              />
-            </form>
+            <RequestForm
+              courses={courseData}
+              currentDate={currentDate}
+              today={today}
+              setToday={setToday}
+              setSelectedDate={setSelectedDate}
+              selectedDate={selectedDate}
+              control={control}
+              availables={availData}
+              getSelectedDate={getSelectedDate}
+              staffs={staffs}
+              ownerId={query.owner_id}
+              customerId={session.user.id}
+              clinicId={query.cid}
+              clinicName={query.clinic_name}
+            />
           </div>
         </div>
       </main>
