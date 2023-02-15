@@ -23,7 +23,7 @@ export class Clinician extends Component {
             เลือกนักกายภาพ
           </p>
         </div>
-        <div className="pt-10 px-8">
+        <div className="pt-10 md:px-8">
           <label htmlFor="course" className="inputLabel">
             นักกายภาพ
           </label>

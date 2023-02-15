@@ -1,9 +1,11 @@
 import React from "react";
 import { generateDate, months } from "../../utils/calendar";
 import cn from "../../utils/cn";
+import PrimaryIconButton from "../OLButton/PrimaryIconButton";
+
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 function SmallCalendar({
   getSelectedDate,
@@ -14,7 +16,7 @@ function SmallCalendar({
   selectedDate,
   setSelectedDate,
   values,
-  removeDate,
+  removeSelectedDate,
 }) {
   const days = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -67,7 +69,7 @@ function SmallCalendar({
                     today ? "bg-[#ACDED5] text-[#005844]" : "",
                     selectedDate.toDate().toDateString() ===
                       date.toDate().toDateString()
-                      ? "bg-[#ACDED5] text-[#005844]"
+                      ? "bg-[#005844] text-white"
                       : "",
                     "cursor-pointer font-semibold h-10 w-10 rounded-full grid place-content-center hover:bg-[#005844] hover:text-white hover:transition-all"
                   )}
@@ -87,7 +89,10 @@ function SmallCalendar({
               new Date(data.availableDate).toDateString()
             ) {
               return (
-                <div  key={data._id}  className="flex justify-center align-middle">
+                <div
+                  key={data._id}
+                  className="flex justify-center align-middle gap-2 items-center"
+                >
                   <div
                     key={data._id}
                     className={
@@ -116,15 +121,19 @@ function SmallCalendar({
                         minute: "2-digit",
                       })}
                     </p>
-                    {values.appointmentDate ? (
-                      <HighlightOffIcon
-                        className="p-1 w-8 h-8"
-                        onClick={removeDate}
-                      />
-                    ) : (
-                      ""
-                    )}
                   </div>
+                  {values.appointmentTime ? (
+                    <div>
+                      <PrimaryIconButton
+                        handleClick={() => getSelectedDate("", "", "")}
+                        icon={
+                          <CancelIcon className="text-[#005844]" size="medium" />
+                        }
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               );
             } else {

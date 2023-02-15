@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter, withRouter } from "next/router";
 import Head from "next/head";
+import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import RequestForm from "../../components/OLForm/RequestForm";
@@ -106,14 +107,16 @@ function Request(props) {
       </Head>
       <Header />
       <main className="">
-        <div className="flex-grow pt-10 md:pt-30 mt-5 px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-[#7BC6B7]/20 rounded-md pb-48">
+        <div className="h-full flex-grow pt-10 md:pt-30 mt-5 px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-[#7BC6B7]/20 rounded-md pb-48">
           <div className="max-w-lg mx-auto text-center pb-8 ">
             <h1 className="pb-4 text-2xl text-[#005844]">จองนัดกับคลินิก</h1>
-            <h1 className="font-bold text-3xl text-[#7BC6B7] sm:text-5xl text-ellipsis">
+            <Link href={`/clinic/${query.cid}`}>
+            <h1 className="cursor-pointer font-bold text-3xl text-[#7BC6B7] sm:text-5xl text-ellipsis transition hover:scale-95">
               {props.router.query.clinic_name}
             </h1>
+            </Link>
           </div>
-          <div className="max-w-xl mx-auto mt-2 md:mt-6 shadow-md py-10 px-6 rounded-2xl bg-white">
+          <div className="max-w-xl mx-auto mt-2 md:mt-6 shadow-md py-14 px-6 rounded-2xl bg-white">
             <RequestForm
               courses={courseData}
               currentDate={currentDate}

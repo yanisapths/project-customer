@@ -20,10 +20,7 @@ export class DateAndTime extends Component {
     e.preventDefault();
     this.props.prevStep();
   };
-  removeDate = (e) => {
-    e.preventDefault();
-    this.props.removeSelectedDate();
-  };
+
   render() {
     const {
       values,
@@ -35,7 +32,8 @@ export class DateAndTime extends Component {
       control,
       availables,
       getSelectedDate,
-      handleChange
+      handleChange,
+      removeSelectedDate
     } = this.props;
     return (
       <div>
@@ -55,7 +53,7 @@ export class DateAndTime extends Component {
               availables={availables}
               getSelectedDate={getSelectedDate}
               values={values}
-              removeDate={this.removeDate}
+              removeSelectedDate={removeSelectedDate}
             />
           </div>
         </div>

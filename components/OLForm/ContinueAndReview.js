@@ -152,7 +152,13 @@ export class ContinueAndReview extends Component {
               </p>
             )}
           </div>
-          <div className="flex justify-between pt-12 align-middle">
+          <div className="py-2">
+              <p className="caption tracking-wide text-black/50">รายละเอีดเพิ่มเติม</p>
+              <p className="body1 tracking-wide font-semibold text-[#005844] truncate">
+                {description}
+              </p>
+            </div>
+          <div className="flex justify-between pt-12 align-middle items-center">
             <PreviousButton handleClick={this.previous} />
             <CircleTextButton
               text="ยืนยัน"

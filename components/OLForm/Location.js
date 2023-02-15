@@ -37,7 +37,7 @@ export class Location extends Component {
             เลือกสถานที่
           </p>
         </div>
-        <div className="pt-10 px-8 grid grid-cols-6 gap-6">
+        <div className="pt-10 md:px-8 grid grid-cols-6 gap-6">
           <div className="col-span-6">
             <label htmlFor="appointmentPlace" className="inputLabel">
               สถานที่นัดหมาย*

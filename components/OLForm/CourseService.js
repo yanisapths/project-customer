@@ -24,7 +24,7 @@ export class CourseService extends Component {
             เลือกบริการ
           </p>
         </div>
-        <div className="pt-10 px-8">
+        <div className="pt-10 md:px-8">
           <label htmlFor="course" className="inputLabel">
             คอร์ส*
           </label>
