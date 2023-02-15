@@ -72,7 +72,7 @@ function ScheduleDetail({ data }) {
       </Head>
       <Header />
       <main className="lg:pb-32 h-screen overflow-scroll scrollbar-hide">
-        <div className="px-6 pt-12 lg:px-96 text-center">
+        <div className="max-w-screen-lg mx-auto text-center items-center justify-center pt-2 pb-32 px-4">
           <div className="flex justify-between">
             <NavigateBack path="/schedule" />
           </div>
@@ -83,7 +83,7 @@ function ScheduleDetail({ data }) {
               <p className="h6 text-white">{data.clinicName}</p>
             </Link>
           </div>
-          <div className="flex justify-between body1 lg:h6 tracking-wide mt-6 lg:mt-12 lg:px-96">
+          <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide mt-6 lg:mt-12 md:h6 body2">
             <div>
               <p className=" text-black/50">ติดต่อคลินิก</p>
               <p className=" hover:text-[#0921FF]">{clinic.phoneNumber}</p>
@@ -117,26 +117,30 @@ function ScheduleDetail({ data }) {
                 : "bg-[#acded5]/20 text-black flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
             }
           >
-            <div className="md:w-1/6">
+            <div className="w-1/6">
               <p>1</p>
             </div>
-            <div className="md:w-1/6">
-              <p>{new Date(data.appointmentDate).toDateString()}</p>
-            </div>
-            <div className="md:w-1/6">
+            <div className="w-2/6">
               <p>
-                {new Date(data.appointmentTime).toLocaleTimeString("en-EN", {
+                {new Date(data.appointmentDate).toLocaleDateString("th-TH", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+            </div>
+            <div className="w-2/6">
+              <p>
+                {new Date(data.appointmentTime).toLocaleTimeString("th-TH", {
                   hour: "numeric",
                   minute: "2-digit",
-                  hour12: true,
                 })}
                 {data.endTime ? (
                   <>
                     {"-"}
-                    {new Date(data.endTime).toLocaleTimeString("en-EN", {
+                    {new Date(data.endTime).toLocaleTimeString("th-TH", {
                       hour: "numeric",
                       minute: "2-digit",
-                      hour12: true,
                     })}
                   </>
                 ) : (
@@ -144,7 +148,7 @@ function ScheduleDetail({ data }) {
                 )}
               </p>
             </div>
-            <div className="md:w-1/6">
+            <div className="w-1/6">
               {data.progressStatus ? (
                 <p>{data.progressStatus}</p>
               ) : (
@@ -162,26 +166,30 @@ function ScheduleDetail({ data }) {
                 }
                 key={index}
               >
-                <div className="md:w-1/6">
+                <div className="w-1/6">
                   <p>{index + 2}</p>
                 </div>
-                <div className="md:w-1/6">
-                  <p>{new Date(result.date).toDateString()}</p>
-                </div>
-                <div className="md:w-1/6">
+                <div className="w-2/6">
                   <p>
-                    {new Date(result.startTime).toLocaleTimeString("en-EN", {
+                    {new Date(result.date).toLocaleDateString("th-TH", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                </div>
+                <div className="w-2/6">
+                  <p>
+                    {new Date(result.startTime).toLocaleTimeString("th-TH", {
                       hour: "numeric",
                       minute: "2-digit",
-                      hour12: true,
                     })}
                     {result.endTime ? (
                       <>
                         {"-"}
-                        {new Date(result.endTime).toLocaleTimeString("en-EN", {
+                        {new Date(result.endTime).toLocaleTimeString("th-TH", {
                           hour: "numeric",
                           minute: "2-digit",
-                          hour12: true,
                         })}
                       </>
                     ) : (
@@ -189,7 +197,7 @@ function ScheduleDetail({ data }) {
                     )}
                   </p>
                 </div>
-                <div className="md:w-1/6">
+                <div className="w-1/6">
                   <p>{result.status}</p>
                 </div>
               </div>
