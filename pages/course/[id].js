@@ -114,7 +114,7 @@ export async function getStaticPaths() {
   }
 
   // Call an external API endpoint to get courses
-  const res = await fetch(`${process.env.dev}/course`);
+  const res = await fetch(`${process.env.url}/course`);
   const courses = await res.json();
 
   const paths = courses.map((course) => ({
@@ -126,7 +126,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const courseId = params.id;
-  const res = await fetch(`${process.env.dev}/course/${courseId}`);
+  const res = await fetch(`${process.env.url}/course/${courseId}`);
   const course = await res.json();
 
   return {
