@@ -88,7 +88,7 @@ export class RequestForm extends Component {
     let formIsValid = true;
     let errors = {};
     if (typeof this.state.phoneNumber !== "undefined") {
-      if (!this.state.phoneNumber.match(/^(0|[1-9]\d*)(\.\d+)?$/)) {
+      if (!this.state.phoneNumber.match(/^([0-9]\d*)(\.\d+)?$/)) {
         formIsValid = false;
         errors["phoneNumber"] = "กรุณาใส่ตัวเลขเท่านั้น";
       }
