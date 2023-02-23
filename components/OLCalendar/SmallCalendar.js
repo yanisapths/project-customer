@@ -96,7 +96,7 @@ function SmallCalendar({
                   <div
                     key={data._id}
                     className={
-                      values.appointmentDate
+                      values.appointmentDate == data.availableDate && values.appointmentTime == data.startTime && values.endTime == data.endTime
                         ? "text-center cursor-pointer flex gap-2 rounded-lg text-[#005844] body1 border-2 border-[#ACDED5] bg-[#ACDED5] px-3 w-fit whitespace-nowrap my-2 shadow-xl shadow-[#ACDED5]/40"
                         : "text-center cursor-pointer flex gap-2 rounded-lg text-[#005844] body1 border-2 border-[#ACDED5] px-3 w-fit whitespace-nowrap my-2 hover:text-black hover:bg-[#ACDED5] hover:shadow-xl hover:shadow-[#ACDED5]/40 active:text-black active:bg-[#ACDED5] active:shadow-xl active:shadow-[#ACDED5]/40"
                     }
@@ -122,7 +122,7 @@ function SmallCalendar({
                       })}
                     </p>
                   </div>
-                  {values.appointmentTime ? (
+                  {values.appointmentDate == data.availableDate && values.appointmentTime == data.startTime && values.endTime == data.endTime? (
                     <div>
                       <PrimaryIconButton
                         handleClick={() => getSelectedDate("", "", "")}
