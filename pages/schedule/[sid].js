@@ -152,7 +152,7 @@ function ScheduleDetail({ data }) {
               {data.progressStatus ? (
                 <p>{data.progressStatus}</p>
               ) : (
-                <p>{data.status}</p>
+                <p>{data.status == "pending" ? <span>รอการตอบรับ</span> : data.status == "Done" ? <span>เสร็จสิ้น</span> : data.status == "Rejected" ? <span>ถูกปฏิเสธ</span> : <span>{data.status}</span>}</p>
               )}
             </div>
           </div>
