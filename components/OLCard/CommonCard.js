@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import Router,{ useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useTheme } from "@mui/material/styles";
-import IconButton from "../OLButton/IconButton";
+import PrimaryIconButton from "../OLButton/IconButton";
 import SimpleChip from "../OLChip/SimpleChip";
 import { Box } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 function CommonCard({
   schedule_id,
@@ -42,21 +47,38 @@ function CommonCard({
     <></>
   );
 
+  async function cancelRequest(appointmentId) {
+    const res = await fetch(
+      `${process.env.dev}/appointment/delete/${appointmentId}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then(async (res) => {
+        toast.success("ยกเลิกแล้ว");
+        Router.reload();
+      })
+      .catch((err) => {
+        console.log("ERROR: ", err);
+        toast.error("ไม่สามารถยกเลิกได้");
+      });
+  }
+
   return (
     <Box
       className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto p-4 pt-8 w-full lg:mb-8 mb-4 h-[300px] transition hover:shadow-2xl overflow-hidden"
       sx={{ bgcolor: theme.palette.background.white, width: "100%" }}
     >
-      <div className="px-8 flex justify-between">
-        <div className="flex space-x-6">
-          <p className="h4 pt-2">{courses.courseName}</p>
+      <div className="flex justify-between px-6 lg:px-8">
+        <div className="flex space-x-2 md:space-x-6">
+          <p className="md:h4 h6 font-semibold pt-2">{courses.courseName}</p>
           <div
             className={
               status == "pending"
-                ? "mt-2 whitespace-nowrap rounded-full w-fit h-fit px-3 py-1 bg-[#F9D373]/90 shadow-lg shadow-[#F9D373]/40"
+                ? "mt-2 whitespace-nowrap rounded-full w-fit h-fit px-2 py-0.5 md:px-3 md:py-1 bg-[#F9D373]/90 shadow-lg shadow-[#F9D373]/40"
                 : status == "Rejected"
-                ? "mt-2 whitespace-nowrap rounded-full w-fit h-fit px-3 py-1 bg-[#FF2F3B]/90 shadow-lg shadow-[#FF2F3B]/40"
-                : "mt-2 whitespace-nowrap rounded-full w-fit h-fit px-3 py-1 bg-[#2ED477]/90 shadow-lg shadow-[#2ED477]/40"
+                ? "mt-2 whitespace-nowrap rounded-full w-fit h-fit px-2 py-0.5 md:px-3 md:py-1 bg-[#FF2F3B]/90 shadow-lg shadow-[#FF2F3B]/40"
+                : "mt-2 whitespace-nowrap rounded-full w-fit h-fit px-2 py-0.5 md:px-3 md:py-1 bg-[#2ED477]/90 shadow-lg shadow-[#2ED477]/40"
             }
           >
             <strong className="text-white font-light text-sm md:text-md">
@@ -64,17 +86,57 @@ function CommonCard({
             </strong>
           </div>
         </div>
-        {status != "Rejected" ? (
-          <IconButton
-            path={`/schedule/${schedule_id}`}
-            icon={
-              <OpenInNewIcon className="text-black/40 hover:text-black/80 xl:w-16 xl:h-8" />
-            }
-            title="ดูตาราง"
-          />
-        ) : (
-          <></>
-        )}
+        <div className="flex gap-2 md:gap-6">
+          <Tooltip title="ยกเลิกคำขอ" placement="top">
+            <IconButton
+              aria-label="delete"
+              size="small"
+              className="text-[#FF2F3B]"
+              onClick={() =>
+                Swal.fire({
+                  title: "ยกเลิกคำขอนี้?",
+                  text: "หากยกเลิกแล้วจะไม่สามารถย้อนกลับได้",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: "ตกลง",
+                  cancelButtonText: "ยกเลิก",
+                  reverseButtons: true,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    cancelRequest(schedule_id).then(() =>
+                      Swal.fire({
+                        title: "ยกเลิกแล้ว",
+                        showConfirmButton: false,
+                        icon: "success",
+                        timer: 1000,
+                      })
+                    );
+                  } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire({
+                      title: "ยกเลิก :)",
+                      showConfirmButton: false,
+                      icon: "error",
+                      timer: 1000,
+                    });
+                  }
+                })
+              }
+            >
+              <DoDisturbIcon className="text-[#FF2F3B]" />
+            </IconButton>
+          </Tooltip>
+          {status != "Rejected" ? (
+            <PrimaryIconButton
+              path={`/schedule/${schedule_id}`}
+              icon={
+                <OpenInNewIcon className="text-black/40 hover:text-black/80 xl:w-16 xl:h-8" />
+              }
+              title="ดูตาราง"
+            />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       <div>
         {courses.procedures ? (

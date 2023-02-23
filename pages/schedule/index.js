@@ -44,7 +44,7 @@ function Schedule() {
             <p className="h6 text-black text-center">นัดทั้งหมด</p>
           </div>
           <div className="lg:flex lg:justify-center">
-            <div className="grid grid-cols-1 py-6">
+            <div className="grid grid-cols-1 py-6 mx-8">
               {appointments &&
                 appointments.map((data,index) => {
                   return (
@@ -95,7 +95,7 @@ function Schedule() {
           <link rel="icon" href="favicon.ico" />
         </Head>
         <Header />
-        <section className="text-center mt-12">
+        <section className="text-center mt-12 lg:pb-48">
           <h1 className="mt-5 mb-6 text-3xl font-extrabold text-[#7BC6B7]">
             ตารางนัด
           </h1>
