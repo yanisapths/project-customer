@@ -5,19 +5,13 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import RequestFooterButton from "../../components/OLButton/RequestFooterButton";
+import NavigateBack from "../../components/OLNavigateBack/NavigateBack";
 
 function CourseDetail({ data, course }) {
   const router = useRouter();
   const theme = useTheme();
   const { cid, clinic_name, owner_id, id } = router.query;
   const procedureLists = { procedures: course?.procedures };
-
-  const navigateBack = (e) => {
-    e.preventDefault();
-    router.push({
-      pathname: `/clinic/${cid}`,
-    });
-  };
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -45,12 +39,7 @@ function CourseDetail({ data, course }) {
       <Header />
       <main className="h-screen overflow-scroll scrollbar-hide">
         <div className="px-6 pt-12 xl:px-96">
-          <p
-            className="caption lg:body1 lg:pl-6 tracking-wide text-black/50 cursor-pointer hover:text-[#0921FF]"
-            onClick={navigateBack}
-          >
-            ย้อนกลับ
-          </p>
+          <NavigateBack path={`/clinic/${cid}`} />
           <h2 className="pt-6 h3 lg:h1 text-center text-[#005844]">
             {course.courseName}
           </h2>
@@ -102,7 +91,7 @@ function CourseDetail({ data, course }) {
           </Box>
         </div>
       </main>
-      <RequestFooterButton handleClick={handleClick}/>
+      <RequestFooterButton handleClick={handleClick} />
     </div>
   );
 }
