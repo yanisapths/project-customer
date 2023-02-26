@@ -131,22 +131,13 @@ function Clinic({ data, courses }) {
 export default Clinic;
 
 export async function getStaticPaths() {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: "blocking",
-    };
-  }
-
-  // Call an external API endpoint to get clinics
   const res = await fetch(`${process.env.url}/clinic`);
   const cinics = await res.json();
 
   const paths = cinics.map((clinic) => ({
     params: { cid: clinic._id },
   }));
-  // { fallback: false } means other routes should 404
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {

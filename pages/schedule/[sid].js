@@ -213,19 +213,13 @@ function ScheduleDetail({ data }) {
 export default ScheduleDetail;
 
 export async function getStaticPaths() {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: "blocking",
-    };
-  }
   const res = await fetch(`${process.env.url}/appointment`);
   const appointments = await res.json();
 
   const paths = appointments.map((appointment) => ({
     params: { sid: appointment._id },
   }));
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
