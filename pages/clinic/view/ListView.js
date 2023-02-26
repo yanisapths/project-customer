@@ -83,6 +83,7 @@ function ListView({ data, courses, reviews }) {
                 duration,
                 totalPrice,
                 procedures,
+                type
               }) => (
                 <div key={_id}>
                   <CourseListView
@@ -94,6 +95,7 @@ function ListView({ data, courses, reviews }) {
                     duration={duration}
                     totalPrice={totalPrice}
                     procedures={procedures}
+                    type={type}
                   />
                 </div>
               )
