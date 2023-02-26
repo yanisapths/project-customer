@@ -17,9 +17,9 @@ function ScheduleDetail({ data }) {
 
   const fetchData = async () => {
     let isSubscribed = true;
-    const courseurl = `${process.env.dev}/course/${data.course_id}`;
-    const clinicurl = `${process.env.dev}/clinic/${data.clinic_id}`;
-    const eventurl = `${process.env.dev}/event/match/${data._id}`;
+    const courseurl = `${process.env.url}/course/${data.course_id}`;
+    const clinicurl = `${process.env.url}/clinic/${data.clinic_id}`;
+    const eventurl = `${process.env.url}/event/match/${data._id}`;
     const courses = await fetch(courseurl);
     const clinics = await fetch(clinicurl);
     const events = await fetch(eventurl);
@@ -213,24 +213,18 @@ function ScheduleDetail({ data }) {
 export default ScheduleDetail;
 
 export async function getStaticPaths() {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: "blocking",
-    };
-  }
-  const res = await fetch(`${process.env.dev}/appointment`);
+  const res = await fetch(`${process.env.url}/appointment`);
   const appointments = await res.json();
 
   const paths = appointments.map((appointment) => ({
     params: { sid: appointment._id },
   }));
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
   const appointmentId = params.sid;
-  const res = await fetch(`${process.env.dev}/appointment/${appointmentId}`);
+  const res = await fetch(`${process.env.url}/appointment/${appointmentId}`);
   const data = await res.json();
   return {
     props: { data },

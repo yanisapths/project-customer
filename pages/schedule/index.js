@@ -17,7 +17,7 @@ function Schedule() {
   const fetchData = async () => {
     let isSubscribed = true;
     const res = await fetch(
-      `${process.env.dev}/appointment/match/customer/${session.user.id}`
+      `${process.env.url}/appointment/match/customer/${session.user.id}`
     );
     const appointments = await res.json();
 

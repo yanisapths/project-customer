@@ -106,27 +106,20 @@ function CourseDetail({ data, course }) {
 export default CourseDetail;
 
 export async function getStaticPaths() {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: "blocking",
-    };
-  }
-
   // Call an external API endpoint to get courses
-  const res = await fetch(`${process.env.dev}/course`);
+  const res = await fetch(`${process.env.url}/course`);
   const courses = await res.json();
 
   const paths = courses.map((course) => ({
     params: { id: course._id },
   }));
   // { fallback: false } means other routes should 404
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
   const courseId = params.id;
-  const res = await fetch(`${process.env.dev}/course/${courseId}`);
+  const res = await fetch(`${process.env.url}/course/${courseId}`);
   const course = await res.json();
 
   return {

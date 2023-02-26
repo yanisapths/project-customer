@@ -34,7 +34,7 @@ function Clinic({ data, courses }) {
 
   const fetchData = async () => {
     let isSubscribed = true;
-    const res = await fetch(`${process.env.dev}/review/match/${cid}`);
+    const res = await fetch(`${process.env.url}/review/match/${cid}`);
     const reviews = await res.json();
 
     if (isSubscribed) {
@@ -131,31 +131,22 @@ function Clinic({ data, courses }) {
 export default Clinic;
 
 export async function getStaticPaths() {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: "blocking",
-    };
-  }
-
-  // Call an external API endpoint to get clinics
-  const res = await fetch(`${process.env.dev}/clinic`);
+  const res = await fetch(`${process.env.url}/clinic`);
   const cinics = await res.json();
 
   const paths = cinics.map((clinic) => ({
     params: { cid: clinic._id },
   }));
-  // { fallback: false } means other routes should 404
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
   const clinicId = params.cid;
-  const res = await fetch(`${process.env.dev}/clinic/${clinicId}`);
+  const res = await fetch(`${process.env.url}/clinic/${clinicId}`);
   const data = await res.json();
 
   const courseRes = await fetch(
-    `${process.env.dev}/course/match/${clinicId}`
+    `${process.env.url}/course/match/${clinicId}`
   );
   const courses = await courseRes.json();
 

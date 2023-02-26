@@ -23,10 +23,10 @@ function AppointmentCard({ result }) {
 
   const fetchData = async () => {
     let isSubscribed = true;
-    const courseurl = `${process.env.dev}/course/${result.course_id}`;
-    const clinicurl = `${process.env.dev}/clinic/${result.clinic_id}`;
-    const eventurl = `${process.env.dev}/event/match/${result._id}`;
-    const patienturl = `${process.env.dev}/patient/${result.patient_id}`;
+    const courseurl = `${process.env.url}/course/${result.course_id}`;
+    const clinicurl = `${process.env.url}/clinic/${result.clinic_id}`;
+    const eventurl = `${process.env.url}/event/match/${result._id}`;
+    const patienturl = `${process.env.url}/patient/${result.patient_id}`;
     const courses = await fetch(courseurl);
     const clinics = await fetch(clinicurl);
     const events = await fetch(eventurl);
