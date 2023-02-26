@@ -13,6 +13,7 @@ function CourseListView({
   duration,
   totalPrice,
   procedures,
+  type
 }) {
   const theme = useTheme();
   const router = useRouter();
@@ -22,7 +23,7 @@ function CourseListView({
     <>
       <Box
         className="cursor-pointer rounded-2xl shadow-xl pb-6 mx-auto overflow-x-auto"
-        sx={{ bgcolor: theme.palette.background.base }}
+        sx={{ bgcolor: theme.palette.background.base, height: "260px" }}
         onClick={() =>
           router.push({
             pathname: `/course/${_id}`,
@@ -41,6 +42,7 @@ function CourseListView({
           duration={duration}
           totalPrice={totalPrice}
           procedures={procedures}
+          type={type}
         />
         <div className="flex space-x-2 px-6 lg:px-10 pb-6 xl:px-10">
           <SimpleChip prefix="ราคา" text={totalPrice} quantify="บาท" />
