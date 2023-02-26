@@ -132,7 +132,7 @@ function SmallCalendar({
                       />
                     </div>
                   ) : (
-                    ""
+                    <div className="w-10"></div>
                   )}
                 </div>
               );
