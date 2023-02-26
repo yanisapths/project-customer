@@ -43,7 +43,7 @@ function ReviewForm({ clinic_id, schedule_id }) {
       },
     };
     const response = await axios
-      .post(`${process.env.dev}/review/create/${clinic_id}`, json, axiosConfig)
+      .post(`${process.env.url}/review/create/${clinic_id}`, json, axiosConfig)
       .then(async (res) => {
         console.log("RESPONSE RECEIVED: ", res.data);
         Router.reload();
@@ -55,7 +55,7 @@ function ReviewForm({ clinic_id, schedule_id }) {
     const status = { status: "reviewed" };
     const res = await axios
       .put(
-        `${process.env.dev}/appointment/accept/${schedule_id}`,
+        `${process.env.url}/appointment/accept/${schedule_id}`,
         status,
         axiosConfig
       )

@@ -26,7 +26,7 @@ function CommonCard({
 
   const fetchData = async () => {
     let isSubscribed = true;
-    const res = await fetch(`${process.env.dev}/course/${course_id}`);
+    const res = await fetch(`${process.env.url}/course/${course_id}`);
     const courses = await res.json();
 
     if (isSubscribed) {
@@ -49,7 +49,7 @@ function CommonCard({
 
   async function cancelRequest(appointmentId) {
     const res = await fetch(
-      `${process.env.dev}/appointment/delete/${appointmentId}`,
+      `${process.env.url}/appointment/delete/${appointmentId}`,
       {
         method: "DELETE",
       }

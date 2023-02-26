@@ -33,7 +33,7 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
   const router = useRouter();
   const fetchData = async () => {
     let isSubscribed = true;
-    const res = await fetch(`${process.env.dev}/course/${course_id}`);
+    const res = await fetch(`${process.env.url}/course/${course_id}`);
     const courses = await res.json();
 
     if (isSubscribed) {
