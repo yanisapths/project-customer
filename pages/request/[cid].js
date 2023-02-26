@@ -34,9 +34,9 @@ function Request(props) {
 
   const fetchData = async () => {
     let isSubscribed = true;
-    const url = `${process.env.url}/course/match/owner/${query.owner_id}`;
-    const availurl = `${process.env.url}/available/match/owner/${query.owner_id}`;
-    const staffurl = `${process.env.url}/staff/owner/${query.owner_id}`;
+    const url = `${process.env.dev}/course/match/owner/${query.owner_id}`;
+    const availurl = `${process.env.dev}/available/match/owner/${query.owner_id}`;
+    const staffurl = `${process.env.dev}/staff/owner/${query.owner_id}`;
     const courses = await fetch(url);
     const avails = await fetch(availurl);
     const staff = await fetch(staffurl);

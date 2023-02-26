@@ -87,7 +87,7 @@ function Search({ data }) {
 export default Search;
 
 export async function getServerSideProps() {
-  const data = await fetch(`${process.env.url}/clinic`).then(
+  const data = await fetch(`${process.env.dev}/clinic`).then(
     (res) => res.json()
   );
 

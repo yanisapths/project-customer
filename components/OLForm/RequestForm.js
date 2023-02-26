@@ -176,7 +176,7 @@ export class RequestForm extends Component {
       staff,
       errors,
     };
-    const url = `${process.env.url}/appointment/create/${clinicId}`;
+    const url = `${process.env.dev}/appointment/create/${clinicId}`;
     console.log(url)
     console.log(values);
     let axiosConfig = {
@@ -186,7 +186,7 @@ export class RequestForm extends Component {
       },
     };
      axios.post(
-        `${process.env.url}/appointment/create/${clinicId}`,
+        `${process.env.dev}/appointment/create/${clinicId}`,
         values,
         axiosConfig
       )
