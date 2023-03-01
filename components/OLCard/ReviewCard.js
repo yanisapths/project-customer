@@ -46,7 +46,6 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
     if (course_id) {
       fetchData().catch(console.error);
     }
-    // fetchReview().catch(console.error);
   });
 
   async function deleteRequest(appointmentId) {

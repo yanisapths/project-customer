@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import SimpleChip from "../OLChip/SimpleChip";
 
 const CustomTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -50,8 +51,22 @@ function AppointmentCard({ result }) {
 
   return (
     <div>
-      <div className="shadow-xl px-2 py-12 xl:px-24 xl:py-16 rounded-3xl">
-        <h2 className="py-4 h3 lg:h1 text-center">{course.courseName}</h2>
+      <div className="shadow-xl px-2 py-8 xl:px-24 xl:py-10 rounded-3xl">
+        <div className="flex justify-center gap-2">
+          <h2 className="py-4 h3 lg:h1 text-center">{course.courseName}</h2>
+          {course.type != "false" ? (
+            <strong className="rounded-full bg-[#A5A6F6]/20 text-[#7879F1] px-2 py-1 text-sm font-medium self-center">
+              {course.type}
+            </strong>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className="flex justify-center space-x-2 px-6 pb-4 xl:px-10">
+          <SimpleChip text={course.amount} quantify="ครั้ง" />
+          <SimpleChip text={course.duration} quantify="ชั่วโมง/ครั้ง" />
+          <SimpleChip prefix="ราคา" text={course.totalPrice} quantify="บาท" />
+        </div>
         <div className="cursor-pointer bg-[#7BC6B7] transition hover:shadow-xl hover:shadow-[#7BC6B7]/40 w-fit px-2 py-1 xl:px-6 xl:py-2 lg:py-3 rounded-full mx-auto">
           <CustomTooltip title="เกี่ยวกับคลินิก" placement="top">
             <Link href={`/clinic/${clinic._id}`}>
@@ -62,7 +77,7 @@ function AppointmentCard({ result }) {
         <div className="text-center pt-6 text-black/60 caption xl:body1">
           <span>Appointment Id: </span> <span className="">{result._id}</span>
         </div>
-        <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide mt-6 lg:mt-12 md:h6 body2">
+        <div className="md:flex md:justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide mt-6 lg:mt-12 md:h6 body2 truncate md:mx-0 mx-4">
           <div>
             <p className="text-black/50">ติดต่อคลินิก</p>
             <p className="hover:text-[#0921FF]">{clinic.phoneNumber}</p>
