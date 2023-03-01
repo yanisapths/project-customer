@@ -46,7 +46,6 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
     if (course_id) {
       fetchData().catch(console.error);
     }
-    // fetchReview().catch(console.error);
   });
 
   async function deleteRequest(appointmentId) {
@@ -130,7 +129,7 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
         </div>
       </div>
       <div className="pt-2">
-        {status != "reviewed" ? (
+        {status == "reviewed" ? (
           <ReviewForm clinic_id={clinic_id} schedule_id={schedule_id} />
         ) : (
           <div className="py-10 px-8 flex">
