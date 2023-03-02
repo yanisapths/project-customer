@@ -229,7 +229,7 @@ export async function getStaticProps({ params }) {
   const data = await res.json();
   const courseurl = `${process.env.url}/course/${data.course_id}`;
   const clinicurl = `${process.env.url}/clinic/${data.clinic_id}`;
-  const eventurl = `${process.env.url}/event/match/${data._id}`;
+  const eventurl = `${process.env.url}/event/match/clinic/${data._id}`;
   try {
     const courses = await fetch(courseurl);
     const clinics = await fetch(clinicurl);
