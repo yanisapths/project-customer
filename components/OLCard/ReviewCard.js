@@ -5,16 +5,12 @@ import Link from "next/link";
 import ReviewForm from "../OLForm/ReviewForm";
 
 import IconButton from "@mui/material/IconButton";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { alpha } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
-
-import Swal from "sweetalert2";
-import toast from "react-hot-toast";
 const CustomTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -46,21 +42,7 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
     if (course_id) {
       fetchData().catch(console.error);
     }
-    // fetchReview().catch(console.error);
   });
-
-  async function deleteRequest(appointmentId) {
-    const res = await fetch(
-      `${process.env.url}/appointment/delete/${appointmentId}`,
-      { method: "DELETE" }
-    )
-      .then(async (res) => {})
-      .catch((err) => {
-        console.log("ERROR: ", err);
-        toast.error("ลบรายการไม่สำเร็จ");
-      });
-  }
-
   const procedureList = courses.procedures ? (
     courses.procedures?.map(({ procedureName }) => procedureName + ",")
   ) : (
@@ -83,43 +65,6 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
         </div>
 
         <div className="flex gap-2">
-          <CustomTooltip title="remove this" placement="top">
-            <IconButton
-              className="text-black/40 hover:text-black/80"
-              aria-label="delete"
-              size="medium"
-              onClick={() =>
-                Swal.fire({
-                  title: "ลบรายการนี้?",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonText: "ใช่ ลบเลย!",
-                  cancelButtonText: "ยกเลิก",
-                  reverseButtons: true,
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    deleteRequest(schedule_id).then(() =>
-                      Swal.fire({
-                        title: "ลบแล้ว",
-                        showConfirmButton: false,
-                        icon: "success",
-                        timer: 1000,
-                      })
-                    );
-                  } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    Swal.fire({
-                      title: "ลบรายการนี้ไม่ได้ถูกลบ :)",
-                      showConfirmButton: false,
-                      icon: "error",
-                      timer: 1000,
-                    });
-                  }
-                })
-              }
-            >
-              <DeleteOutlineIcon />
-            </IconButton>
-          </CustomTooltip>
           <Link href={`/schedule/${schedule_id}`}>
             <CustomTooltip title="history" placement="top">
               <IconButton className="">

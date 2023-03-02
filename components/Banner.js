@@ -6,7 +6,7 @@ function Banner({imageUrl}) {
     <div className="relative h-40 lg:h-[200px] xl:h-[300px] 2xl:h-[400px] font-noto">
           <Image  src={imageUrl}
            layout="fill" 
-           objectFit="cover"
+           objectfit="cover"
            className=""
            alt="/tree.jpg"
            />

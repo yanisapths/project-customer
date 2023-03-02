@@ -14,7 +14,7 @@ function InfoCard({ imageUrl, address, clinic_name, description, price, _id }) {
         <Image
           src={imageUrl}
           layout="fill"
-          objectFit="cover"
+          objectfit="cover"
           className="rounded-2xl"
         />
       </div>

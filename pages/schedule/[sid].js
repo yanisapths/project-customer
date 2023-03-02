@@ -6,39 +6,16 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import NavigateBack from "../../components/OLNavigateBack/NavigateBack";
+import SimpleChip from "../../components/OLChip/SimpleChip";
 
-function ScheduleDetail({ data }) {
+function ScheduleDetail({ data, event, clinic, course }) {
   const router = useRouter();
   const { data: session, status } = useSession();
-  const [course, setCourse] = useState({});
-  const [clinic, setClinic] = useState({});
-  const [event, setEvent] = useState([]);
   const { id } = router.query;
-
-  const fetchData = async () => {
-    let isSubscribed = true;
-    const courseurl = `${process.env.url}/course/${data.course_id}`;
-    const clinicurl = `${process.env.url}/clinic/${data.clinic_id}`;
-    const eventurl = `${process.env.url}/event/match/${data._id}`;
-    const courses = await fetch(courseurl);
-    const clinics = await fetch(clinicurl);
-    const events = await fetch(eventurl);
-    const course = await courses.json();
-    const clinic = await clinics.json();
-    const event = await events.json();
-    if (isSubscribed) {
-      setCourse(course);
-      setClinic(clinic);
-      setEvent(event);
-    }
-    return () => (isSubscribed = false);
-  };
 
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/auth/signin/");
-    } else {
-      fetchData().catch(console.error);
     }
   }, [status]);
 
@@ -77,13 +54,27 @@ function ScheduleDetail({ data }) {
             <NavigateBack path="/schedule" />
           </div>
           <p className="body1 tracking-wide text-black/50">ตารางนัด</p>
-          <h2 className="py-6 h3 lg:h1">{course.courseName}</h2>
+          <div className="flex justify-center gap-2">
+            <h2 className="pt-6 h3 lg:h1">{course.courseName}</h2>
+            {course.type != "false" ? (
+              <strong className="rounded-full bg-[#A5A6F6]/20 text-[#7879F1] px-2 py-1 text-sm font-medium self-center">
+                {course.type}
+              </strong>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="flex justify-center space-x-2 px-6 py-2 pb-4 xl:px-10">
+            <SimpleChip text={course.amount} quantify="ครั้ง" />
+            <SimpleChip text={course.duration} quantify="ชั่วโมง/ครั้ง" />
+            <SimpleChip prefix="ราคา" text={course.totalPrice} quantify="บาท" />
+          </div>
           <div className="cursor-pointer bg-[#7BC6B7] transition hover:shadow-xl hover:shadow-[#7BC6B7]/40 w-fit px-6 py-2 lg:py-3 rounded-full mx-auto">
             <Link href={`/clinic/${data.clinic_id}`}>
               <p className="h6 text-white">{data.clinicName}</p>
             </Link>
           </div>
-          <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide mt-6 lg:mt-12 md:h6 body2">
+          <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide mt-6 md:h6 body2">
             <div>
               <p className=" text-black/50">ติดต่อคลินิก</p>
               <p className=" hover:text-[#0921FF]">{clinic.phoneNumber}</p>
@@ -152,7 +143,17 @@ function ScheduleDetail({ data }) {
               {data.progressStatus ? (
                 <p>{data.progressStatus}</p>
               ) : (
-                <p>{data.status == "pending" ? <span>รอการตอบรับ</span> : data.status == "Done" ? <span>เสร็จสิ้น</span> : data.status == "Rejected" ? <span>ถูกปฏิเสธ</span> : <span>{data.status}</span>}</p>
+                <p>
+                  {data.status == "pending" ? (
+                    <span>รอการตอบรับ</span>
+                  ) : data.status == "Done" ? (
+                    <span>เสร็จสิ้น</span>
+                  ) : data.status == "Rejected" ? (
+                    <span>ถูกปฏิเสธ</span>
+                  ) : (
+                    <span>{data.status}</span>
+                  )}
+                </p>
               )}
             </div>
           </div>
@@ -226,7 +227,23 @@ export async function getStaticProps({ params }) {
   const appointmentId = params.sid;
   const res = await fetch(`${process.env.url}/appointment/${appointmentId}`);
   const data = await res.json();
-  return {
-    props: { data },
-  };
+  const courseurl = `${process.env.url}/course/${data.course_id}`;
+  const clinicurl = `${process.env.url}/clinic/${data.clinic_id}`;
+  const eventurl = `${process.env.url}/event/match/${data._id}`;
+  try {
+    const courses = await fetch(courseurl);
+    const clinics = await fetch(clinicurl);
+    const events = await fetch(eventurl);
+    const course = await courses.json();
+    const clinic = await clinics.json();
+    const event = await events.json();
+    return { props: { data, course, event, clinic } };
+  } catch (error) {
+    console.log("error: ", error);
+    return {
+      props: {
+        data,
+      },
+    };
+  }
 }
