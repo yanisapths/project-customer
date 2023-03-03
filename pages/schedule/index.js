@@ -108,6 +108,7 @@ function Schedule({ appointments }) {
                           status={data.status}
                           schedule_id={data._id}
                           clinic_id={data.clinic_id}
+                          review={data.comments}
                         />
                       )}
                     </div>
@@ -138,6 +139,7 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
+                        review={data.comments}
                       />
                     )}
                   </div>
@@ -164,6 +166,7 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
+                        review={data.comments}
                       />
                     )}
                   </div>
@@ -190,6 +193,7 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
+                        review={data.comments}
                       />
                     )}
                   </div>
@@ -216,6 +220,7 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
+                        review={data.comments}
                       />
                     )}
                   </div>
@@ -242,6 +247,7 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
+                        review={data.comments}
                       />
                     )}
                   </div>

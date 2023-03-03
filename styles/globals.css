@@ -69,7 +69,7 @@ a {
   }
 
   .inputOutline {
-    @apply p-3 py-2 rounded-full border-2 mt-1 w-full border-gray-200 bg-white text-sm text-gray-700 shadow-sm focus:outline-[#7BC6B7];
+    @apply p-3 py-2 rounded-full border-2 mt-1 w-full border-gray-200 bg-white text-sm text-gray-900 shadow-sm focus:outline-[#7BC6B7];
   }
 
   .button {

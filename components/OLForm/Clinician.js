@@ -37,6 +37,7 @@ export class Clinician extends Component {
               width: "280px",
             }}
             value={values.staff}
+            defaultValue={values.staff}
             onChange={handleChange("staff")}
           >
             <MenuItem value="none">ไม่เลือก</MenuItem>

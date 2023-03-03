@@ -161,9 +161,25 @@ function AppointmentCard({ result }) {
           </div>
           <div className="w-1/6">
             {result.progressStatus ? (
-              <p>{result.progressStatus}</p>
+              <p>{result.progressStatus == "Approved" ? (
+                <span>รอรับบริการ</span>
+              ) : result.progressStatus == "pending" ? (
+                <span>รอการตอบรับ</span>
+              ) : result.progressStatus == "Done" ? (
+                <span>รับบริการแล้ว</span>
+              ) : (
+                result.progressStatus == "Rejected" && <span>ถูกปฏิเสธ</span>
+              )}</p>
             ) : (
-              <p>{result.status}</p>
+              <p>{result.status == "Approved" ? (
+                <span>รอรับบริการ</span>
+              ) : result.status == "pending" ? (
+                <span>รอการตอบรับ</span>
+              ) : result.status == "Done" ? (
+                <span>รับบริการแล้ว</span>
+              ) : (
+                result.status == "Rejected" && <span>ถูกปฏิเสธ</span>
+              )}</p>
             )}
           </div>
         </div>
@@ -203,7 +219,15 @@ function AppointmentCard({ result }) {
                 </p>
               </div>
               <div className="w-1/6">
-                <p>{result.status}</p>
+                <p>  {result.status == "Approved" ? (
+                    <span>รอรับบริการ</span>
+                  ) : result.status == "pending" ? (
+                    <span>รอการตอบรับ</span>
+                  ) : result.status == "Done" ? (
+                    <span>รับบริการแล้ว</span>
+                  ) : (
+                    data.status == "Rejected" && <span>ถูกปฏิเสธ</span>
+                  )}</p>
               </div>
             </div>
           );

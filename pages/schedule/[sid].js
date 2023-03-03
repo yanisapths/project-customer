@@ -141,17 +141,25 @@ function ScheduleDetail({ data, event, clinic, course }) {
             </div>
             <div className="w-1/6">
               {data.progressStatus ? (
-                <p>{data.progressStatus}</p>
+                <p>{data.progressStatus == "Approved" ? (
+                  <span>รอรับบริการ</span>
+                ) : data.progressStatus == "pending" ? (
+                  <span>รอการตอบรับ</span>
+                ) : data.progressStatus == "Done" ? (
+                  <span>รับบริการแล้ว</span>
+                ) : (
+                  data.progressStatus == "Rejected" && <span>ถูกปฏิเสธ</span>
+                )}</p>
               ) : (
                 <p>
-                  {data.status == "pending" ? (
+                  {data.status == "Approved" ? (
+                    <span>รอรับบริการ</span>
+                  ) : data.status == "pending" ? (
                     <span>รอการตอบรับ</span>
                   ) : data.status == "Done" ? (
-                    <span>เสร็จสิ้น</span>
-                  ) : data.status == "Rejected" ? (
-                    <span>ถูกปฏิเสธ</span>
+                    <span>รับบริการแล้ว</span>
                   ) : (
-                    <span>{data.status}</span>
+                    data.status == "Rejected" && <span>ถูกปฏิเสธ</span>
                   )}
                 </p>
               )}
@@ -199,7 +207,15 @@ function ScheduleDetail({ data, event, clinic, course }) {
                   </p>
                 </div>
                 <div className="w-1/6">
-                  <p>{result.status}</p>
+                  {result.status == "Approved" ? (
+                    <span>รอรับบริการ</span>
+                  ) : result.status == "pending" ? (
+                    <span>รอการตอบรับ</span>
+                  ) : result.status == "Done" ? (
+                    <span>รับบริการแล้ว</span>
+                  ) : (
+                    result.status == "Rejected" && <span>ถูกปฏิเสธ</span>
+                  )}
                 </div>
               </div>
             );

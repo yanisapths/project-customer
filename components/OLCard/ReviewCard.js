@@ -23,7 +23,14 @@ const CustomTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
+function ReviewCard({
+  schedule_id,
+  course_id,
+  clinicName,
+  status,
+  clinic_id,
+  review,
+}) {
   const theme = useTheme();
   const [courses, setCourseList] = useState({});
   const router = useRouter();
@@ -80,6 +87,7 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
         ) : (
           <div className="py-10 px-8 flex">
             <p className="h4">Thanks for the review! 🥳</p>
+            {review ? <p className="body2">{review}</p> : ""}
           </div>
         )}
       </div>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Router,{ useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useTheme } from "@mui/material/styles";
 import PrimaryIconButton from "../OLButton/IconButton";
 import SimpleChip from "../OLChip/SimpleChip";
 import { Box } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Swal from "sweetalert2";
@@ -87,44 +87,46 @@ function CommonCard({
           </div>
         </div>
         <div className="flex gap-2 md:gap-6">
-          <Tooltip title="ยกเลิกคำขอ" placement="top">
-            <IconButton
-              aria-label="delete"
-              size="small"
-              className="text-[#FF2F3B]"
-              onClick={() =>
-                Swal.fire({
-                  title: "ยกเลิกคำขอนี้?",
-                  text: "หากยกเลิกแล้วจะไม่สามารถย้อนกลับได้",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonText: "ตกลง",
-                  cancelButtonText: "ยกเลิก",
-                  reverseButtons: true,
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    cancelRequest(schedule_id).then(() =>
+          {status == "pending" && (
+            <Tooltip title="ยกเลิกคำขอ" placement="top">
+              <IconButton
+                aria-label="delete"
+                size="small"
+                className="text-[#FF2F3B]"
+                onClick={() =>
+                  Swal.fire({
+                    title: "ยกเลิกคำขอนี้?",
+                    text: "หากยกเลิกแล้วจะไม่สามารถย้อนกลับได้",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "ตกลง",
+                    cancelButtonText: "ยกเลิก",
+                    reverseButtons: true,
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      cancelRequest(schedule_id).then(() =>
+                        Swal.fire({
+                          title: "ยกเลิกแล้ว",
+                          showConfirmButton: false,
+                          icon: "success",
+                          timer: 1000,
+                        })
+                      );
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
                       Swal.fire({
-                        title: "ยกเลิกแล้ว",
+                        title: "ยกเลิก :)",
                         showConfirmButton: false,
-                        icon: "success",
+                        icon: "error",
                         timer: 1000,
-                      })
-                    );
-                  } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    Swal.fire({
-                      title: "ยกเลิก :)",
-                      showConfirmButton: false,
-                      icon: "error",
-                      timer: 1000,
-                    });
-                  }
-                })
-              }
-            >
-              <DoDisturbIcon className="text-[#FF2F3B]" />
-            </IconButton>
-          </Tooltip>
+                      });
+                    }
+                  })
+                }
+              >
+                <DoDisturbIcon className="text-[#FF2F3B]" />
+              </IconButton>
+            </Tooltip>
+          )}
           {status != "Rejected" ? (
             <PrimaryIconButton
               path={`/schedule/${schedule_id}`}

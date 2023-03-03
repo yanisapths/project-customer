@@ -40,7 +40,7 @@ export class Location extends Component {
         <div className="pt-10 md:px-8 grid grid-cols-6 gap-6">
           <div className="col-span-6">
             <label htmlFor="appointmentPlace" className="inputLabel">
-              สถานที่นัดหมาย*
+              สถานที่นัดหมาย
             </label>
             <Select
               sx={{
@@ -52,6 +52,7 @@ export class Location extends Component {
                 width: "280px",
               }}
               value={values.appointmentPlace}
+              defaultValue={values.appointmentPlace}
               onChange={handleChange("appointmentPlace")}
             >
               {places?.map((input, key) => (
@@ -61,11 +62,14 @@ export class Location extends Component {
               ))}
             </Select>
           </div>
-          {values.appointmentPlace == "บ้าน" && (
+        </div>
+        {values.appointmentPlace == "บ้าน" && (
+          <div className="pt-10 px-2 grid grid-cols-6 gap-6">
             <div className="col-span-6">
               <label htmlFor="location" className="inputLabel">
                 ที่อยู่ (บ้านเลขที่, หมู่, ตรอกซอย, ถนน) เขต/อำเภอ แขวง/ตำบล
-                จังหวัด *
+                จังหวัด<span className="text-[#FF2F3B]"> * </span>
+                <span className="text-[#FF2F3B] text-xs">(จำเป็น)</span>
               </label>
 
               <input
@@ -78,8 +82,8 @@ export class Location extends Component {
                 required={values.appointmentPlace == "บ้าน" ? true : false}
               />
             </div>
-          )}
-        </div>
+          </div>
+        )}
         <div className="flex justify-between pt-12">
           <PreviousButton handleClick={this.previous} />
           <ContinueButton handleClick={this.continue} />
