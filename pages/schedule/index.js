@@ -39,7 +39,7 @@ function Schedule({ appointments }) {
           <link rel="icon" href="favicon.ico" />
         </Head>
         <Header />
-        <main className="max-w-screen lg:pb-32 h-screen overflow-scroll scrollbar-hide content-center lg:px-24 xl:px-0 xxl:px-48 pb-12 xl:pb-32">
+        <main className="max-w-screen lg:pb-32 h-screen overflow-scroll scrollbar-hide content-center px-8 lg:px-12 xl:px-0 xxl:px-42 pb-12 xl:pb-32">
           <div className="flex justify-center gap-4 md:gap-6 px-6 pt-12 items-center">
             <p className="h6 text-black text-center">นัดทั้งหมด</p>
             <Box sx={{ width: 180 }}>
@@ -80,7 +80,7 @@ function Schedule({ appointments }) {
             </Box>
           </div>
           <div className="lg:flex lg:justify-center">
-            <div className="grid grid-cols-1 py-6 mx-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-6">
               {result == "" &&
                 result == 0 &&
                 appointments &&
@@ -108,7 +108,6 @@ function Schedule({ appointments }) {
                           status={data.status}
                           schedule_id={data._id}
                           clinic_id={data.clinic_id}
-                          review={data.comments}
                         />
                       )}
                     </div>
@@ -139,7 +138,6 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
-                        review={data.comments}
                       />
                     )}
                   </div>
@@ -166,7 +164,6 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
-                        review={data.comments}
                       />
                     )}
                   </div>
@@ -193,7 +190,6 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
-                        review={data.comments}
                       />
                     )}
                   </div>
@@ -220,7 +216,6 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
-                        review={data.comments}
                       />
                     )}
                   </div>
@@ -247,7 +242,6 @@ function Schedule({ appointments }) {
                         status={data.status}
                         schedule_id={data._id}
                         clinic_id={data.clinic_id}
-                        review={data.comments}
                       />
                     )}
                   </div>
