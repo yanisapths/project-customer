@@ -54,10 +54,15 @@ function ScheduleDetail({ data, event, clinic, course }) {
             <NavigateBack path="/schedule" />
           </div>
           <p className="body1 tracking-wide text-black/50">ตารางนัด</p>
-          <div className="flex justify-center gap-2">
-            <h2 className="pt-6 h3 lg:h1">{course.courseName}</h2>
+          <div className="text-center cursor-pointer transition hover:underline text-[#005844] px-6 py-2 lg:py-3 mx-auto">
+            <Link href={`/clinic/${data.clinic_id}`}>
+              <p className="h3">{data.clinicName}</p>
+            </Link>
+          </div>
+          <div className="flex justify-center gap-4 text-center items-center align-middle pt-6">
+            <h2 className="h6 lg:h5">{course.courseName}</h2>
             {course.type != "false" ? (
-              <strong className="rounded-full bg-[#A5A6F6]/20 text-[#7879F1] px-2 py-1 text-sm font-medium self-center">
+              <strong className="rounded-full bg-[#A5A6F6]/20 text-[#7879F1] px-2 py-1 text-sm font-medium">
                 {course.type}
               </strong>
             ) : (
@@ -69,12 +74,7 @@ function ScheduleDetail({ data, event, clinic, course }) {
             <SimpleChip text={course.duration} quantify="ชั่วโมง/ครั้ง" />
             <SimpleChip prefix="ราคา" text={course.totalPrice} quantify="บาท" />
           </div>
-          <div className="cursor-pointer bg-[#7BC6B7] transition hover:shadow-xl hover:shadow-[#7BC6B7]/40 w-fit px-6 py-2 lg:py-3 rounded-full mx-auto">
-            <Link href={`/clinic/${data.clinic_id}`}>
-              <p className="h6 text-white">{data.clinicName}</p>
-            </Link>
-          </div>
-          <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide mt-6 md:h6 body2">
+          <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide md:h6 body2">
             <div>
               <p className=" text-black/50">ติดต่อคลินิก</p>
               <p className=" hover:text-[#0921FF]">{clinic.phoneNumber}</p>
@@ -84,7 +84,7 @@ function ScheduleDetail({ data, event, clinic, course }) {
               <p className=" hover:text-[#0921FF]">{data.phoneNumber}</p>
             </div>
           </div>
-          <section className="lg:w-full mb-2 pt-12 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 border-black/20 border-b-[1px] border-dashed">
+          <section className="lg:w-full mb-2 pt-6 md:pt-10 overflow-scroll scroll-auto scrollbar-hide mx-2 md:ml-8 border-black/20 border-b-[1px] border-dashed">
             <div className="flex justify-between lg:body1 tracking-wide">
               <div className="relative block md:w-1/6">
                 <p className="">ครั้งที่</p>
@@ -105,7 +105,7 @@ function ScheduleDetail({ data, event, clinic, course }) {
             className={
               data.progressStatus == "Done"
                 ? "bg-[#f0f1f2]/40 text-[#121212]/40 flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
-                : "bg-[#acded5]/20 text-black flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                : "bg-[#acded5]/20 text-[#005844] flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
             }
           >
             <div className="w-1/6">
@@ -141,17 +141,27 @@ function ScheduleDetail({ data, event, clinic, course }) {
             </div>
             <div className="w-1/6">
               {data.progressStatus ? (
-                <p>{data.progressStatus}</p>
+                <p>
+                  {data.progressStatus == "Approved" ? (
+                    <span>รอรับบริการ</span>
+                  ) : data.progressStatus == "pending" ? (
+                    <span>รอการตอบรับ</span>
+                  ) : data.progressStatus == "Done" ? (
+                    <span>รับบริการแล้ว</span>
+                  ) : (
+                    data.progressStatus == "Rejected" && <span>ถูกปฏิเสธ</span>
+                  )}
+                </p>
               ) : (
                 <p>
-                  {data.status == "pending" ? (
+                  {data.status == "Approved" ? (
+                    <span>รอรับบริการ</span>
+                  ) : data.status == "pending" ? (
                     <span>รอการตอบรับ</span>
                   ) : data.status == "Done" ? (
-                    <span>เสร็จสิ้น</span>
-                  ) : data.status == "Rejected" ? (
-                    <span>ถูกปฏิเสธ</span>
+                    <span>รับบริการแล้ว</span>
                   ) : (
-                    <span>{data.status}</span>
+                    data.status == "Rejected" && <span>ถูกปฏิเสธ</span>
                   )}
                 </p>
               )}
@@ -163,7 +173,7 @@ function ScheduleDetail({ data, event, clinic, course }) {
                 className={
                   result.status == "Done"
                     ? "bg-[#f0f1f2]/40 text-[#121212]/40 flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
-                    : "bg-[#acded5]/20 text-black flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                    : "bg-[#acded5]/10 text-[#005844] flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
                 }
                 key={index}
               >
@@ -199,7 +209,15 @@ function ScheduleDetail({ data, event, clinic, course }) {
                   </p>
                 </div>
                 <div className="w-1/6">
-                  <p>{result.status}</p>
+                  {result.status == "Approved" ? (
+                    <span>รอรับบริการ</span>
+                  ) : result.status == "pending" ? (
+                    <span>รอการตอบรับ</span>
+                  ) : result.status == "Done" ? (
+                    <span>รับบริการแล้ว</span>
+                  ) : (
+                    result.status == "Rejected" && <span>ถูกปฏิเสธ</span>
+                  )}
                 </div>
               </div>
             );

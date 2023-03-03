@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 const sexs = [
   { id: 1, label: "ชาย" },
   { id: 2, label: "หญิง" },
-  { id: 3, label: "อื่นๆ" },
+  { id: 3, label: "ไม่ระบุ" },
 ];
 
 export class ContactInformation extends Component {
@@ -19,7 +19,7 @@ export class ContactInformation extends Component {
     if (this.props.handlePhoneValidation() == true) {
       this.props.nextStep();
     } else {
-      toast.error("กรุณาใส่เบอร์โทร และเป็นตัวเลขเท่านั้น");
+      toast.error("กรุณาใส่เบอร์โทรให้ถูกต้อง");
     }
   };
   previous = (e) => {
@@ -45,8 +45,8 @@ export class ContactInformation extends Component {
               type="text"
               id="firstName"
               name="firstName"
-              className="inputOutline"
-              placeholder="เช่น สมใจ"
+              className={values.firstName ? "inputOutline placeholder-gray-900" : "inputOutline"}
+              placeholder={values.firstName ? values.firstName : "เช่น สมใจ"}
               onChange={handleChange("firstName")}
             />
           </div>
@@ -59,8 +59,8 @@ export class ContactInformation extends Component {
               type="text"
               id="lastName"
               name="lastName"
-              className="inputOutline"
-              placeholder="เช่น รักษ์ดี"
+              className={values.lastName ? "inputOutline placeholder-gray-900" : "inputOutline"}
+              placeholder={values.lastName ? values.lastName : "เช่น รักษ์ดี"}
               onChange={handleChange("lastName")}
             />
           </div>
@@ -73,8 +73,8 @@ export class ContactInformation extends Component {
               type="text"
               id="nickName"
               name="nickName"
-              className="inputOutline"
-              placeholder="เช่น มะลิ"
+              className={values.nickName ? "inputOutline placeholder-gray-900" : "inputOutline"}
+              placeholder={values.nickName ? values.nickName : "เช่น มะลิ"}
               onChange={handleChange("nickName")}
             />
           </div>
@@ -87,8 +87,8 @@ export class ContactInformation extends Component {
               type="text"
               id="age"
               name="age"
-              className="inputOutline"
-              placeholder="เช่น 83"
+              className={values.age ? "inputOutline placeholder-gray-900" : "inputOutline"}
+              placeholder={values.age ? values.age : "เช่น 83"}
               onChange={handleChange("age")}
             />
           </div>
@@ -118,15 +118,15 @@ export class ContactInformation extends Component {
           </div>
           <div className="col-span-3">
             <label htmlFor="phoneNumber" className="inputLabel pb-0 text-sm">
-              เบอร์โทร* (เป็นตัวเลขเท่านั้น)
+              เบอร์โทร<span className="text-[#FF2F3B]"> * </span><span className="text-[#FF2F3B] text-xs">(เป็นตัวเลขเท่านั้น)</span>
             </label>
 
             <input
               type="text"
               id="phoneNumber"
               name="phoneNumber"
-              className="inputOutline"
-              placeholder="เช่น 0864213464"
+              className={values.phoneNumber ? "inputOutline placeholder-gray-900" : "inputOutline"}
+              placeholder={values.phoneNumber ? values.phoneNumber : "เช่น 0864213464"}
               onChange={handleChange("phoneNumber")}
             />
           </div>
@@ -139,8 +139,8 @@ export class ContactInformation extends Component {
               type="text"
               id="lineId"
               name="lineId"
-              className="inputOutline"
-              placeholder="เช่น malila"
+              className={values.lineId ? "inputOutline placeholder-gray-900" : "inputOutline"}
+              placeholder={values.lineId ? values.lineId : "เช่น malila"}
               onChange={handleChange("lineId")}
             />
           </div>
@@ -153,8 +153,8 @@ export class ContactInformation extends Component {
               type="text"
               id="description"
               name="description"
-              className="inputOutline"
-              placeholder="บอกคลินิกเพิ่มเเช่น เรื่องที่ควรระวัง หรือส่วนที่ต้องดูแลเป็นพิเศษ"
+              className={values.description ? "inputOutline placeholder-gray-900" : "inputOutline"}
+              placeholder={values.description ? values.description : "บอกคลินิกเพิ่มเเช่น เรื่องที่ควรระวัง หรือส่วนที่ต้องดูแลเป็นพิเศษ"}
               onChange={handleChange("description")}
             />
           </div>

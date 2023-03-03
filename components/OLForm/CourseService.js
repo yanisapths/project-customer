@@ -26,7 +26,8 @@ export class CourseService extends Component {
         </div>
         <div className="pt-10 md:px-8">
           <label htmlFor="course" className="inputLabel">
-            คอร์ส*
+            คอร์ส<span className="text-[#FF2F3B]"> * </span>
+            <span className="text-[#FF2F3B] text-xs">(จำเป็น)</span>
           </label>
           <Select
             sx={{

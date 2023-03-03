@@ -11,7 +11,7 @@ export class Success extends Component {
           นัดหมายถูกส่งแล้ว
         </p>
         <p className="body1 pt-2 tracking-wide text-[#005844]/50">
-          กรุณารอยืนยันจากคลินิก
+          กรุณารอการยืนยันจากคลินิก
         </p>
         <div className="pt-12">
           <NavigateTextButton text="กลับสู่หน้าหลัก" path="/" />
