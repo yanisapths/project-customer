@@ -29,7 +29,6 @@ function ReviewCard({
   clinicName,
   status,
   clinic_id,
-  review,
 }) {
   const theme = useTheme();
   const [courses, setCourseList] = useState({});
@@ -85,7 +84,6 @@ function ReviewCard({
         ) : (
           <div className="py-10 px-8 flex">
             <p className="h4">ขอบคุณสำหรับรีวิว! 🥳</p>
-            {review ? <p className="body2">{review}</p> : ""}
           </div>
         )}
       </div>
