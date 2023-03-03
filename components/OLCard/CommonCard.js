@@ -64,8 +64,15 @@ function CommonCard({
       });
   }
 
+  const navigate = (status, path) => {
+    if (status != "Rejected") {
+      router.push(path);
+    }
+  };
+
   return (
     <Box
+      onClick={() => navigate(status, `/schedule/${schedule_id}`)}
       className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto pt-8 w-full lg:mb-8 mb-4 md:min-w-[450px] min-h-[250px] transition hover:shadow-2xl overflow-hidden"
       sx={{ bgcolor: theme.palette.background.white, width: "100%" }}
     >
@@ -85,7 +92,13 @@ function CommonCard({
             }
           >
             <strong className="text-white font-light text-sm md:text-md">
-              {status == "pending" ? "รอการตอบรับ" : status == "Done" ? "รับบริการแล้ว" :  status == "Rejected" ? "ถูกปฏิเสธ" : "ยืนยันแล้ว"}
+              {status == "pending"
+                ? "รอการตอบรับ"
+                : status == "Done"
+                ? "รับบริการแล้ว"
+                : status == "Rejected"
+                ? "ถูกปฏิเสธ"
+                : "ยืนยันแล้ว"}
             </strong>
           </div>
         </div>
