@@ -42,7 +42,7 @@ function CommonCard({
   });
 
   const procedureList = courses.procedures ? (
-    courses.procedures?.map(({ procedureName }) => procedureName + ",")
+    courses.procedures?.map(({ procedureName }) => procedureName + " ")
   ) : (
     <></>
   );
@@ -66,12 +66,15 @@ function CommonCard({
 
   return (
     <Box
-      className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto p-4 pt-8 w-full lg:mb-8 mb-4 h-[300px] transition hover:shadow-2xl overflow-hidden"
+      className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto pt-8 w-full lg:mb-8 mb-4 md:min-w-[450px] min-h-[250px] transition hover:shadow-2xl overflow-hidden"
       sx={{ bgcolor: theme.palette.background.white, width: "100%" }}
     >
+      <p className="px-6 lg:px-8 h4 text-[#005844] pr-32 truncate">
+        {clinicName}
+      </p>
       <div className="flex justify-between px-6 lg:px-8">
-        <div className="flex space-x-2 md:space-x-6">
-          <p className="md:h4 h6 font-semibold pt-2">{courses.courseName}</p>
+        <div className="flex space-x-2 md:space-x-4">
+          <p className="md:h5 h6 font-semibold pt-2">{courses.courseName}</p>
           <div
             className={
               status == "pending"
@@ -82,11 +85,11 @@ function CommonCard({
             }
           >
             <strong className="text-white font-light text-sm md:text-md">
-              {status}{" "}
+              {status == "pending" ? "รอการตอบรับ" : status == "Done" ? "รับบริการแล้ว" :  status == "Rejected" ? "ถูกปฏิเสธ" : "ยืนยันแล้ว"}
             </strong>
           </div>
         </div>
-        <div className="flex gap-2 md:gap-6">
+        <div className="flex gap-2 items-center">
           {status == "pending" && (
             <Tooltip title="ยกเลิกคำขอ" placement="top">
               <IconButton
@@ -123,7 +126,7 @@ function CommonCard({
                   })
                 }
               >
-                <DoDisturbIcon className="text-[#FF2F3B]" />
+                <DoDisturbIcon className="text-[#FF2F3B]/80" />
               </IconButton>
             </Tooltip>
           )}
@@ -131,7 +134,7 @@ function CommonCard({
             <PrimaryIconButton
               path={`/schedule/${schedule_id}`}
               icon={
-                <OpenInNewIcon className="text-black/40 hover:text-black/80 xl:w-16 xl:h-8" />
+                <OpenInNewIcon className="text-black/40 hover:text-black/80" />
               }
               title="ดูตาราง"
             />
@@ -151,47 +154,27 @@ function CommonCard({
           <></>
         )}
       </div>
-      <div className="pt-2 px-8">
-        {rejectReason ? (
-          <div>
-            <p className="text-black/50">เหตุผลจากคลินิก</p>
-            <p className="body1 text-[#FF2F3B]">{rejectReason}</p>
-          </div>
-        ) : (
-          <></>
-        )}{" "}
-      </div>
-      <div className="p-8">
-        {rejectReason ? (
-          <div className="relative lg:top-4 xl:-mt-4">
-            <div className="bottom-0 left-0">
-              {" "}
-              <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
+      {rejectReason ? (
+        <div className="pt-2 px-8">
+          <p className="text-black/50">เหตุผลจากคลินิก</p>
+          <p className="body1 text-[#FF2F3B]">{rejectReason}</p>
+        </div>
+      ) : (
+        <></>
+      )}{" "}
+      {tag ? (
+        <div className="relative">
+          <div className="absolute bottom-0 right-6">
+            <div className="whitespace-nowrap rounded-full px-10 py-0.5 bg-[#A5A6F6]/40 w-full h-fit text-center">
+              <strong className="text-[#5D5FEF] font-light text-sm">
+                {tag}
+              </strong>
             </div>
-          </div>
-        ) : (
-          <div className="relative top-16">
-            <div className="bottom-0 left-0">
-              {" "}
-              <p className="h4 text-[#005844] pr-32 truncate">{clinicName}</p>
-            </div>
-          </div>
-        )}
-        <div className="relative xl:top-4">
-          <div className="absolute bottom-0 right-0">
-            {" "}
-            {tag ? (
-              <div className="whitespace-nowrap rounded-full px-3 py-2 bg-[#A5A6F6]/40 w-fit h-fit text-center">
-                <strong className="text-[#5D5FEF] font-light text-sm md:text-md">
-                  {tag}
-                </strong>
-              </div>
-            ) : (
-              <></>
-            )}
           </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 }

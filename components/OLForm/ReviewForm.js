@@ -81,7 +81,7 @@ function ReviewForm({ clinic_id, schedule_id }) {
                     <ReactStars
                       count={5}
                       onChange={onChange}
-                      size={34}
+                      size={30}
                       isHalf={true}
                       emptyIcon={<i className="far fa-star"></i>}
                       halfIcon={<i className="fa fa-star-half-alt"></i>}
@@ -98,8 +98,8 @@ function ReviewForm({ clinic_id, schedule_id }) {
               <Controller
                 render={({ field: { onChange, value } }) => (
                   <>
-                    <textarea
-                      className="mx-auto h-16 w-full xl:h-20 rounded-lg border-[#7879F1]/50  border-2 p-2 text-md lg:text-lg"
+                    <input
+                      className="mx-auto h-16 w-full xl:h-16 rounded-lg border-[#7879F1]/50  border-2 p-2 text-md lg:text-lg"
                       placeholder="เขียนรีวิว....."
                       rows="4"
                       id="comments"

@@ -6,7 +6,7 @@ function IconButton({ icon, title, path }) {
   return (
     <Tooltip title={title} placement="top">
       <Link href={path}>
-        <div className="cursor-pointer rounded-full pt-2 text-center">
+        <div className="cursor-pointer rounded-full text-center">
           {icon}
         </div>
       </Link>
