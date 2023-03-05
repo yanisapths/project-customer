@@ -28,8 +28,8 @@ export default function Home({ session, data }) {
           <div className="rounded-full xl:h-20 xl:w-20 top-[50vh] inset-y-0 right-80 bg-[#94CDDA]"></div>
         </div>
       </section>
-      <main className="main pb-32 max-w-screen-xxl h-screen overflow-scroll scrollbar-hide pt-4 xl:pt-14">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-4 xl:grid xl:grid-cols-3 xl:gap-8 xl:px-28">
+      <main className="flex justify-center p-4 px-8 xl:px-10 2xl:px-28 pb-40 overflow-scroll scrollbar-hide pt-4 xl:pt-4">
+        <div className="grid-cols-1 gap-10 grid md:grid-cols-2 g:grid-cols-3 xl:grid xl:grid-cols-3 xl:gap-12 md:gap-12">
           {data?.map(
             ({
               _id,
