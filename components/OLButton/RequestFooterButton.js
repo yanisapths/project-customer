@@ -12,7 +12,7 @@ function RequestFooterButton({handleClick}) {
             <AddCircleIcon className="h-8 w-8" />
             <span className="text-xl pl-3 font-medium xl:text-2xl text-center">
               {" "}
-              จองนัด{" "}
+              นัดหมายล่วงหน้า{" "}
             </span>
           </div>
       </footer>
