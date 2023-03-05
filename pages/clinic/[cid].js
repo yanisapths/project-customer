@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ListView from "./view/ListView";
 import { useTheme } from "@mui/material/styles";
-import VerifiedIcon from '@mui/icons-material/Verified';
+import VerifiedIcon from "@mui/icons-material/Verified";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import RequestFooterButton from "../../components/OLButton/RequestFooterButton";
@@ -21,10 +21,9 @@ const CustomTooltip = styled(({ className, ...props }) => (
     boxShadow: theme.shadows[10],
     fontSize: 14,
     borderRadius: 12,
-    p:8
+    p: 8,
   },
 }));
-
 
 function Clinic({ data, courses }) {
   const router = useRouter();
@@ -79,7 +78,15 @@ function Clinic({ data, courses }) {
         <div className="space-x-3 px-8 lg:px-24 lg:pt-12">
           <h2 className="mt-4 md:mt-8 xl:mt-4 text-3xl md:text-6xl font-bold text-[#005844]">
             {data.clinic_name}
-            {data.approvalStatus == "Authorized" ? <span className="px-2"><CustomTooltip title="Verified Clinic" placement="top" ><VerifiedIcon className="text-[#7bc6b7]" fontSize="large" /></CustomTooltip></span>:"" }
+            {data.approvalStatus == "Authorized" ? (
+              <span className="px-2">
+                <CustomTooltip title="Verified Clinic" placement="top">
+                  <VerifiedIcon className="text-[#7bc6b7]" fontSize="large" />
+                </CustomTooltip>
+              </span>
+            ) : (
+              ""
+            )}
           </h2>
         </div>
         <div className="px-8 lg:px-24">
@@ -89,13 +96,13 @@ function Clinic({ data, courses }) {
             ติดต่อ
           </h2>
           <p className="mt-1 h5">{data.phoneNumber}</p>
-          <p className="h5">{data.email}</p>
+          <p className="h5 truncate">{data.email}</p>
           <ul className="mt-8 space-y-1 text-gray-700">
             <span className="mt-6 h6 tracking-wide text-gray-500 uppercase">
               วันและเวลาทำการ
             </span>
             <li className="h5 text-black">
-              {data.openDay}: {data.openTime} am - {data.closeTime} pm
+              {data.openDay}: {data.openTime} - {data.closeTime}
             </li>
           </ul>
           <h2 className="mt-6 h6 tracking-wide text-gray-500 uppercase">
@@ -103,27 +110,38 @@ function Clinic({ data, courses }) {
           </h2>
           <p className="mt-1 h5">{data.address}</p>
 
-          <h2 className="mt-6 h6 tracking-wide text-gray-500 uppercase">
+          <h2 className="mt-6 pb-4 h6 tracking-wide text-gray-500 uppercase">
             ผู้ให้บริการ
           </h2>
-          <Image
-            alt="/Avatar.png"
-            className="rounded-full"
-            src="/Avatar.png"
-            width="120"
-            height="120"
-          />
+          {!data.ownerImageUrl && (
+            <Image
+              alt="/Avatar.png"
+              className="rounded-full"
+              src="/Avatar.png"
+              width={140}
+              height={140}
+            />
+          )}
+          {data.ownerImageUrl && (
+            <Image
+              alt="/Avatar.png"
+              className="rounded-full"
+              src={data.ownerImageUrl}
+              width={140}
+              height={140}
+            />
+          )}
           <p className="mt-2 pl-4 h5">{data.owner}</p>
         </div>
         <ListView
-          className="pt-6 max-w-screen h-screen content-center overflow-scroll scrollbar-hide"
+          className="pt-2 max-w-screen h-screen content-center overflow-scroll scrollbar-hide"
           data={data}
           courses={courses}
           reviews={reviews}
         />
       </main>
 
-      <RequestFooterButton handleClick={handleClick}/>
+      <RequestFooterButton handleClick={handleClick} />
     </div>
   );
 }
@@ -145,9 +163,7 @@ export async function getStaticProps({ params }) {
   const res = await fetch(`${process.env.dev}/clinic/${clinicId}`);
   const data = await res.json();
 
-  const courseRes = await fetch(
-    `${process.env.url}/course/match/${clinicId}`
-  );
+  const courseRes = await fetch(`${process.env.url}/course/match/${clinicId}`);
   const courses = await courseRes.json();
 
   return {
