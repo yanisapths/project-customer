@@ -43,11 +43,6 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
       fetchData().catch(console.error);
     }
   });
-  const navigate = (status, path) => {
-    if (status != "Rejected") {
-      router.push(path);
-    }
-  };
 
   return (
     <Box
