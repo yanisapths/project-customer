@@ -43,15 +43,9 @@ function ReviewCard({ schedule_id, course_id, clinicName, status, clinic_id }) {
       fetchData().catch(console.error);
     }
   });
-  const navigate = (status, path) => {
-    if (status != "Rejected") {
-      router.push(path);
-    }
-  };
 
   return (
     <Box
-      onClick={() => navigate(status, `/schedule/${schedule_id}`)}
       className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto p-4 pt-8 w-full lg:mb-8 mb-4 min-h-[250px] transition hover:shadow-2xl overflow-hidden"
       sx={{ bgcolor: alpha(theme.palette.iris.light, 0.1), width: "100%" }}
     >
