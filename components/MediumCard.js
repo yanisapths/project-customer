@@ -30,7 +30,7 @@ function MediumCard({
 }) {
   return (
     <div
-      className="cursor-pointer hover:scale-105 min-w-full w-96 min-h-[350px] md:w-[350px] md:h-[400px] lg:h-[400px] 2xl:h-[450px] 2xl:w-[450px] hover:shadow-2xl
+      className="cursor-pointer hover:scale-105 min-w-60 min-h-[350px] md:w-[350px] md:h-[400px] lg:h-[400px] 2xl:h-[450px] 2xl:w-[450px] hover:shadow-2xl
       transform transition duration-300 ease-out pb-32 rounded-xl"
     >
       <div className="relative h-4/6 lg:h-5/6 2xl:h5/6 w-full xl:h-60 2xl:h-72 flex-shrink-0">
