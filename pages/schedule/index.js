@@ -80,7 +80,7 @@ function Schedule({ appointments }) {
             </Box>
           </div>
           <div className="lg:flex lg:justify-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-10 pt-6">
               {result == "" &&
                 result == 0 &&
                 appointments &&
