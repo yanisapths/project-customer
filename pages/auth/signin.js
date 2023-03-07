@@ -44,17 +44,7 @@ function signIn({ providers }) {
                 />
               </div>
             </div>
-            <div className="flex justify-center">
-              <div className="flex cursor-pointer rounded-full bg-gradient-to-r from-teal-50 via-blue-100 to-sky-100 hover:text-blue-600 active:text-opacity-75 focus:outline-none focus:ring shadow-gray-200 shadow-xl">
-                <BtnLogin provider={providers.facebook} />
-                <Image
-                  src="/facebook.png"
-                  alt="/Avatar.png"
-                  width={40}
-                  height={5}
-                />
-              </div>
-            </div>
+        
             <div className="flex justify-center">
               <div className="flex cursor-pointer rounded-full bg-gradient-to-r from-green-50 via-green-100 to-teal-100 hover:text-emerald-600 active:text-opacity-75 focus:outline-none focus:ring shadow-gray-200 shadow-xl">
                 <BtnLogin provider={providers.line} />
