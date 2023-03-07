@@ -130,6 +130,13 @@ export class ContinueAndReview extends Component {
                       ""
                     )
                   )}
+                  {course_id == "ตรวจร่างกาย" ? (
+                    <p className="body1 tracking-wide text-[#005844]">
+                      ตรวจร่างกาย
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>
