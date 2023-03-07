@@ -26,7 +26,7 @@ export class RequestForm extends Component {
     appointmentTime: "",
     endTime: "",
     appointmentPlace: "คลินิก",
-    course_id: "",
+    course_id: "ตรวจร่างกาย",
     description: "",
     location: "",
     lineId: "",
