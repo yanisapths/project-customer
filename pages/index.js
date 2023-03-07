@@ -62,7 +62,7 @@ export default function Home({ session, data }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const data = await fetch(`${process.env.url}/clinic`).then(
+  const data = await fetch(`${process.env.dev}/clinic`).then(
     (res) => res.json()
   );
   return {
