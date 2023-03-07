@@ -60,7 +60,11 @@ function ScheduleDetail({ data, event, clinic, course }) {
             </Link>
           </div>
           <div className="flex justify-center gap-4 text-center items-center align-middle pt-6">
-            <h2 className="h6 lg:h5">{course.courseName}</h2>
+            <h2 className="h6 lg:h5">
+              {data.course_id == "ตรวจร่างกาย"
+                ? "ตรวจร่างกาย"
+                : course.courseName}
+            </h2>
             {course.type != "false" ? (
               <strong className="rounded-full bg-[#A5A6F6]/20 text-[#7879F1] px-2 py-1 text-sm font-medium">
                 {course.type}
@@ -69,11 +73,23 @@ function ScheduleDetail({ data, event, clinic, course }) {
               <></>
             )}
           </div>
-          <div className="flex justify-center space-x-2 px-6 py-2 pb-4 xl:px-10">
-            <SimpleChip text={course.amount} quantify="ครั้ง" />
-            <SimpleChip text={course.duration} quantify="ชั่วโมง/ครั้ง" />
-            <SimpleChip prefix="ราคา" text={course.totalPrice} quantify="บาท" />
-          </div>
+
+          {data.course_id != "ตรวจร่างกาย" ? (
+            <div className="flex justify-center space-x-2 px-6 py-2 pb-4 xl:px-10">
+              <SimpleChip text={course.amount} quantify="ครั้ง" />
+              <SimpleChip text={course.duration} quantify="ชั่วโมง/ครั้ง" />
+              <SimpleChip
+                prefix="ราคา"
+                text={course.totalPrice}
+                quantify="บาท"
+              />{" "}
+            </div>
+          ) : (
+            <div className="py-4">
+
+            </div>
+          )}
+
           <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide md:h6 body2">
             <div>
               <p className=" text-black/50">ติดต่อคลินิก</p>

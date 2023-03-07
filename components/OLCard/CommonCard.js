@@ -81,7 +81,10 @@ function CommonCard({
       </p>
       <div className="flex justify-between px-6 lg:px-8">
         <div className="flex space-x-2 md:space-x-4">
-          <p className="md:h5 h6 font-semibold pt-2">{courses.courseName}</p>
+          <p className="md:h5 h6 font-semibold pt-2">
+            {" "}
+            {course_id == "ตรวจร่างกาย" ? "ตรวจร่างกาย" : courses.courseName}
+          </p>
           <div
             className={
               status == "pending"
