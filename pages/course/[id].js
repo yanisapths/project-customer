@@ -41,7 +41,7 @@ function CourseDetail({ data, course }) {
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
-      <main className="h-full overflow-scroll scrollbar-hide md:pb-48">
+      <main className="h-full overflow-scroll scrollbar-hide pb-48">
         <div className="px-6 pt-12 xl:px-96">
           <NavigateBack path={`/clinic/${cid}`} />
           <div className="flex justify-center gap-2 pt-6">
