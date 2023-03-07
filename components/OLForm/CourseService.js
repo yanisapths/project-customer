@@ -41,6 +41,9 @@ export class CourseService extends Component {
             value={values.course_id}
             onChange={handleChange("course_id")}
           >
+            <MenuItem value="ตรวจร่างกาย">
+            ตรวจร่างกาย (แนะนำสำหรับลูกค้าใหม่)
+            </MenuItem>
             {courses?.map((input, key) => (
               <MenuItem
                 key={key}
