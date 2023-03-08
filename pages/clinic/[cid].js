@@ -11,6 +11,7 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import RequestFooterButton from "../../components/OLButton/RequestFooterButton";
+import GeneralReview from "../../components/OLForm/GeneralReview";
 
 const CustomTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -139,8 +140,8 @@ function Clinic({ data, courses }) {
           courses={courses}
           reviews={reviews}
         />
+        <GeneralReview clinic_id={data._id} reviews={reviews} />
       </main>
-
       <RequestFooterButton handleClick={handleClick} />
     </div>
   );

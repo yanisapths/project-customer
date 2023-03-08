@@ -12,11 +12,11 @@ function ListView({ data, courses, reviews }) {
   const list = [
     {
       id: "courses",
-      title: "All Courses",
+      title: "คอร์ส/บริการ",
     },
     {
       id: "reviews",
-      title: "Reviews",
+      title: "รีวิวจากลูกค้า",
     },
   ];
 
