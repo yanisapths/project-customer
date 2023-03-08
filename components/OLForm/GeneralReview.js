@@ -109,7 +109,7 @@ function GeneralReview({ clinic_id, reviews }) {
       .post(`${process.env.dev}/review/create/${clinic_id}`, json, axiosConfig)
       .then(async (res) => {
         console.log("RESPONSE RECEIVED: ", res.data);
-        toast.seccuss("");
+        toast.seccuss("ขอบคุณสำหรับรีวิว 🎉");
         Router.reload();
       })
       .catch((err) => {
