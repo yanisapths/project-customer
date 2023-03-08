@@ -32,32 +32,6 @@ function Clinic({ data, courses }) {
   const theme = useTheme();
   const { cid, clinic_name, owner_id } = router.query;
   const [reviews, setReviews] = useState([]);
-  const [selected, setSelected] = useState("");
-  const [view, setView] = useState([]);
-  const list = [
-    {
-      id: "courses",
-      title: "คอร์ส/บริการ",
-    },
-    {
-      id: "reviews",
-      title: "ดูรีวิว",
-    },
-  ];
-
-  useEffect(() => {
-    switch (selected) {
-      case "courses":
-        setView(courses);
-        break;
-      case "reviews":
-        setView(reviews);
-        break;
-      default:
-        setView(courses);
-        break;
-    }
-  }, [selected]);
 
   const fetchData = async () => {
     let isSubscribed = true;
@@ -168,10 +142,6 @@ function Clinic({ data, courses }) {
             data={data}
             courses={courses}
             reviews={reviews}
-            view={view}
-            selected={selected}
-            list={list}
-            setSelected={setSelected}
           />
           <GeneralReview clinic_id={data._id} reviews={reviews} />
         </div>
