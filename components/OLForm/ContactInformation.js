@@ -35,7 +35,7 @@ export class ContactInformation extends Component {
             ข้อมูลติดต่อ
           </p>
         </div>
-        <div className="pt-10 px-8 grid grid-cols-6 gap-6">
+        <div className="pt-10 grid grid-cols-6 gap-6">
           <div className="col-span-3">
             <label htmlFor="firstName" className="inputLabel pb-0 text-sm">
               ชื่อจริง
@@ -118,7 +118,7 @@ export class ContactInformation extends Component {
           </div>
           <div className="col-span-3">
             <label htmlFor="phoneNumber" className="inputLabel pb-0 text-sm">
-              เบอร์โทร<span className="text-[#FF2F3B]"> * </span><span className="text-[#FF2F3B] text-xs">(เป็นตัวเลขเท่านั้น)</span>
+              เบอร์โทร<span className="text-[#FF2F3B]"> * </span>
             </label>
 
             <input

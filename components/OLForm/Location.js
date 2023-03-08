@@ -49,7 +49,7 @@ export class Location extends Component {
                 "@media (min-width: 780px)": {
                   width: "420px",
                 },
-                width: "280px",
+                width: "330px",
               }}
               value={values.appointmentPlace}
               defaultValue={values.appointmentPlace}
