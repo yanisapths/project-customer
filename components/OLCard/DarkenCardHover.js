@@ -2,7 +2,7 @@ import React from "react";
 
 function DarkenCardHover({ title, subtitle, desc, img }) {
   return (
-    <a href="#" class="group relative block bg-black rounded-md">
+    <a href="#" className="group relative block bg-black rounded-md">
       <img
         alt="Developer"
         src={img}

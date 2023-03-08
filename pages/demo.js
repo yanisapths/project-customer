@@ -23,7 +23,7 @@ export default function Demo({ session }) {
           <script
             async
             defer
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
             src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v16.0&appId=559430456093362&autoLogAppEvents=1"
             nonce="lPdwa7Ol"
           ></script>

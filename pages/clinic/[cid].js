@@ -32,6 +32,32 @@ function Clinic({ data, courses }) {
   const theme = useTheme();
   const { cid, clinic_name, owner_id } = router.query;
   const [reviews, setReviews] = useState([]);
+  const [selected, setSelected] = useState("");
+  const [view, setView] = useState([]);
+  const list = [
+    {
+      id: "courses",
+      title: "คอร์ส/บริการ",
+    },
+    {
+      id: "reviews",
+      title: "ดูรีวิว",
+    },
+  ];
+
+  useEffect(() => {
+    switch (selected) {
+      case "courses":
+        setView(courses);
+        break;
+      case "reviews":
+        setView(reviews);
+        break;
+      default:
+        setView(courses);
+        break;
+    }
+  }, [selected]);
 
   const fetchData = async () => {
     let isSubscribed = true;
@@ -63,34 +89,6 @@ function Clinic({ data, courses }) {
   if (router.isFallback) {
     return <p className="h1">Loading...</p>;
   }
-  const [selected, setSelected] = useState("");
-  const [view, setView] = useState([]);
-
-  const list = [
-    {
-      id: "courses",
-      title: "คอร์ส/บริการ",
-    },
-    {
-      id: "reviews",
-      title: "ดูรีวิว",
-    },
-  ];
-
-  useEffect(() => {
-    switch (selected) {
-      case "courses":
-        setView(courses);
-        break;
-      case "reviews":
-        setView(reviews);
-        break;
-      default:
-        setView(courses);
-        break;
-    }
-  }, [selected]);
-
 
   return (
     <div>
@@ -163,20 +161,20 @@ function Clinic({ data, courses }) {
           )}
           <p className="mt-2 pl-4 h5">{data.owner}</p>
         </div>
-      
-      <div className="px-6 lg:flex lg:px-14 lg:pl-18 pt-10 lg:pt-24">
-        <ListView
-          className="pt-2 overflow-scroll scrollbar-hide"
-          data={data}
-          courses={courses}
-          reviews={reviews}
-          view={view}
-          selected={selected}
-          list={list}
-          setSelected={setSelected}
-        />
-        <GeneralReview clinic_id={data._id} reviews={reviews} />
-      </div>
+
+        <div className="px-6 lg:flex lg:px-14 lg:pl-18 pt-10 lg:pt-24">
+          <ListView
+            className="pt-2 overflow-scroll scrollbar-hide"
+            data={data}
+            courses={courses}
+            reviews={reviews}
+            view={view}
+            selected={selected}
+            list={list}
+            setSelected={setSelected}
+          />
+          <GeneralReview clinic_id={data._id} reviews={reviews} />
+        </div>
       </main>
       <RequestFooterButton handleClick={handleClick} />
     </div>
