@@ -16,7 +16,7 @@ function Tabs({ id, title, setSelected, active }) {
       <p
         className={
           active
-            ? "text-md font-regular md:text-xl text-[#121212] mr-20 md:mr-24"
+            ? "text-md font-semibold md:text-xl text-[#121212] mr-20 md:mr-24"
             : "text-md font-regular md:text-xl text-black/50 mr-20 md:mr-24"
         }
       >
