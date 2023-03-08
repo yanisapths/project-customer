@@ -43,7 +43,7 @@ function PeopleReview({ imageUrl, customerName, comments, createdAt, score }) {
           <p className="text-[#121212]">{customerName}</p>
 
           <p className="text-[#121212]/50">
-            Reviewd: {new Date(createdAt).toDateString("en-EN")}
+            รีวิวเมื่อ: {new Date(createdAt).toLocaleDateString("th-TH")}
           </p>
         </div>
       </div>

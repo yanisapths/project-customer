@@ -36,7 +36,7 @@ export class CourseService extends Component {
               "@media (min-width: 780px)": {
                 width: "420px",
               },
-              width: "280px",
+              width: "330px",
             }}
             value={values.course_id}
             onChange={handleChange("course_id")}
