@@ -28,19 +28,19 @@ function Header({ placeholder }) {
 
   return (
     <header
-      className="mx-auto bg-[#f8f8f8] max-h-fit py-2 rounded-b-2xl px-4 md:px-32 lg:px-10 font-noto sticky top-0 z-50 grid grid-cols-3
+      className="mx-auto bg-[#f8f8f8] py-2 rounded-b-2xl px-4 md:px-12 lg:px-10 font-noto sticky top-0 z-50 grid grid-cols-3
     backdrop-blur-xl transition-colors duration-500 supports-backdrop-blur:bg-white dark:bg-[#f8f8f8]/60"
     >
       {/* Left */}
-      <div className="flex items-center my-auto cursor-pointer">
+      <div className="flex items-center cursor-pointer">
         <Image
           onClick={() => router.push("/")}
           src="/asset/logo.png"
           alt="/Avatar.png"
-          width="50"
-          height="70"
+          width={60}
+          height={80}
         />
-        <div className="md:m-auto cursor-pointer md:visible invisible md:flex md:gap-4">
+        <div className="cursor-pointer lg:flex gap:4 lg:visible invisible lg:px-6">
           <Link href="/about">
             <div className="rounded-full md:w-fit md:px-6 md:py-2 md:h-fit hover:bg-[#ACDED5]/20 text-[#005844] hover:underline">
               <p className="caption font-bold">About</p>
@@ -60,7 +60,7 @@ function Header({ placeholder }) {
       </div>
 
       {/* Middle  - Search */}
-      <div className="flex items-center rounded-full appearance-none outline-none my-2 bg-[#f0f1f2]">
+      <div className="flex items-center md:mt-6 lg:mt-2 rounded-full appearance-none outline-none my-2 bg-[#f0f1f2] md:h-fit md:w-60 py-4 lg:w-full">
         <input
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
