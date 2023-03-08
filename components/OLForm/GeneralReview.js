@@ -106,7 +106,7 @@ function GeneralReview({ clinic_id, reviews }) {
       },
     };
     const response = await axios
-      .post(`${process.env.dev}/review/create/${clinic_id}`, json, axiosConfig)
+      .post(`${process.env.url}/review/create/${clinic_id}`, json, axiosConfig)
       .then(async (res) => {
         console.log("RESPONSE RECEIVED: ", res.data);
         toast.seccuss("ขอบคุณสำหรับรีวิว 🎉");
