@@ -141,7 +141,7 @@ function GeneralReview({ clinic_id, reviews }) {
 
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="rounded-2xl bg-stone-200/30 py-4 mt-6 md:ml-8">
+          <div className="rounded-2xl bg-stone-200/30 py-4 mt-6 lg:ml-8">
             <div className="grid grid-cols-1 mx-10 ">
               <FormControl>
                 <Controller
