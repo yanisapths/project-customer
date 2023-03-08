@@ -4,39 +4,11 @@ import { useTheme } from "@mui/material/styles";
 import CourseListView from "./CourseListView";
 import PeopleReview from "../../../components/OLCard/PeopleReview";
 
-function ListView({ data, courses, reviews }) {
+function ListView({ data, courses, reviews,selected,view,list,setSelected }) {
   const theme = useTheme();
-  const [selected, setSelected] = useState("");
-  const [view, setView] = useState([]);
-
-  const list = [
-    {
-      id: "courses",
-      title: "คอร์ส/บริการ",
-    },
-    {
-      id: "reviews",
-      title: "รีวิวจากลูกค้า",
-    },
-  ];
-
-  useEffect(() => {
-    switch (selected) {
-      case "courses":
-        setView(courses);
-        break;
-      case "reviews":
-        setView(reviews);
-        break;
-      default:
-        setView(courses);
-        break;
-    }
-  }, [selected]);
-
   return (
-    <>
-      <section className="pt-10 md:pt-20 overflow-scroll scroll-auto scrollbar-hide mx-10 lg:mx-24 md:ml-8 md:w-4/6 border-black/20  border-b-[1px] border-dashed">
+    <div className="lg:w-3/6 mb-2 lg:mb-48">
+    <div className="flex overflow-scroll scroll-auto scrollbar-hide md:ml-8 border-black/20  border-b-[1px] border-dashed">
         {list.map((item) => (
           <div key={item.id} className="inline-flex">
             <div className="relative block">
@@ -50,8 +22,8 @@ function ListView({ data, courses, reviews }) {
             </div>
           </div>
         ))}
-      </section>
-      <div className="pt-6 w-full overflow-x-auto grid grid-cols-1 xl:grid xl:grid-cols-2 pb-32 md:pb-48 gap-10 xs:px-2 px-4 md:px-10 lg:px-18 xl:px-20">
+      </div>
+      <div className="pt-4 overflow-x-auto grid grid-cols-1 pb-32 md:pb-48 gap-10">
         {selected == "reviews"
           ? view?.map(({ _id, customerName, comments, score, createdAt }) => (
               <div className="py-4" key={_id}>
@@ -101,7 +73,7 @@ function ListView({ data, courses, reviews }) {
               )
             )}
       </div>
-    </>
+    </div>
   );
 }
 

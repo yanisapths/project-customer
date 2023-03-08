@@ -120,8 +120,8 @@ function GeneralReview({ clinic_id, reviews }) {
   };
 
   return (
-    <Box sx={{ pb: 48 }}>
-      <div className="mx-10 lg:mx-24">
+    <div className="lg:w-3/6 mb-48 pt-3">
+      <div className="">
         <div className="overflow-scroll scroll-auto scrollbar-hide pb-3 md:ml-8 border-black/20  border-b-[1px] border-dashed">
           <p className="h3">รีวิวจากลูกค้า</p>
         </div>
@@ -131,9 +131,9 @@ function GeneralReview({ clinic_id, reviews }) {
           <p className="pt-1 text-md font-medium text-gray-500 dark:text-gray-400">
             จากลูกค้า {reviews.length} รีวิว
           </p>
-           <div className="flex justify-center"><ReactStars {...ratingStar} /></div>
+           <div className="flex justify-center"><ReactStars {...ratingStar}/></div>
         </div>
-        <div className="content-center text-center lg:w-4/6 pl-12 pb-4">
+        <div className="content-center text-center lg:w-4/6 lg:pl-12 pb-4 px-2">
           {AllStars.map((data, index) => (
             <BarChart key={index} star={data.star} percent={data.percent} />
           ))}
@@ -196,7 +196,7 @@ function GeneralReview({ clinic_id, reviews }) {
           </div>
         </form>
       </div>
-    </Box>
+    </div>
   );
 }
 
