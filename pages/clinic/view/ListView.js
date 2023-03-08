@@ -4,11 +4,38 @@ import { useTheme } from "@mui/material/styles";
 import CourseListView from "./CourseListView";
 import PeopleReview from "../../../components/OLCard/PeopleReview";
 
-function ListView({ data, courses, reviews,selected,view,list,setSelected }) {
+function ListView({ data, courses, reviews }) {
   const theme = useTheme();
+  const [selected, setSelected] = useState("");
+  const [view, setView] = useState([]);
+  const list = [
+    {
+      id: "courses",
+      title: "คอร์ส/บริการ",
+    },
+    {
+      id: "reviews",
+      title: "ดูรีวิว",
+    },
+  ];
+
+  useEffect(() => {
+    switch (selected) {
+      case "courses":
+        setView(courses);
+        break;
+      case "reviews":
+        setView(reviews);
+        break;
+      default:
+        setView(courses);
+        break;
+    }
+  }, [selected]);
+
   return (
     <div className="lg:w-3/6 mb-2 lg:mb-48">
-    <div className="flex overflow-scroll scroll-auto scrollbar-hide md:ml-8 border-black/20  border-b-[1px] border-dashed">
+      <div className="flex overflow-scroll scroll-auto scrollbar-hide md:ml-8 border-black/20  border-b-[1px] border-dashed">
         {list.map((item) => (
           <div key={item.id} className="inline-flex">
             <div className="relative block">
@@ -55,7 +82,7 @@ function ListView({ data, courses, reviews,selected,view,list,setSelected }) {
                 duration,
                 totalPrice,
                 procedures,
-                type
+                type,
               }) => (
                 <div key={_id}>
                   <CourseListView
