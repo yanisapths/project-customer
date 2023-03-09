@@ -104,7 +104,7 @@ const About = () => {
         </div>
         <div className="flex content-center justify-center lg:text-center">
           <Link href="https://daycare-portal.vercel.app/">
-            <button class="bg-gradient-to-r hover:from-[#A17851]/40 hover:to-[#FFDF8D]/50  from-teal-100 to-blue-100 hover:shadow-lg hover:text-[#372B20] text-[#005844] underline font-bold py-4 px-8 rounded-full">
+            <button className="bg-gradient-to-r hover:from-[#A17851]/40 hover:to-[#FFDF8D]/50  from-teal-100 to-blue-100 hover:shadow-lg hover:text-[#372B20] text-[#005844] underline font-bold py-4 px-8 rounded-full">
               👩‍⚕️ พาฉันไปที่ แอปบริหารคลินิกสำหรับผู้ประกอบการ
             </button>
           </Link>
