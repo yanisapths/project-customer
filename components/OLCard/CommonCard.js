@@ -19,6 +19,7 @@ function CommonCard({
   status,
   rejectReason,
   tag,
+  clinic_id,
 }) {
   const theme = useTheme();
   const [courses, setCourseList] = useState({});
@@ -66,7 +67,12 @@ function CommonCard({
 
   const navigate = (status, path) => {
     if (status != "Rejected") {
-      router.push(path);
+      router.push({
+        pathname: path,
+        query: {
+          clinic_id: clinic_id,
+        },
+      });
     }
   };
 
@@ -106,46 +112,47 @@ function CommonCard({
           </div>
         </div>
         <div className="flex gap-2 items-center">
-          {status == "pending" && (
-            <Tooltip title="ยกเลิกคำขอ" placement="top">
-              <IconButton
-                aria-label="delete"
-                size="small"
-                className="text-[#FF2F3B]"
-                onClick={() =>
-                  Swal.fire({
-                    title: "ยกเลิกคำขอนี้?",
-                    text: "หากยกเลิกแล้วจะไม่สามารถย้อนกลับได้",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "ตกลง",
-                    cancelButtonText: "ยกเลิก",
-                    reverseButtons: true,
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      cancelRequest(schedule_id).then(() =>
+          {status == "pending" ||
+            (status == "Rejected" && (
+              <Tooltip title="ยกเลิกคำขอ" placement="top">
+                <IconButton
+                  aria-label="delete"
+                  size="small"
+                  className="text-[#FF2F3B]"
+                  onClick={() =>
+                    Swal.fire({
+                      title: "ยกเลิกคำขอนี้?",
+                      text: "หากยกเลิกแล้วจะไม่สามารถย้อนกลับได้",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonText: "ตกลง",
+                      cancelButtonText: "ยกเลิก",
+                      reverseButtons: true,
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        cancelRequest(schedule_id).then(() =>
+                          Swal.fire({
+                            title: "ยกเลิกแล้ว",
+                            showConfirmButton: false,
+                            icon: "success",
+                            timer: 1000,
+                          })
+                        );
+                      } else if (result.dismiss === Swal.DismissReason.cancel) {
                         Swal.fire({
-                          title: "ยกเลิกแล้ว",
+                          title: "ยกเลิก :)",
                           showConfirmButton: false,
-                          icon: "success",
+                          icon: "error",
                           timer: 1000,
-                        })
-                      );
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                      Swal.fire({
-                        title: "ยกเลิก :)",
-                        showConfirmButton: false,
-                        icon: "error",
-                        timer: 1000,
-                      });
-                    }
-                  })
-                }
-              >
-                <DoDisturbIcon className="text-[#FF2F3B]/80" />
-              </IconButton>
-            </Tooltip>
-          )}
+                        });
+                      }
+                    })
+                  }
+                >
+                  <DoDisturbIcon className="text-[#FF2F3B]/80" />
+                </IconButton>
+              </Tooltip>
+            ))}
           {status != "Rejected" ? (
             <PrimaryIconButton
               path={`/schedule/${schedule_id}`}
