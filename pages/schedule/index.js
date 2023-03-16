@@ -90,7 +90,6 @@ function Schedule({ appointments }) {
                       {data.status != "Done" && data.status != "reviewed" ? (
                         <CommonCard
                           key={data.id}
-                          course={data.course}
                           course_id={data.course_id}
                           clinicName={data.clinicName}
                           status={data.status}
@@ -98,11 +97,11 @@ function Schedule({ appointments }) {
                           procedures={data.procedures}
                           tag={data.tag}
                           schedule_id={data._id}
+                          clinic_id={data.clinic_id}
                         />
                       ) : (
                         <ReviewCard
                           key={data.id}
-                          course={data.course}
                           course_id={data.course_id}
                           clinicName={data.clinicName}
                           status={data.status}
@@ -120,7 +119,6 @@ function Schedule({ appointments }) {
                     {data.status != "Done" && data.status != "reviewed" ? (
                       <CommonCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -128,11 +126,11 @@ function Schedule({ appointments }) {
                         procedures={data.procedures}
                         tag={data.tag}
                         schedule_id={data._id}
+                        clinic_id={data.clinic_id}
                       />
                     ) : (
                       <ReviewCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -146,7 +144,6 @@ function Schedule({ appointments }) {
                     {data.status != "Done" && data.status != "reviewed" ? (
                       <CommonCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -154,11 +151,11 @@ function Schedule({ appointments }) {
                         procedures={data.procedures}
                         tag={data.tag}
                         schedule_id={data._id}
+                        clinic_id={data.clinic_id}
                       />
                     ) : (
                       <ReviewCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -172,7 +169,6 @@ function Schedule({ appointments }) {
                     {data.status != "Done" && data.status != "reviewed" ? (
                       <CommonCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -180,11 +176,11 @@ function Schedule({ appointments }) {
                         procedures={data.procedures}
                         tag={data.tag}
                         schedule_id={data._id}
+                        clinic_id={data.clinic_id}
                       />
                     ) : (
                       <ReviewCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -198,7 +194,6 @@ function Schedule({ appointments }) {
                     {data.status != "Done" && data.status != "reviewed" ? (
                       <CommonCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -206,11 +201,11 @@ function Schedule({ appointments }) {
                         procedures={data.procedures}
                         tag={data.tag}
                         schedule_id={data._id}
+                        clinic_id={data.clinic_id}
                       />
                     ) : (
                       <ReviewCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -224,7 +219,6 @@ function Schedule({ appointments }) {
                     {data.status != "Done" && data.status != "reviewed" ? (
                       <CommonCard
                         key={data.id}
-                        course={data.course}
                         course_id={data.course_id}
                         clinicName={data.clinicName}
                         status={data.status}
@@ -232,6 +226,7 @@ function Schedule({ appointments }) {
                         procedures={data.procedures}
                         tag={data.tag}
                         schedule_id={data._id}
+                        clinic_id={data.clinic_id}
                       />
                     ) : (
                       <ReviewCard

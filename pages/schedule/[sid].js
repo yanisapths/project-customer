@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
 import Header from "../../components/Header";
@@ -8,18 +8,38 @@ import Footer from "../../components/Footer";
 import NavigateBack from "../../components/OLNavigateBack/NavigateBack";
 import SimpleChip from "../../components/OLChip/SimpleChip";
 
-function ScheduleDetail({ data, event, clinic, course }) {
+function ScheduleDetail({ data, event, course, props }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const { id } = router.query;
+  const { query } = useRouter();
+  const [clinic, setClinic] = useState("");
 
+  const fetchData = async () => {
+    let isSubscribed = true;
+    const res = await fetch(`${process.env.dev}/clinic/${query.clinic_id}`);
+    const clinic = await res.json();
+
+    if (isSubscribed) {
+      setClinic(clinic);
+    }
+    return () => (isSubscribed = false);
+  };
+
+  useEffect(() => {
+    fetchData().catch(console.error);
+  });
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/auth/signin/");
+    } else {
+      fetchData().catch(console.error);
     }
   }, [status]);
 
-  if (router.isFallback) return null;
+  if (router.isFallback) {
+    return <p className="h1">Loading...</p>;
+  }
 
   if (status === "unauthenticated") {
     return (
@@ -41,6 +61,7 @@ function ScheduleDetail({ data, event, clinic, course }) {
       </div>
     );
   }
+
   return (
     <div>
       <Head>
@@ -61,11 +82,15 @@ function ScheduleDetail({ data, event, clinic, course }) {
           </div>
           <div className="flex justify-center gap-4 text-center items-center align-middle pt-6">
             <h2 className="h6 lg:h5">
-              {data.course_id == "ตรวจร่างกาย"
-                ? "ตรวจร่างกาย"
-                : course.courseName}
+              {course ? (
+                course.courseName
+              ) : (
+                <span className="text-sm text-black/40">
+                  คอร์สนี้อาจถูกลบโดยคลินิกแล้ว
+                </span>
+              )}
             </h2>
-            {course.type != "false" ? (
+            {course && course.type != "false" ? (
               <strong className="rounded-full bg-[#A5A6F6]/20 text-[#7879F1] px-2 py-1 text-sm font-medium">
                 {course.type}
               </strong>
@@ -76,24 +101,30 @@ function ScheduleDetail({ data, event, clinic, course }) {
 
           {data.course_id != "ตรวจร่างกาย" ? (
             <div className="flex justify-center space-x-2 px-6 py-2 pb-4 xl:px-10">
-              <SimpleChip text={course.amount} quantify="ครั้ง" />
-              <SimpleChip text={course.duration} quantify="ชั่วโมง/ครั้ง" />
+              <SimpleChip
+                text={course ? course.amount : "-"}
+                quantify="ครั้ง"
+              />
+              <SimpleChip
+                text={course ? course.duratio : "-"}
+                quantify="ชั่วโมง/ครั้ง"
+              />
               <SimpleChip
                 prefix="ราคา"
-                text={course.totalPrice}
+                text={course ? course.totalPrice : "-"}
                 quantify="บาท"
               />{" "}
             </div>
           ) : (
-            <div className="py-4">
-
-            </div>
+            <div className="py-4"></div>
           )}
 
           <div className="flex justify-center gap-10 xl:gap-60 body1 lg:h6 tracking-wide md:h6 body2">
             <div>
               <p className=" text-black/50">ติดต่อคลินิก</p>
-              <p className=" hover:text-[#0921FF]">{clinic.phoneNumber}</p>
+              <p className=" hover:text-[#0921FF]">
+                {clinic ? clinic.phoneNumber : "-"}
+              </p>
             </div>
             <div>
               <p className="text-black/50">ติดต่อลูกค้า</p>
@@ -183,61 +214,65 @@ function ScheduleDetail({ data, event, clinic, course }) {
               )}
             </div>
           </div>
-          {event.map((result, index) => {
-            return (
-              <div
-                className={
-                  result.status == "Done"
-                    ? "bg-[#f0f1f2]/40 text-[#121212]/40 flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
-                    : "bg-[#acded5]/10 text-[#005844] flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
-                }
-                key={index}
-              >
-                <div className="w-1/6">
-                  <p>{index + 2}</p>
-                </div>
-                <div className="w-2/6">
-                  <p>
-                    {new Date(result.date).toLocaleDateString("th-TH", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                </div>
-                <div className="w-2/6">
-                  <p>
-                    {new Date(result.startTime).toLocaleTimeString("th-TH", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                    })}
-                    {result.endTime ? (
-                      <>
-                        {"-"}
-                        {new Date(result.endTime).toLocaleTimeString("th-TH", {
-                          hour: "numeric",
-                          minute: "2-digit",
-                        })}
-                      </>
+          {event &&
+            event.map((result, index) => {
+              return (
+                <div
+                  className={
+                    result.status == "Done"
+                      ? "bg-[#f0f1f2]/40 text-[#121212]/40 flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                      : "bg-[#acded5]/10 text-[#005844] flex justify-between p-2 mb-1  mx-2 md:ml-8 lg:w-full body1 md:h6 lg:h5"
+                  }
+                  key={index}
+                >
+                  <div className="w-1/6">
+                    <p>{index + 2}</p>
+                  </div>
+                  <div className="w-2/6">
+                    <p>
+                      {new Date(result.date).toLocaleDateString("th-TH", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+                  </div>
+                  <div className="w-2/6">
+                    <p>
+                      {new Date(result.startTime).toLocaleTimeString("th-TH", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                      })}
+                      {result.endTime ? (
+                        <>
+                          {"-"}
+                          {new Date(result.endTime).toLocaleTimeString(
+                            "th-TH",
+                            {
+                              hour: "numeric",
+                              minute: "2-digit",
+                            }
+                          )}
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </p>
+                  </div>
+                  <div className="w-1/6">
+                    {result.status == "Approved" ? (
+                      <span>รอรับบริการ</span>
+                    ) : result.status == "pending" ? (
+                      <span>รอการตอบรับ</span>
+                    ) : result.status == "Done" ? (
+                      <span>รับบริการแล้ว</span>
                     ) : (
-                      <></>
+                      result.status == "Rejected" && <span>ถูกปฏิเสธ</span>
                     )}
-                  </p>
+                  </div>
                 </div>
-                <div className="w-1/6">
-                  {result.status == "Approved" ? (
-                    <span>รอรับบริการ</span>
-                  ) : result.status == "pending" ? (
-                    <span>รอการตอบรับ</span>
-                  ) : result.status == "Done" ? (
-                    <span>รับบริการแล้ว</span>
-                  ) : (
-                    result.status == "Rejected" && <span>ถูกปฏิเสธ</span>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </main>
       <Footer />
@@ -245,7 +280,7 @@ function ScheduleDetail({ data, event, clinic, course }) {
   );
 }
 
-export default ScheduleDetail;
+export default withRouter(ScheduleDetail);
 
 export async function getStaticPaths() {
   const res = await fetch(`${process.env.dev}/appointment`);
@@ -261,17 +296,14 @@ export async function getStaticProps({ params }) {
   const appointmentId = params.sid;
   const res = await fetch(`${process.env.dev}/appointment/${appointmentId}`);
   const data = await res.json();
-  const courseurl = `${process.env.dev}/course/${data.course_id}`;
-  const clinicurl = `${process.env.dev}/clinic/${data.clinic_id}`;
   const eventurl = `${process.env.dev}/event/match/${data._id}`;
+  const courseurl = `${process.env.dev}/course/${data.course_id}`;
   try {
     const courses = await fetch(courseurl);
-    const clinics = await fetch(clinicurl);
     const events = await fetch(eventurl);
-    const course = await courses.json();
-    const clinic = await clinics.json();
     const event = await events.json();
-    return { props: { data, course, event, clinic } };
+    const course = await courses.json();
+    return { props: { data, course, event } };
   } catch (error) {
     console.log("error: ", error);
     return {
