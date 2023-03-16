@@ -61,9 +61,7 @@ function ScheduleDetail({ data, event, clinic, course }) {
           </div>
           <div className="flex justify-center gap-4 text-center items-center align-middle pt-6">
             <h2 className="h6 lg:h5">
-              {data.course_id == "ตรวจร่างกาย"
-                ? "ตรวจร่างกาย"
-                : course.courseName}
+              {course.courseName ? course.courseName : ""}
             </h2>
             {course.type != "false" ? (
               <strong className="rounded-full bg-[#A5A6F6]/20 text-[#7879F1] px-2 py-1 text-sm font-medium">
