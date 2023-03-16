@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
 import axios from "axios";
 import Router from "next/router";
 import ReactStars from "react-rating-stars-component";
@@ -11,19 +10,14 @@ import toast from "react-hot-toast";
 import BarChart from "../../components/OLInput/BarChart";
 function GeneralReview({ clinic_id, reviews }) {
   const calcualteAverage = () => {
-    let average = reviews.reduce((acc, review) => {
+    const average = reviews.reduce((acc, review) => {
       return acc + review.score / reviews.length;
     }, 0);
     return average > 0 ? average.toFixed(1) : 0;
   };
-  const ratingStar = {
-    size: 30,
-    value: calcualteAverage(),
-    edit: false,
-    isHalf: true,
-  };
   function percentage(partialValue, totalValue) {
-    return (100 * partialValue) / totalValue;
+    const percent = (100 * partialValue) / totalValue;
+    return percent > 0 ? percent : 0;
   }
   const cal3 = () => {
     let total = 0;
@@ -126,19 +120,40 @@ function GeneralReview({ clinic_id, reviews }) {
           <p className="h3">รีวิวจากลูกค้า</p>
         </div>
         <div className="mt-4 lg:ml-8 md:p-3 lg:flex rounded-2xl bg-stone-200/30">
-        <div className="pt-4 lg:p-8 content-center text-center lg:w-2/6 w-full">
+          <div className="pt-4 lg:p-8 content-center text-center lg:w-2/6 w-full">
             <p className="text-center h1">{calcualteAverage()}</p>
-          <p className="pt-1 text-md font-medium text-gray-500 dark:text-gray-400">
-            จากลูกค้า {reviews.length} รีวิว
-          </p>
-           <div className="flex justify-center"><ReactStars {...ratingStar}/></div>
-        </div>
-        <div className="content-center text-center lg:w-4/6 lg:pl-12 pb-4 px-2">
-          {AllStars.map((data, index) => (
-            <BarChart key={index} star={data.star} percent={data.percent} />
-          ))}
-        </div>
-
+            <p className="pt-1 text-md font-medium text-gray-500 dark:text-gray-400">
+              จากลูกค้า {reviews.length} รีวิว
+            </p>
+            <div className="flex justify-center">
+              {reviews.length > 0 &&
+                reviews.reduce((acc, review) => {
+                  return (
+                    <ReactStars
+                      count={5}
+                      value={acc + review.score / reviews.length}
+                      size={34}
+                      isHalf={true}
+                      edit={false}
+                    />
+                  );
+                }, 0)}
+              {reviews.length <= 0 && (
+                <ReactStars
+                  count={5}
+                  value={0}
+                  size={34}
+                  isHalf={true}
+                  edit={false}
+                />
+              )}
+            </div>
+          </div>
+          <div className="content-center text-center lg:w-4/6 lg:pl-12 pb-4 px-2">
+            {AllStars.map((data, index) => (
+              <BarChart key={index} star={data.star} percent={data.percent} />
+            ))}
+          </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="rounded-2xl bg-stone-200/30 py-4 mt-6 lg:ml-8">
@@ -181,17 +196,17 @@ function GeneralReview({ clinic_id, reviews }) {
                   control={control}
                 />
               </FormControl>
-            <div className="flex justify-enstartd py-3">
-              <button
-                type="submit"
-                className="font-bold bg-[#ACDED5] hover:shadow-xl text-[#005844] cursor-pointer inline-flex rounded-full h-fit w-fit px-20 py-4"
-              >
-                <div className="flex gap-3">
-                  <p className="h6 font-semibold">ส่งรีวิว</p>
-                  <SendIcon />
-                </div>
-              </button>
-            </div>
+              <div className="flex justify-enstartd py-3">
+                <button
+                  type="submit"
+                  className="font-bold bg-[#ACDED5] hover:shadow-xl text-[#005844] cursor-pointer inline-flex rounded-full h-fit w-fit px-20 py-4"
+                >
+                  <div className="flex gap-3">
+                    <p className="h6 font-semibold">ส่งรีวิว</p>
+                    <SendIcon />
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </form>
