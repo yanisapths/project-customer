@@ -30,10 +30,6 @@ function CourseDetail({ data, course }) {
     return <p className="h1">Loading...</p>;
   }
 
-  if (router.isFallback) {
-    return <p className="h1">Loading...</p>;
-  }
-
   return (
     <div>
       <Head>
