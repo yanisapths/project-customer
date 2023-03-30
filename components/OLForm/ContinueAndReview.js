@@ -121,9 +121,9 @@ export class ContinueAndReview extends Component {
                 </div>
                 <div className="py-2">
                   <p className="caption tracking-wide text-black/50">คอร์ส</p>
-                  {courses.map((input) =>
+                  {courses.map((input,index) =>
                     input._id == course_id ? (
-                      <p className="body1 tracking-wide text-[#005844]">
+                      <p className="body1 tracking-wide text-[#005844]" key={index}>
                         {input.courseName}
                       </p>
                     ) : (

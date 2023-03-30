@@ -1,8 +1,10 @@
 FROM node:14
 
+RUN mkdir /olive_frontend 
+
 WORKDIR  /olive_frontend
 
-COPY . .
+COPY ./package.json /olive_frontend
 
 RUN npm install
 

@@ -46,7 +46,6 @@ const About = () => {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      ariaHidden="true"
                     >
                       <path
                         strokeLinecap="round"
@@ -77,7 +76,6 @@ const About = () => {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      ariaHidden="true"
                     >
                       <path
                         strokeLinecap="round"
