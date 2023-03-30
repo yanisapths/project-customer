@@ -24,9 +24,23 @@ and more
 - SweetAlert
 - react hot toast
 
-# How to build the project?
+
+Alternatively, you can run the project with Docker
+## Docker 🐳
+Support only production branch
 ```bash
-git clone https://github.com/Happy-Elders/daycare-portal.git
+  git clone https://github.com/yanisapths/project-customer.git
+  git checkout production
+```
+Start Container  
+```bash
+  docker-compose up
+```
+or 
+
+# Build the project
+```bash
+git clone https://github.com/yanisapths/project-customer.git
 npm install
 ```
 ### Environment Variables 
