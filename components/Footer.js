@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
-import { HomeIcon, CalendarIcon, TemplateIcon } from "@heroicons/react/solid";
+import PersonIcon from '@mui/icons-material/Person';
+import { HomeIcon, CalendarIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 
 function Footer() {
@@ -16,6 +16,12 @@ function Footer() {
       title: "ตารางนัด",
       icon: <CalendarIcon className="footer-icon" />,
       path: "/schedule",
+    },
+    {
+      id: "account",
+      title: "บัญชี",
+      icon: <PersonIcon className="footer-icon" />,
+      path: "/account",
     },
   ];
 
