@@ -240,10 +240,10 @@ function EditProfile({
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="relative h-10 w-36">
+        <div className="relative h-10 w-48">
           <div className="absolute bottom-0 inset-x-0 h-2">
-            <div className="flex gap-6 items-center">
-              <button onClick={() => handleCloseEdit()}>ยกเลิก</button>
+            <div className="flex gap-2 items-center">
+              <button onClick={() => handleCloseEdit()} className="hover:bg-slate-100 px-6 py-2 rounded-full">ยกเลิก</button>
               <button
                 onClick={handleSubmit(onSubmit)}
                 className="border-[#7BC6B7] bg-[#7BC6B7] shadow-lg text-white hover:bg-transparent hover:text-[#7BC6B7] focus:outline-none focus:ring active:text-[#7BC6B7] cursor-pointer border-2 w-fit h-fit rounded-full px-10 p-4 py-1 hover:shadow-xl "

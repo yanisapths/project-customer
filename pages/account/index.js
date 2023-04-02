@@ -76,7 +76,7 @@ function Account({ accountProfile }) {
         <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
-      <main className="bg-[#7BC6B7] pb-48">
+      <main className="bg-[#7BC6B7] h-full pb-24 md:h-screen">
         <div className="flex pt-8 items-center justify-center">
           <div className="shadow-xl rounded-2xl max-w-screen-lg px-10 md:px-32 pt-10 pb-20 bg-white">
             <p className="h3 tracking-wide font-semibold text-[#005844]">
@@ -258,7 +258,7 @@ function Account({ accountProfile }) {
                         ชื่อจริง
                       </label>
 
-                      {accountProfile.firstName ? accountProfile.firstName : ""}
+                      {accountProfile.firstName ? accountProfile.firstName : "-"}
                     </div>
                     <div className="col-span-3">
                       <label
@@ -267,7 +267,7 @@ function Account({ accountProfile }) {
                       >
                         นามสกุล
                       </label>
-                      {accountProfile.lastName ? accountProfile.lastName : ""}
+                      {accountProfile.lastName ? accountProfile.lastName : "-"}
                     </div>
                     <div className="col-span-2">
                       <label
@@ -276,19 +276,19 @@ function Account({ accountProfile }) {
                       >
                         ชื่อเล่น
                       </label>
-                      {accountProfile.nickName ? accountProfile.nickName : ""}
+                      {accountProfile.nickName ? accountProfile.nickName : "-"}
                     </div>
                     <div className="col-span-2">
                       <label htmlFor="age" className="inputLabel pb-0 text-sm">
                         อายุ
                       </label>
-                      {accountProfile.age ? accountProfile.age : ""}
+                      {accountProfile.age ? accountProfile.age : "-"}
                     </div>
                     <div className="col-span-2">
                       <label htmlFor="sex" className="inputLabel pb-0 text-sm">
                         เพศ
                       </label>
-                      {accountProfile.sex ? accountProfile.sex : ""}
+                      {accountProfile.sex ? accountProfile.sex : "-"}
                     </div>
                     <div className="col-span-3">
                       <label
@@ -299,7 +299,7 @@ function Account({ accountProfile }) {
                       </label>
                       {accountProfile.phoneNumber
                         ? accountProfile.phoneNumber
-                        : ""}
+                        : "-"}
                     </div>
                     <div className="col-span-6">
                       <label
@@ -319,7 +319,7 @@ function Account({ accountProfile }) {
                       </label>
                       {accountProfile.description
                         ? accountProfile.description
-                        : ""}
+                        : "-"}
                     </div>
                   </div>
                 )}
