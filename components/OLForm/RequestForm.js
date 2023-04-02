@@ -187,8 +187,6 @@ export class RequestForm extends Component {
       errors,
     };
     const url = `${process.env.dev}/appointment/create/${clinicId}`;
-    console.log(url);
-    console.log(values);
     let axiosConfig = {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
