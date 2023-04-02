@@ -16,10 +16,18 @@ export class RequestForm extends Component {
     success: "false",
     errors: {},
     success: "false",
-    firstName: this.props.accountProfile.firstName,
-    lastName: this.props.accountProfile.lastName,
-    nickName: this.props.accountProfile.nickName,
-    phoneNumber: this.props.accountProfile.phoneNumber,
+    firstName: this.props.accountProfile
+      ? this.props.accountProfile.firstName
+      : "",
+    lastName: this.props.accountProfile
+      ? this.props.accountProfile.lastName
+      : "",
+    nickName: this.props.accountProfile
+      ? this.props.accountProfile.nickName
+      : "",
+    phoneNumber: this.props.accountProfile
+      ? this.props.accountProfile.phoneNumber
+      : "",
     customer_id: "",
     clinicName: "",
     appointmentDate: "",
@@ -27,11 +35,13 @@ export class RequestForm extends Component {
     endTime: "",
     appointmentPlace: "คลินิก",
     course_id: "",
-    description:this.props.accountProfile.description,
+    description: this.props.accountProfile
+      ? this.props.accountProfile.description
+      : "",
     location: "",
-    lineId: this.props.accountProfile.lineId,
-    sex: this.props.accountProfile.sex,
-    age: this.props.accountProfile.age,
+    lineId: this.props.accountProfile ? this.props.accountProfile.lineId : "",
+    sex: this.props.accountProfile ? this.props.accountProfile.sex : "",
+    age: this.props.accountProfile ? this.props.accountProfile.age : "",
     staff: "none",
     owner_id: this.props.ownerId,
     clinic_id: this.props.clinicId,
@@ -131,7 +141,7 @@ export class RequestForm extends Component {
     return formIsValid;
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const clinicId = this.props.clinicId;
     const {
@@ -177,7 +187,7 @@ export class RequestForm extends Component {
       errors,
     };
     const url = `${process.env.dev}/appointment/create/${clinicId}`;
-    console.log(url)
+    console.log(url);
     console.log(values);
     let axiosConfig = {
       headers: {
@@ -185,7 +195,8 @@ export class RequestForm extends Component {
         "Access-Control-Allow-Origin": "*",
       },
     };
-     axios.post(
+    axios
+      .post(
         `${process.env.dev}/appointment/create/${clinicId}`,
         values,
         axiosConfig
@@ -200,10 +211,10 @@ export class RequestForm extends Component {
         this.setState({ success: "error" });
         toast.error("ไม่สามารถสร้างนัดได้");
       });
-  }
+  };
 
   render() {
-    const { step,success } = this.state;
+    const { step, success } = this.state;
     const {
       firstName,
       lastName,
@@ -256,7 +267,7 @@ export class RequestForm extends Component {
       setSelectedDate,
       availables,
       staffs,
-      accountProfile
+      accountProfile,
     } = this.props;
     switch (step) {
       case 1:
