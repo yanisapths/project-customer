@@ -16,10 +16,10 @@ export class RequestForm extends Component {
     success: "false",
     errors: {},
     success: "false",
-    firstName: "",
-    lastName: "",
-    nickName: "",
-    phoneNumber: "",
+    firstName: this.props.accountProfile.firstName,
+    lastName: this.props.accountProfile.lastName,
+    nickName: this.props.accountProfile.nickName,
+    phoneNumber: this.props.accountProfile.phoneNumber,
     customer_id: "",
     clinicName: "",
     appointmentDate: "",
@@ -27,11 +27,11 @@ export class RequestForm extends Component {
     endTime: "",
     appointmentPlace: "คลินิก",
     course_id: "",
-    description: "",
+    description:this.props.accountProfile.description,
     location: "",
-    lineId: "",
-    sex: "",
-    age: "",
+    lineId: this.props.accountProfile.lineId,
+    sex: this.props.accountProfile.sex,
+    age: this.props.accountProfile.age,
     staff: "none",
     owner_id: this.props.ownerId,
     clinic_id: this.props.clinicId,
@@ -256,6 +256,7 @@ export class RequestForm extends Component {
       setSelectedDate,
       availables,
       staffs,
+      accountProfile
     } = this.props;
     switch (step) {
       case 1:
@@ -306,6 +307,7 @@ export class RequestForm extends Component {
             handleChange={this.handleChange}
             values={values}
             handlePhoneValidation={this.handlePhoneValidation}
+            accountProfile={accountProfile}
           />
         );
       case 5:

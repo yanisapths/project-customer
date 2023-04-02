@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       boxShadow: {
         '3xl': '-5px 5px 35px 25px',
+        '4xl': '-2px 2px 20px 5px',
       }
     },
     fontFamily: {
