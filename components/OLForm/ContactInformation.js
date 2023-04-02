@@ -40,14 +40,14 @@ export class ContactInformation extends Component {
           <div>
             <div className="my-3 px-2 lg:px-3 py-2 bg-[#1A73E8] text-white flex items-center justify-between rounded-lg shadow-4xl shadow-[#1A73E8]/30">
               <p className="md:text-center font-medium text-left">
-              เพิ่มที่หน้าบัญชีเพื่อใช้ซ้ำ <strong className="pl-2">{" "}*แนะนำ</strong>
+                เพิ่มที่หน้าบัญชีเพื่อใช้ซ้ำ{" "}
+                <strong className="pl-2"> *แนะนำ</strong>
               </p>
 
-              <Link
-                className="block tracking-wide rounded-lg bg-white px-2 md:px-6 py-2 text-center text-sm text-[#1A73E8] transition hover:bg-white/90 focus:outline-none focus:ring active:text-[#1A73E8] mt-0"
-                href="/account"
-              >
-               เพิ่ม
+              <Link href="/account">
+                <div className="block tracking-wide rounded-lg bg-white px-2 md:px-6 py-2 text-center text-sm text-[#1A73E8] transition hover:bg-white/90 focus:outline-none focus:ring active:text-[#1A73E8] mt-0">
+                  เพิ่ม
+                </div>
               </Link>
             </div>
             <p className="pt-4 sm:text-left text-[#005844]">
@@ -66,12 +66,12 @@ export class ContactInformation extends Component {
               id="firstName"
               name="firstName"
               className={
-                accountProfile.firstName || values.firstName
+                (accountProfile && accountProfile.firstName) || values.firstName
                   ? "inputOutline placeholder-gray-900"
                   : "inputOutline"
               }
               placeholder={
-                accountProfile.firstName
+                accountProfile && accountProfile.firstName
                   ? accountProfile.firstName
                   : values.firstName
                   ? values.firstName
@@ -90,12 +90,12 @@ export class ContactInformation extends Component {
               id="lastName"
               name="lastName"
               className={
-                accountProfile.lastName || values.lastName
+                (accountProfile && accountProfile.lastName) || values.lastName
                   ? "inputOutline placeholder-gray-900"
                   : "inputOutline"
               }
               placeholder={
-                accountProfile.lastName
+                accountProfile && accountProfile.lastName
                   ? accountProfile.lastName
                   : values.lastName
                   ? values.lastName
@@ -114,12 +114,12 @@ export class ContactInformation extends Component {
               id="nickName"
               name="nickName"
               className={
-                accountProfile.nickName || values.nickName
+                (accountProfile && accountProfile.nickName) || values.nickName
                   ? "inputOutline placeholder-gray-900"
                   : "inputOutline"
               }
               placeholder={
-                accountProfile.nickName
+                accountProfile && accountProfile.nickName
                   ? accountProfile.nickName
                   : values.nickName
                   ? values.nickName
@@ -138,12 +138,12 @@ export class ContactInformation extends Component {
               id="age"
               name="age"
               className={
-                accountProfile.age || values.age
+                (accountProfile && accountProfile.age) || values.age
                   ? "inputOutline placeholder-gray-900"
                   : "inputOutline"
               }
               placeholder={
-                accountProfile.age
+                accountProfile && accountProfile.age
                   ? accountProfile.age
                   : values.age
                   ? values.age
@@ -167,7 +167,11 @@ export class ContactInformation extends Component {
                 px: 2,
                 mt: 0.5,
               }}
-              value={accountProfile.sex ? accountProfile.sex : values.sex}
+              value={
+                accountProfile && accountProfile.sex
+                  ? accountProfile.sex
+                  : values.sex
+              }
               onChange={handleChange("sex")}
             >
               {sexs.map((input, key) => (
@@ -187,12 +191,12 @@ export class ContactInformation extends Component {
               id="lineId"
               name="lineId"
               className={
-                accountProfile.lineId || values.lineId
+                (accountProfile && accountProfile.lineId) || values.lineId
                   ? "inputOutline placeholder-gray-900"
                   : "inputOutline"
               }
               placeholder={
-                accountProfile.lineId
+                accountProfile && accountProfile.lineId
                   ? accountProfile.lineId
                   : values.lineId
                   ? values.lineId
@@ -211,12 +215,13 @@ export class ContactInformation extends Component {
               id="phoneNumber"
               name="phoneNumber"
               className={
-                accountProfile.phoneNumber || values.phoneNumber
+                (accountProfile && accountProfile.phoneNumber) ||
+                values.phoneNumber
                   ? "inputOutline placeholder-gray-900"
                   : "inputOutline"
               }
               placeholder={
-                accountProfile.phoneNumber
+                accountProfile && accountProfile.phoneNumber
                   ? accountProfile.phoneNumber
                   : values.phoneNumber
                   ? values.phoneNumber
@@ -225,7 +230,7 @@ export class ContactInformation extends Component {
               onChange={handleChange("phoneNumber")}
             />
           </div>
-         
+
           <div className="pt-6 col-span-6">
             <label htmlFor="lineId" className="inputLabel pb-0 text-sm">
               ข้อควรระวัง หรือ รายละเอียดเพิ่มเติม
@@ -236,12 +241,13 @@ export class ContactInformation extends Component {
               id="description"
               name="description"
               className={
-                accountProfile.description || values.description
+                (accountProfile && accountProfile.description) ||
+                values.description
                   ? "inputOutline placeholder-gray-900"
                   : "inputOutline"
               }
               placeholder={
-                accountProfile.description
+                accountProfile && accountProfile.description
                   ? accountProfile.description
                   : values.description
                   ? values.description
