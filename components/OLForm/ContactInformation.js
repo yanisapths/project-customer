@@ -104,7 +104,7 @@ export class ContactInformation extends Component {
               onChange={handleChange("lastName")}
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-3">
             <label htmlFor="nickName" className="inputLabel pb-0 text-sm">
               ชื่อเล่น
             </label>
@@ -128,7 +128,7 @@ export class ContactInformation extends Component {
               onChange={handleChange("nickName")}
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-3">
             <label htmlFor="age" className="inputLabel pb-0 text-sm">
               อายุ
             </label>
@@ -152,7 +152,7 @@ export class ContactInformation extends Component {
               onChange={handleChange("age")}
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-3">
             <label htmlFor="sex" className="inputLabel pb-0 text-sm">
               เพศ
             </label>
@@ -163,6 +163,7 @@ export class ContactInformation extends Component {
                 "@media (min-width: 780px)": {
                   width: "120px",
                 },
+                width: "120px",
                 px: 2,
                 mt: 0.5,
               }}
@@ -175,30 +176,6 @@ export class ContactInformation extends Component {
                 </MenuItem>
               ))}
             </Select>
-          </div>
-          <div className="col-span-3">
-            <label htmlFor="phoneNumber" className="inputLabel pb-0 text-sm">
-              เบอร์โทร<span className="text-[#FF2F3B]"> * </span>
-            </label>
-
-            <input
-              type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              className={
-                accountProfile.phoneNumber || values.phoneNumber
-                  ? "inputOutline placeholder-gray-900"
-                  : "inputOutline"
-              }
-              placeholder={
-                accountProfile.phoneNumber
-                  ? accountProfile.phoneNumber
-                  : values.phoneNumber
-                  ? values.phoneNumber
-                  : "เช่น 0864213464"
-              }
-              onChange={handleChange("phoneNumber")}
-            />
           </div>
           <div className="col-span-3">
             <label htmlFor="lineId" className="inputLabel pb-0 text-sm">
@@ -224,6 +201,31 @@ export class ContactInformation extends Component {
               onChange={handleChange("lineId")}
             />
           </div>
+          <div className="col-span-6">
+            <label htmlFor="phoneNumber" className="inputLabel pb-0 text-sm">
+              เบอร์โทร<span className="text-[#FF2F3B]"> * </span>
+            </label>
+
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              className={
+                accountProfile.phoneNumber || values.phoneNumber
+                  ? "inputOutline placeholder-gray-900"
+                  : "inputOutline"
+              }
+              placeholder={
+                accountProfile.phoneNumber
+                  ? accountProfile.phoneNumber
+                  : values.phoneNumber
+                  ? values.phoneNumber
+                  : "เช่น 0864213464"
+              }
+              onChange={handleChange("phoneNumber")}
+            />
+          </div>
+         
           <div className="pt-6 col-span-6">
             <label htmlFor="lineId" className="inputLabel pb-0 text-sm">
               ข้อควรระวัง หรือ รายละเอียดเพิ่มเติม
