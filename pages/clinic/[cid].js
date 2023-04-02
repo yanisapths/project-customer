@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { getSession,useSession } from "next-auth/react";
 import Image from "next/image";
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
 import { useRouter } from "next/router";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ListView from "./view/ListView";
-import { useTheme } from "@mui/material/styles";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import RequestFooterButton from "../../components/OLButton/RequestFooterButton";
 import GeneralReview from "../../components/OLForm/GeneralReview";
-import Tabs from "../../components/Tabs";
 
 const CustomTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -28,10 +24,8 @@ const CustomTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-function Clinic({ data, courses,accountProfile }) {
+function Clinic({ data, courses }) {
   const router = useRouter();
-  const { data: session, status } = useSession();
-  const theme = useTheme();
   const { cid, clinic_name, owner_id } = router.query;
   const [reviews, setReviews] = useState([]);
 
@@ -58,7 +52,6 @@ function Clinic({ data, courses,accountProfile }) {
         cid: data.cid,
         clinic_name: data.clinic_name,
         owner_id: data.owner_id,
-        accountProfile: accountProfile
       },
     });
   };
@@ -166,33 +159,13 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-export async function getStaticProps({ params },context) {
+export async function getStaticProps({ params }, context) {
   const clinicId = params.cid;
   const res = await fetch(`${process.env.url}/clinic/${clinicId}`);
   const data = await res.json();
 
   const courseRes = await fetch(`${process.env.url}/course/match/${clinicId}`);
   const courses = await courseRes.json();
-  const session = await getSession(context);
-  if (session) {
-    const url = `${process.env.url}/customer/get/${session.user.id}`;
-    try {
-      const res = await fetch(url);
-      const accountProfile = await res.json();
-      if (!accountProfile) {
-        return;
-      }
-      return { props: { accountProfile } };
-    } catch (error) {
-      console.log("error: ", error);
-      return {
-        props: {
-          error: true,
-        },
-      };
-    }
-  }
-
   return {
     props: { data, courses },
   };

@@ -134,7 +134,7 @@ function Request(props) {
               customerId={session.user.id}
               clinicId={query.cid}
               clinicName={query.clinic_name}
-              accountProfile={query.accountProfile}
+              accountProfile={props.accountProfile}
             />
           </div>
         </div>
@@ -145,3 +145,30 @@ function Request(props) {
 }
 
 export default withRouter(Request);
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if (session) {
+    const url = `${process.env.dev}/customer/get/${session.user.id}`;
+    try {
+      const res = await fetch(url);
+      const accountProfile = await res.json();
+      if (!accountProfile) {
+        return;
+      }
+      return { props: { accountProfile } };
+    } catch (error) {
+      console.log("error: ", error);
+      return {
+        props: {
+          error: true,
+        },
+      };
+    }
+  }
+
+  return {
+    props: { accountProfile },
+  };
+}
+
