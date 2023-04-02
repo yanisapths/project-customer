@@ -27,7 +27,7 @@ export class ContactInformation extends Component {
     this.props.prevStep();
   };
   render() {
-    const { values, handleChange } = this.props;
+    const { values, handleChange, accountProfile } = this.props;
     return (
       <div>
         <div className="flex justify-between align-middle items-center">
@@ -35,7 +35,26 @@ export class ContactInformation extends Component {
             ข้อมูลติดต่อ
           </p>
         </div>
-        <div className="pt-10 grid grid-cols-6 gap-6">
+        {!accountProfile && (
+          <div>
+            <div className="my-3 px-2 lg:px-3 py-2 bg-[#1A73E8] text-white flex items-center justify-between rounded-lg shadow-4xl shadow-[#1A73E8]/30">
+              <p className="md:text-center font-medium text-left">
+              เพิ่มที่หน้าบัญชีเพื่อใช้ซ้ำ <strong className="pl-2">{" "}*แนะนำ</strong>
+              </p>
+
+              <a
+                className="block tracking-wide rounded-lg bg-white px-2 md:px-6 py-2 text-center text-sm text-[#1A73E8] transition hover:bg-white/90 focus:outline-none focus:ring active:text-[#1A73E8] mt-0"
+                href="/account"
+              >
+               เพิ่ม
+              </a>
+            </div>
+            <p className="pt-4 sm:text-left text-[#005844]">
+              หรือ กรอกข้อมูลใหม่
+            </p>
+          </div>
+        )}
+        <div className="pt-2 grid grid-cols-6 gap-6">
           <div className="col-span-3">
             <label htmlFor="firstName" className="inputLabel pb-0 text-sm">
               ชื่อจริง
@@ -45,8 +64,18 @@ export class ContactInformation extends Component {
               type="text"
               id="firstName"
               name="firstName"
-              className={values.firstName ? "inputOutline placeholder-gray-900" : "inputOutline"}
-              placeholder={values.firstName ? values.firstName : "เช่น สมใจ"}
+              className={
+                accountProfile.firstName || values.firstName
+                  ? "inputOutline placeholder-gray-900"
+                  : "inputOutline"
+              }
+              placeholder={
+                accountProfile.firstName
+                  ? accountProfile.firstName
+                  : values.firstName
+                  ? values.firstName
+                  : "เช่น สมใจ"
+              }
               onChange={handleChange("firstName")}
             />
           </div>
@@ -59,8 +88,18 @@ export class ContactInformation extends Component {
               type="text"
               id="lastName"
               name="lastName"
-              className={values.lastName ? "inputOutline placeholder-gray-900" : "inputOutline"}
-              placeholder={values.lastName ? values.lastName : "เช่น รักษ์ดี"}
+              className={
+                accountProfile.lastName || values.lastName
+                  ? "inputOutline placeholder-gray-900"
+                  : "inputOutline"
+              }
+              placeholder={
+                accountProfile.lastName
+                  ? accountProfile.lastName
+                  : values.lastName
+                  ? values.lastName
+                  : "เช่น รักษ์ดี"
+              }
               onChange={handleChange("lastName")}
             />
           </div>
@@ -73,8 +112,18 @@ export class ContactInformation extends Component {
               type="text"
               id="nickName"
               name="nickName"
-              className={values.nickName ? "inputOutline placeholder-gray-900" : "inputOutline"}
-              placeholder={values.nickName ? values.nickName : "เช่น มะลิ"}
+              className={
+                accountProfile.nickName || values.nickName
+                  ? "inputOutline placeholder-gray-900"
+                  : "inputOutline"
+              }
+              placeholder={
+                accountProfile.nickName
+                  ? accountProfile.nickName
+                  : values.nickName
+                  ? values.nickName
+                  : "เช่น มะลิ"
+              }
               onChange={handleChange("nickName")}
             />
           </div>
@@ -87,8 +136,18 @@ export class ContactInformation extends Component {
               type="text"
               id="age"
               name="age"
-              className={values.age ? "inputOutline placeholder-gray-900" : "inputOutline"}
-              placeholder={values.age ? values.age : "เช่น 83"}
+              className={
+                accountProfile.age || values.age
+                  ? "inputOutline placeholder-gray-900"
+                  : "inputOutline"
+              }
+              placeholder={
+                accountProfile.age
+                  ? accountProfile.age
+                  : values.age
+                  ? values.age
+                  : "เช่น 83"
+              }
               onChange={handleChange("age")}
             />
           </div>
@@ -106,7 +165,7 @@ export class ContactInformation extends Component {
                 px: 2,
                 mt: 0.5,
               }}
-              value={values.sex}
+              value={accountProfile.sex ? accountProfile.sex : values.sex}
               onChange={handleChange("sex")}
             >
               {sexs.map((input, key) => (
@@ -125,8 +184,18 @@ export class ContactInformation extends Component {
               type="text"
               id="phoneNumber"
               name="phoneNumber"
-              className={values.phoneNumber ? "inputOutline placeholder-gray-900" : "inputOutline"}
-              placeholder={values.phoneNumber ? values.phoneNumber : "เช่น 0864213464"}
+              className={
+                accountProfile.phoneNumber || values.phoneNumber
+                  ? "inputOutline placeholder-gray-900"
+                  : "inputOutline"
+              }
+              placeholder={
+                accountProfile.phoneNumber
+                  ? accountProfile.phoneNumber
+                  : values.phoneNumber
+                  ? values.phoneNumber
+                  : "เช่น 0864213464"
+              }
               onChange={handleChange("phoneNumber")}
             />
           </div>
@@ -139,8 +208,18 @@ export class ContactInformation extends Component {
               type="text"
               id="lineId"
               name="lineId"
-              className={values.lineId ? "inputOutline placeholder-gray-900" : "inputOutline"}
-              placeholder={values.lineId ? values.lineId : "เช่น malila"}
+              className={
+                accountProfile.lineId || values.lineId
+                  ? "inputOutline placeholder-gray-900"
+                  : "inputOutline"
+              }
+              placeholder={
+                accountProfile.lineId
+                  ? accountProfile.lineId
+                  : values.lineId
+                  ? values.lineId
+                  : "เช่น malila"
+              }
               onChange={handleChange("lineId")}
             />
           </div>
@@ -153,8 +232,18 @@ export class ContactInformation extends Component {
               type="text"
               id="description"
               name="description"
-              className={values.description ? "inputOutline placeholder-gray-900" : "inputOutline"}
-              placeholder={values.description ? values.description : "บอกคลินิกเพิ่มเเช่น เรื่องที่ควรระวัง หรือส่วนที่ต้องดูแลเป็นพิเศษ"}
+              className={
+                accountProfile.description || values.description
+                  ? "inputOutline placeholder-gray-900"
+                  : "inputOutline"
+              }
+              placeholder={
+                accountProfile.description
+                  ? accountProfile.description
+                  : values.description
+                  ? values.description
+                  : "บอกคลินิกเพิ่มเเช่น เรื่องที่ควรระวัง หรือส่วนที่ต้องดูแลเป็นพิเศษ"
+              }
               onChange={handleChange("description")}
             />
           </div>

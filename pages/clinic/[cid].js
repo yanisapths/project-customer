@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
+import { getSession,useSession } from "next-auth/react";
 import Image from "next/image";
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
@@ -27,8 +28,9 @@ const CustomTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-function Clinic({ data, courses }) {
+function Clinic({ data, courses,accountProfile }) {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const theme = useTheme();
   const { cid, clinic_name, owner_id } = router.query;
   const [reviews, setReviews] = useState([]);
@@ -56,6 +58,7 @@ function Clinic({ data, courses }) {
         cid: data.cid,
         clinic_name: data.clinic_name,
         owner_id: data.owner_id,
+        accountProfile: accountProfile
       },
     });
   };
@@ -163,13 +166,31 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params },context) {
   const clinicId = params.cid;
   const res = await fetch(`${process.env.dev}/clinic/${clinicId}`);
   const data = await res.json();
-
   const courseRes = await fetch(`${process.env.dev}/course/match/${clinicId}`);
   const courses = await courseRes.json();
+  const session = await getSession(context);
+  if (session) {
+    const url = `${process.env.dev}/customer/get/${session.user.id}`;
+    try {
+      const res = await fetch(url);
+      const accountProfile = await res.json();
+      if (!accountProfile) {
+        return;
+      }
+      return { props: { accountProfile } };
+    } catch (error) {
+      console.log("error: ", error);
+      return {
+        props: {
+          error: true,
+        },
+      };
+    }
+  }
 
   return {
     props: { data, courses },
