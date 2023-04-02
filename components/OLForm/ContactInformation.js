@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Link from "next/link";
 import PreviousButton from "../OLButton/PreviousButton";
 import ContinueButton from "../OLButton/ContinueButton";
 
@@ -42,12 +43,12 @@ export class ContactInformation extends Component {
               เพิ่มที่หน้าบัญชีเพื่อใช้ซ้ำ <strong className="pl-2">{" "}*แนะนำ</strong>
               </p>
 
-              <a
+              <Link
                 className="block tracking-wide rounded-lg bg-white px-2 md:px-6 py-2 text-center text-sm text-[#1A73E8] transition hover:bg-white/90 focus:outline-none focus:ring active:text-[#1A73E8] mt-0"
                 href="/account"
               >
                เพิ่ม
-              </a>
+              </Link>
             </div>
             <p className="pt-4 sm:text-left text-[#005844]">
               หรือ กรอกข้อมูลใหม่
