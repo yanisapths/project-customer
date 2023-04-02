@@ -94,17 +94,6 @@ function Account({ accountProfile }) {
                     />
                     <p className="h6">คุณ {session.user.name}</p>
                   </div>
-
-                  {session.user.email ? (
-                    <div className="text-start px-4 pt-6">
-                      <p className="h5">
-                        <span className="caption tracking-wide">email: </span>
-                        {session.user.email}
-                      </p>
-                    </div>
-                  ) : (
-                    ""
-                  )}
                   {!accountProfile && (
                     <div className="pt-6 grid grid-cols-6 gap-6">
                       <div className="col-span-3">
