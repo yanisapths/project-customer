@@ -185,22 +185,21 @@ export class RequestForm extends Component {
         "Access-Control-Allow-Origin": "*",
       },
     };
-    console.log(values)
-    //  axios.post(
-    //     `${process.env.dev}/appointment/create/${clinicId}`,
-    //     values,
-    //     axiosConfig
-    //   )
-    //   .then(async (res) => {
-    //     console.log("RESPONSE RECEIVED: ", res.data);
-    //     toast.success("สร้างนัดสำเร็จ");
-    //     this.setState({ success: "true" });
-    //   })
-    //   .catch((err) => {
-    //     console.log("AXIOS ERROR: ", err);
-    //     this.setState({ success: "error" });
-    //     toast.error("ไม่สามารถสร้างนัดได้");
-    //   });
+     axios.post(
+        `${process.env.dev}/appointment/create/${clinicId}`,
+        values,
+        axiosConfig
+      )
+      .then(async (res) => {
+        console.log("RESPONSE RECEIVED: ", res.data);
+        toast.success("สร้างนัดสำเร็จ");
+        this.setState({ success: "true" });
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+        this.setState({ success: "error" });
+        toast.error("ไม่สามารถสร้างนัดได้");
+      });
   }
 
   render() {
