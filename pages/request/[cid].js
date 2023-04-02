@@ -149,7 +149,7 @@ export default withRouter(Request);
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   if (session) {
-    const url = `${process.env.dev}/customer/get/${session.user.id}`;
+    const url = `${process.env.url}/customer/get/${session.user.id}`;
     try {
       const res = await fetch(url);
       const accountProfile = await res.json();
