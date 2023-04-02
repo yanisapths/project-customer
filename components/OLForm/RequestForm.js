@@ -177,8 +177,6 @@ export class RequestForm extends Component {
       errors,
     };
     const url = `${process.env.url}/appointment/create/${clinicId}`;
-    console.log(url)
-    console.log(values);
     let axiosConfig = {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -191,7 +189,6 @@ export class RequestForm extends Component {
         axiosConfig
       )
       .then(async (res) => {
-        console.log("RESPONSE RECEIVED: ", res.data);
         toast.success("สร้างนัดสำเร็จ");
         this.setState({ success: "true" });
       })
