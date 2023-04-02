@@ -79,7 +79,7 @@ function CommonCard({
   return (
     <Box
       onClick={() => navigate(status, `/schedule/${schedule_id}`)}
-      className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto pt-8 xl:min-w-[450px] min-h-[250px] transition hover:shadow-2xl overflow-hidden"
+      className="cursor-pointer rounded-2xl shadow-xl overflow-x-auto pt-8 xl:min-w-[450px] min-h-[285px] transition hover:shadow-2xl overflow-hidden"
       sx={{ bgcolor: theme.palette.background.white, width: "100%" }}
     >
       <p className="px-6 lg:px-8 h4 text-[#005844] pr-32 truncate">
