@@ -37,7 +37,7 @@ Start Container
 ```
 or 
 
-# Build the project
+# Installation 
 ```bash
 git clone https://github.com/yanisapths/project-customer.git
 npm install
