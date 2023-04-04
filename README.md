@@ -27,10 +27,9 @@ and more
 
 Alternatively, you can run the project with Docker
 # Docker 🐳
-Support only production branch
+Please also run backend project
 ```bash
   git clone https://github.com/yanisapths/project-customer.git
-  git checkout production
 ```
 Start Container  
 ```bash
