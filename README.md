@@ -65,3 +65,9 @@ GOOGLE_CLIENT_SECRET=
 ```bash
 npm run dev
 ```
+
+
+# License
+Licensed under the [Apache License](https://github.com/yanisapths/project-customer/blob/main/LICENSE).  <br />
+
+  >  Copyright © 2023 Yanisa Poonthaisong, All rights reserved.
